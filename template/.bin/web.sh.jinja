@@ -1,0 +1,5 @@
+#!/bin/sh
+
+cd /app
+/tailscale.sh
+gosu django python -m gunicorn {{ module_name }}.wsgi:application --config python:{{ module_name }}.gunicorn

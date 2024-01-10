@@ -1,0 +1,78 @@
+{%- raw %}
+{% load static %}
+{% load django_htmx %}
+{% load tailwind_cli %}
+{%- endraw %}
+{%- if include_vite %}
+{% raw %}{% load django_vite %}{% endraw %}
+{%- endif %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      {% raw %}{% block title %}{% endraw %}
+        {{ project_name | title }}
+      {% raw %}{% endblock title %}{% endraw %}
+    </title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+{%- raw %}
+    {% block css %}
+    {% endblock css %}
+    {% tailwind_css %}
+{%- endraw %}
+{%- if include_vite %}
+    {% raw %}{% vite_react_refresh %}{% endraw %}
+    {% raw %}{% vite_hmr_client %}{% endraw %}
+{%- endif %}
+    <script src="{% raw %}{% static 'vendor/js/htmx.min.js' %}{% endraw %}"></script>
+    <script src="{% raw %}{% static 'vendor/js/htmx-ext.head-support.js' %}{% endraw %}"></script>
+    <script src="{% raw %}{% static 'vendor/js/htmx-ext.preload.js' %}{% endraw %}"></script>
+    {% raw %}{% django_htmx_script %}{% endraw %}
+    {% raw %}{% if debug %}{% endraw %}
+      <script>
+        if (typeof window.htmx !== "undefined") {
+          htmx.on("htmx:afterSettle", function(detail) {
+            if (
+              typeof window.djdt !== "undefined"
+              && detail.target instanceof HTMLBodyElement
+            ) {
+              djdt.show_toolbar();
+            }
+
+            if (typeof window.Alpine !== "undefined") {
+              Alpine.start();
+            }
+          });
+        }
+      </script>
+    {% raw %}{% endif %}{% endraw %}
+    <script defer
+            src="https://unpkg.com/@alpinejs/ui@3.13.3-beta.4/dist/cdn.min.js"></script>
+    <script defer
+            src="https://unpkg.com/@alpinejs/collapse@3.13.3/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/@alpinejs/focus@3.13.3/dist/cdn.min.js"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.13.3/dist/cdn.min.js"></script>
+{%- raw %}
+    {% block javascript_head %}
+    {% endblock javascript_head %}
+{%- endraw %}
+  </head>
+  {% raw %}{% block body %}{% endraw %}
+    <body {% raw %}{% if debug %}class="debug-screens"{% endif %}{% endraw %}
+          hx-ext="head-support, preload">
+      <main class="mt-16">
+{%- raw %}
+        {% block content %}
+        {% endblock content %}
+{%- endraw %}
+      </main>
+{%- raw %}
+      {% block javascript_foot %}
+      {% endblock javascript_foot %}
+{%- endraw %}
+    </body>
+  {% raw %}{% endblock body %}{% endraw %}
+</html>

@@ -1,0 +1,201 @@
+_answers_file: .copier-answers/project.yml
+_subdirectory: template
+
+# ----------------------------------------------------------------------
+# GENERAL
+# ----------------------------------------------------------------------
+
+project_name:
+  type: str
+  help: What is the name of the project?
+
+module_name:
+  type: str
+  help: What is the name of the project's module?
+  default: "{{ project_name.lower() |  replace('-', '_') | trim() }}"
+
+github_owner:
+  type: str
+  help: Who is the GitHub owner?
+
+github_repo:
+  type: str
+  help: What is the name of the GitHub repo?
+  default: "{{ project_name | trim() }}"
+
+current_version:
+  type: str
+  help: What is the current version of the project?
+  default: "{{ '%Y-%-m' | strftime }}-1"
+
+# ----------------------------------------------------------------------
+# VERSIONS
+# ----------------------------------------------------------------------
+
+python_version:
+  type: str
+  help: Which version of Python should be used?
+  choices:
+    - "3.8"
+    - "3.9"
+    - "3.10"
+    - "3.11"
+    - "3.12"
+  default: "3.11"
+
+django_version:
+  type: str
+  help: Which version of Django should be used?
+  choices:
+    - "3.2"
+    - "4.2"
+    - "5.0"
+  default: "4.2"
+
+node_version:
+  type: str
+  help: Which version of Node.js should be used?
+  default: "20.9.0"
+
+nvm_version:
+  type: str
+  help: Which version of Node Version Manager (nvm) should be used?
+  default: "0.39.5"
+
+tailwindcss_version:
+  type: str
+  help: Which version of Tailwind CSS should be used?
+  default: "3.4.0"
+
+# ----------------------------------------------------------------------
+# DEPENDENCIES
+# ----------------------------------------------------------------------
+
+include_extra_requirements_files:
+  type: bool
+  help: Inlcude extra `requirements.{in,txt}` files? (.e.g. requirements.nohash.{in,txt})
+  default: true
+
+extra_requirements_files:
+  when: "{{ include_extra_requirements_files }}"
+  type: str
+  help: Comma separated list of all extra `requirements.{in,txt}` filenames without the extension
+  default: requirements.nohash
+
+# ----------------------------------------------------------------------
+# FLY.IO
+# ----------------------------------------------------------------------
+
+fly_app_name:
+  type: str
+  help: What is the name of the app on Fly.io?
+  default: "{{ module_name }}-{{ github_owner }}"
+
+fly_primary_region:
+  type: str
+  help: What is the primary region for the app on Fly.io?
+  default: "atl"
+
+# ----------------------------------------------------------------------
+# POSTGRES
+# ----------------------------------------------------------------------
+
+postgres_docker_image:
+  type: str
+  help: Which PostgreSQL Docker image should be used?
+  choices:
+    - "postgres"
+    - "postgis/postgis"
+    - "pgautoupgrade/pgautoupgrade"
+  default: "postgres"
+
+postgres_docker_version:
+  type: str
+  help: Which version to use for the {{ postgres_docker_image }} image?
+  default: "15"
+
+postgres_uri_scheme:
+  type: str
+  default: "{% if postgres_docker_image == 'postgis/postgis' %}postgis{% else %}postgres{% endif %}"
+  when: false
+
+# ----------------------------------------------------------------------
+# SENTRY
+# ----------------------------------------------------------------------
+
+sentry_project:
+  type: str
+  help: What is the name of the Sentry project?
+  default: "{{ project_name }}"
+
+sentry_org:
+  type: str
+  help: What is the name of the Sentry organization?
+  default: "{{ github_owner }}"
+
+sentry_dsn:
+  type: str
+  help: What is the Sentry DSN URL?
+
+# ----------------------------------------------------------------------
+# WORKER
+# ----------------------------------------------------------------------
+
+include_worker:
+  type: bool
+  help: Include Django-Q2 as worker?
+  default: true
+
+# ----------------------------------------------------------------------
+# FRONTEND
+# ----------------------------------------------------------------------
+
+include_vite:
+  type: bool
+  help: Include Vite as a frontend build tool?
+  default: false
+
+# ----------------------------------------------------------------------
+# EMAIL
+# ----------------------------------------------------------------------
+
+email_backend:
+  type: str
+  help: Which email backend should be used?
+  choices:
+    - django-email-relay
+    - django-anymail
+    - django.core.mail.backends.smtp.EmailBackend
+  default: django-email-relay
+
+use_email_relay:
+  type: bool
+  default: "{% if email_backend == 'django-email-relay' %}true{% else %}false{% endif %}"
+  when: false
+
+use_anymail:
+  type: bool
+  default: "{% if email_backend == 'django-anymail' %}true{% else %}false{% endif %}"
+  when: false
+
+default_from_email:
+  type: str
+  help: What email should be used for the `DEFAULT_FROM_EMAIL` Django setting?
+    
+admin_email:
+  type: str
+  help: What email should be used for any admin emails?
+
+# ----------------------------------------------------------------------
+# MISC
+# ----------------------------------------------------------------------
+
+op_vault:
+  type: str
+  help: What is the name of the 1Password vault for the project?
+  default: "{{ project_name }}"
+
+include_weasyprint:
+  type: bool
+  help: Install WeasyPrint system packages for creating PDFs?
+  default: false

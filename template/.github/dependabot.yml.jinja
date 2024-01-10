@@ -1,0 +1,31 @@
+version: 2
+updates:
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels:
+      - "dependabot"
+    {%- if include_vite %}
+    ignore:
+      - dependency-name: "django-vite"
+        update-types: ["version-update:semver-major"]
+    {%- endif %}
+    groups:
+      python:
+        patterns:
+          - "*"
+        {%- if use_email_relay %}
+        exclude-patterns:
+        - "django-email-relay"
+        {%- endif %}
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels:
+      - "dependabot"
+    groups:
+      javascript:
+        patterns:
+          - "*"

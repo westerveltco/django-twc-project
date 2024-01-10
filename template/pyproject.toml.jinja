@@ -1,0 +1,118 @@
+[tool.bumpver]
+commit = true
+commit_message = ":bookmark: bump version {old_version} -> {new_version}"
+current_version = "{{ current_version }}"
+push = false  # set to false for CI
+tag = true
+version_pattern = "YYYY.MM.INC1"
+
+[tool.bumpver.file_patterns]
+"{{ module_name }}/__init__.py" = [
+  '__version__ = "{version}"'
+]
+
+[tool.django-stubs]
+django_settings_module = "{{ module_name }}.settings"
+
+[tool.djlint]
+indent = 2
+
+[tool.mypy]
+check_untyped_defs = true
+files = [
+  "{{ module_name }}",
+]
+no_implicit_optional = true
+plugins = [
+  "mypy_django_plugin.main"
+]
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+ignore_errors = true
+module = [
+  "{{ module_name }}.*.migrations.*",
+  "tests.*",
+]
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = [
+  "allauth.*",
+  "debug_toolbar.*",
+  "django_filters.*",
+  {%- if include_worker %}
+  "django_q.*",
+  {%- endif %}
+  "djclick.*",
+  "gunicorn.*",
+  "health_check.*",
+  {%- if include_weasyprint %}
+  "weasyprint.*",
+  {%- endif %}
+]
+
+[tool.mypy_django_plugin]
+ignore_missing_model_attributes = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "{{ module_name }}.settings"
+addopts = "--reuse-db -n auto --dist loadfile"
+norecursedirs = ".* bin build dist *.egg htmlcov logs node_modules templates venv"
+python_files = "tests.py test_*.py *_tests.py"
+
+[tool.ruff]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".github",
+  ".hg",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "build",
+  "dist",
+  "migrations",
+  "node_modules",
+  "static",
+  "venv"
+]
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["A", "B", "C", "D", "E", "F", "I"]
+ignore = ["E501", "E741"]  # temporary
+indent-width = 4
+# Same as Black.
+line-length = 88
+per-file-ignores = {}
+select = [
+  "B",  # flake8-bugbear
+  "E",  # Pycodestyle
+  "F",  # Pyflakes
+  "I"  # isort
+]
+# Assume Python 3.11.
+target-version = "py311"
+unfixable = []
+
+[tool.ruff.format]
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+[tool.ruff.isort]
+force-single-line = true
+known-first-party = ["{{ module_name }}"]
+required-imports = ["from __future__ import annotations"]
