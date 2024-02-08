@@ -1,4 +1,6 @@
 _answers_file: .copier/project.yml
+_secret_questions:
+  - django_twc_ui_token
 _subdirectory: src/django_twc_project
 
 template_version:
@@ -81,10 +83,14 @@ tailwindcss_version:
 # ----------------------------------------------------------------------
 
 extra_requirements_files:
-  when: "{{ include_extra_requirements_files }}"
   type: str
   help: Comma separated list of all extra `requirements.{in,txt}` filenames without the extension
   default: requirements.nohash
+
+django_twc_ui_token:
+  type: str
+  help: What is the OAuth token for accessing the `westerveltco/django-twc-ui` repository?
+  default: super-secret-token
 
 # ----------------------------------------------------------------------
 # FLY.IO
