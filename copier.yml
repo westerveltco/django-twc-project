@@ -1,5 +1,5 @@
 _answers_file: .copier/project.yml
-_subdirectory: src/django_twc_template
+_subdirectory: src/django_twc_project
 
 # ----------------------------------------------------------------------
 # GENERAL
