@@ -63,4 +63,3 @@ When it comes time to cut a new release, follow these steps:
    If this is a tagged release, make sure to check the 'Set as a pre-release' checkbox.
 
 7. Once you are satisfied with the release, publish the release.
-
