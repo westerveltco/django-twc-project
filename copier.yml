@@ -1,5 +1,5 @@
-_answers_file: .copier-answers/project.yml
-_subdirectory: template
+_answers_file: .copier/project.yml
+_subdirectory: src/django_twc_template
 
 # ----------------------------------------------------------------------
 # GENERAL
@@ -8,11 +8,16 @@ _subdirectory: template
 project_name:
   type: str
   help: What is the name of the project?
+  default: "example-project"
 
 module_name:
   type: str
   help: What is the name of the project's module?
-  default: "{{ project_name.lower() |  replace('-', '_') | trim() }}"
+  default: "{{ project_name.lower() |  replace('-', '_') | replace(' ', '_') | trim() }}"
+
+author_name:
+  type: str
+  help: What is the name of the primary author/maintainer?
 
 github_owner:
   type: str
@@ -71,11 +76,6 @@ tailwindcss_version:
 # DEPENDENCIES
 # ----------------------------------------------------------------------
 
-include_extra_requirements_files:
-  type: bool
-  help: Inlcude extra `requirements.{in,txt}` files? (.e.g. requirements.nohash.{in,txt})
-  default: true
-
 extra_requirements_files:
   when: "{{ include_extra_requirements_files }}"
   type: str
@@ -95,6 +95,11 @@ fly_primary_region:
   type: str
   help: What is the primary region for the app on Fly.io?
   default: "atl"
+
+domain_name:
+  type: str
+  help: What is the domain name of the app?
+  default: "{{ module_name }}.westervelt.com"
 
 # ----------------------------------------------------------------------
 # POSTGRES
@@ -138,15 +143,6 @@ sentry_dsn:
   help: What is the Sentry DSN URL?
 
 # ----------------------------------------------------------------------
-# WORKER
-# ----------------------------------------------------------------------
-
-include_worker:
-  type: bool
-  help: Include Django-Q2 as worker?
-  default: true
-
-# ----------------------------------------------------------------------
 # FRONTEND
 # ----------------------------------------------------------------------
 
@@ -159,29 +155,10 @@ include_vite:
 # EMAIL
 # ----------------------------------------------------------------------
 
-email_backend:
-  type: str
-  help: Which email backend should be used?
-  choices:
-    - django-email-relay
-    - django-anymail
-    - django.core.mail.backends.smtp.EmailBackend
-  default: django-email-relay
-
-use_email_relay:
-  type: bool
-  default: "{% if email_backend == 'django-email-relay' %}true{% else %}false{% endif %}"
-  when: false
-
-use_anymail:
-  type: bool
-  default: "{% if email_backend == 'django-anymail' %}true{% else %}false{% endif %}"
-  when: false
-
 default_from_email:
   type: str
   help: What email should be used for the `DEFAULT_FROM_EMAIL` Django setting?
-    
+
 admin_email:
   type: str
   help: What email should be used for any admin emails?

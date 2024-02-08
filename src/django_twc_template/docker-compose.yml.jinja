@@ -1,0 +1,67 @@
+version: "3"
+
+x-app: &default-app
+  build:
+    context: .
+    dockerfile: Dockerfile
+    target: app
+  depends_on:
+    db:
+      condition: "service_started"
+  env_file: .env
+  init: true
+  user: "${UID:-1000}:${GID:-1000}"
+  volumes:
+    - .:/app:cached
+  working_dir: /app
+
+services:
+  app:
+    <<: *default-app
+    command: python manage.py runserver 0.0.0.0:8000 --skip-checks
+    ports:
+      - "${DJANGO_PORT:-8000}:8000"
+
+  db:
+    image: {{ postgres_docker_image }}:{{ postgres_docker_version }}
+    env_file:
+      - .env
+    init: true
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - .:/app
+{%- if include_vite %}
+
+  node:
+    <<: *default-app
+    build:
+      target: node
+    command:
+      - bash
+      - -c
+      - |
+        npm install
+        npm run dev
+    depends_on: []
+    ports:
+      - "5173:5173"
+{%- endif %}
+
+  tailwind:
+    <<: *default-app
+    build:
+      target: tailwind
+    command: python manage.py tailwind --skip-checks watch
+    depends_on: []
+    tty: true
+
+  worker:
+    <<: *default-app
+    command: python manage.py qcluster
+
+volumes:
+  postgres-data:

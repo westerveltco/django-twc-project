@@ -1,0 +1,6 @@
+project_name: Example Project
+author_name: John Doe
+github_owner: example_owner
+sentry_dsn: https://example.com
+default_from_email: johndoe@example.com
+admin_email: admin@example.com

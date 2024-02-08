@@ -1,0 +1,242 @@
+set dotenv-load := true
+
+export DATABASE_URL := env_var_or_default('DATABASE_URL', 'postgres://postgres:postgres@db:5432/postgres')
+
+@_default:
+    just --list
+
+venv:
+    pyenv virtualenv {{ python_version }} {{ module_name }}-{{ python_version }}
+    pyenv local {{ module_name }}-{{ python_version }}
+
+bootstrap:
+    just envsync
+    just pup
+    if ! {% raw %}{{ path_exists("requirements.txt") }}{% endraw %}; then \
+        just pip-compile; \
+    fi
+    just install
+    just build
+    just migrate
+    just start
+    just createsuperuser
+
+# ----------------------------------------------------------------------
+# DEPENDENCIES
+# ----------------------------------------------------------------------
+
+_pip-compile *ARGS:
+    python -m piptools compile --resolver=backtracking --strip-extras {% raw %}{{ ARGS }}{% endraw %}
+
+@pip-compile *ARGS:
+    just _pip-compile {% raw %}{{ ARGS }}{% endraw %} --generate-hashes requirements.in
+{%- for requirements_filename in extra_requirements_files.split(',') %}
+    just _pip-compile {% raw %}{{ ARGS }}{% endraw %} {{ requirements_filename }}.in
+{%- endfor %}
+
+_install *ARGS:
+    python -m pip install --upgrade {% raw %}{{ ARGS }}{% endraw %}
+
+@install:
+    just _install -r requirements.txt
+{%- for requirements_filename in extra_requirements_files.split(',') %}
+    just _install -r {{ requirements_filename }}.txt
+{%- endfor %}
+    npm install
+
+pup:
+    python -m pip install --upgrade pip pip-tools
+
+update:
+    @just pup
+    @just pip-compile --upgrade
+    @just install
+
+# ----------------------------------------------------------------------
+# TESTING/TYPES
+# ----------------------------------------------------------------------
+
+test *ARGS:
+    just command python -m pytest {% raw %}{{ ARGS }}{% endraw %}
+
+coverage:
+    rm -rf htmlcov
+    just command python -m coverage run -m pytest && python -m coverage html --skip-covered --skip-empty
+
+types:
+    just command python -m mypy .
+
+# ----------------------------------------------------------------------
+# DJANGO
+# ----------------------------------------------------------------------
+
+@manage *COMMAND:
+    just command python -m manage {% raw %}{{ COMMAND }}{% endraw %}
+
+alias mm := makemigrations
+
+makemigrations *APPS:
+    @just manage makemigrations {% raw %}{{ APPS }}{% endraw %}
+
+migrate *ARGS:
+    @just manage migrate {% raw %}{{ ARGS }}{% endraw %}
+
+shell-plus:
+    @just manage shell_plus
+
+createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
+    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"', '"'"'{% raw %}{{ EMAIL }}{% endraw %}'"'"', '"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"') if not User.objects.filter(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"').exists() else None" | python manage.py shell'
+
+# ----------------------------------------------------------------------
+# DOCS
+# ----------------------------------------------------------------------
+
+_cog:
+    cog -r docs/just.md
+
+graph:
+    just manage graph_models users \
+        --exclude-models AbstractUser \
+        --group-models \
+        --output ./docs/applications/images/users.svg
+
+@docs-pip-compile *ARGS:
+    just pip-compile {{ ARGS }} --output-file docs/requirements.txt docs/requirements.in
+
+@docs-upgrade:
+    just docs-pip-compile --upgrade
+
+@docs-install:
+    just _install -r docs/requirements.txt
+
+docs-serve:
+    #!/usr/bin/env sh
+
+    just _cog
+
+    if [ -f "/.dockerenv" ]; then
+        sphinx-autobuild docs docs/_build/html --host "0.0.0.0"
+    else
+        sphinx-autobuild docs docs/_build/html --host "localhost"
+    fi
+
+# ----------------------------------------------------------------------
+# DOCKER
+# ----------------------------------------------------------------------
+
+# Build services using docker-compose
+@build:
+    docker compose build
+
+# Build production stack using docker-compose
+@build-prod:
+    docker compose -f docker-compose.yml -f docker-compose.prod.yml build
+
+# Stop and remove all containers, networks, images, and volumes
+@clean:
+    just down --volumes --rmi local
+
+# Run a command within the 'app' container
+@command *ARGS:
+    docker compose run --rm --no-deps app /bin/bash -c "{% raw %}{{ ARGS }}{% endraw %}"
+
+# Open an interactive shell within the 'app' container opens a console
+@console:
+    docker compose run --rm --no-deps app /bin/bash
+
+# Stop and remove all containers defined in docker-compose
+@down *ARGS:
+    docker compose down {% raw %}{{ ARGS }}{% endraw %}
+
+# Display the logs for containers, optionally using provided arguments (e.g., --follow)
+@logs *ARGS:
+    docker compose logs {% raw %}{{ ARGS }}{% endraw %}
+
+# Display the running containers and their statuses
+@ps:
+    docker compose ps
+
+# Pull the latest versions of all images defined in docker-compose
+@pull:
+    docker compose pull
+
+# Restart services, optionally targeting specific ones
+@restart *ARGS:
+    docker compose restart {% raw %}{{ ARGS }}{% endraw %}
+
+# Open an interactive shell within a specified container (default: 'app')
+@shell *ARGS="app":
+    docker compose run --rm --no-deps {% raw %}{{ ARGS }}{% endraw %} /bin/bash
+
+# Open a psql shell within the 'db' container
+@shell-db:
+    docker compose run --rm --no-deps db psql -d {% raw %}{{ DATABASE_URL }}{% endraw %}
+
+# Start services using docker-compose, defaulting to detached mode
+@start *ARGS="--detach":
+    just up {% raw %}{{ ARGS }}{% endraw %}
+
+# Start the full production stack using docker-compose, defaulting to detached mode
+@start-prod *ARGS="--detach":
+    just up-prod {% raw %}{{ ARGS }}{% endraw %}
+
+# Stop services by calling the 'down' command
+@stop:
+    just down
+
+# Continuously display the latest logs by using the --follow option, optionally targeting specific containers
+@tail *ARGS:
+    just logs '--follow {% raw %}{{ ARGS }}{% endraw %}'
+
+# Start services using docker-compose, with optional arguments
+@up *ARGS:
+    docker compose up {% raw %}{{ ARGS }}{% endraw %}
+
+# Start the full production stack using docker-compose
+@up-prod *ARGS:
+    docker compose -f docker-compose.yml -f docker-compose.prod.yml up {% raw %}{{ ARGS }}{% endraw %}
+
+# ----------------------------------------------------------------------
+# UTILS
+# ----------------------------------------------------------------------
+
+envsync:
+    #!/usr/bin/env python
+    from pathlib import Path
+
+    envfile = Path('.env')
+    envfile_example = Path('.env.example')
+
+    if not envfile.exists():
+        envfile.write_text(envfile_example.read_text())
+
+    with envfile.open() as f:
+        lines = [line for line in f.readlines() if not line.endswith('# envsync: ignore\n')]
+        lines = [line.split('=')[0] + '=\n' if line.endswith('# envsync: no-value\n') else line for line in lines]
+
+        lines.sort()
+        envfile_example.write_text(''.join(lines))
+
+# format justfile
+@fmt:
+    just --fmt --unstable
+
+# run pre-commit on all files
+lint:
+    pre-commit run --all-files
+
+# ----------------------------------------------------------------------
+# COPIER
+# ----------------------------------------------------------------------
+
+# create a copier answers file
+copier-copy TEMPLATE_PATH DESTINATION_PATH=".":
+    pipx run copier copy {% raw %}{{ TEMPLATE_PATH }}{% endraw %} {% raw %}{{ DESTINATION_PATH }}{% endraw %}
+
+# update the project using a copier answers file
+copier-update ANSWERS_FILE *ARGS:
+    pipx run copier update --answers-file {% raw %}{{ ANSWERS_FILE }}{% endraw %} {% raw %}{{ ARGS }}{% endraw %}
+
+# loop through all answers files and update the project using copier
+@copier-update-all *ARGS:
+    for file in `ls .copier-answers/`; do just copier-update .copier-answers/$file "{% raw %}{{ ARGS }}{% endraw %}"; done

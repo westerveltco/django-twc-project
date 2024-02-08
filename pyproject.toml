@@ -1,0 +1,30 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[project]
+authors = [
+  {name = "Josh", email = "josh@joshthomas.dev"}
+]
+dependencies = [
+  "copier>=9.1.1"
+]
+description = "Add your description here"
+license = {text = "MIT"}
+name = "django-twc-project"
+readme = "README.md"
+requires-python = ">= 3.8"
+version = "0.1.0"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/django_twc_template"]
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.rye]
+dev-dependencies = [
+  "bumpver>=2023.1129"
+]
+managed = true
+virtual = true

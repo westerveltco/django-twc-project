@@ -1,0 +1,42 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: weekly
+      timezone: America/Chicago
+    labels:
+      - dependabot
+    groups:
+      gha:
+        patterns:
+          - "*"
+  - package-ecosystem: pip
+    directory: "/"
+    schedule:
+      interval: weekly
+      timezone: America/Chicago
+    labels:
+      - dependabot
+    {%- if include_vite %}
+    ignore:
+      - dependency-name: "django-vite"
+        update-types: ["version-update:semver-major"]
+    {%- endif %}
+    groups:
+      python:
+        patterns:
+          - "*"
+        exclude-patterns:
+        - "django-email-relay"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      timezone: America/Chicago
+    labels:
+      - dependabot
+    groups:
+      javascript:
+        patterns:
+          - "*"
