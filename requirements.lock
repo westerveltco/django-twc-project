@@ -10,7 +10,6 @@
 --trusted-host pypi.python.org
 --trusted-host pypi.org
 --trusted-host files.pythonhosted.org
--e file:.
 annotated-types==0.6.0
 colorama==0.4.6
 copier==9.1.1

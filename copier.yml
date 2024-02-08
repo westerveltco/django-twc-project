@@ -1,6 +1,10 @@
 _answers_file: .copier/project.yml
 _subdirectory: src/django_twc_project
 
+template_version:
+  default: "2024.1"
+  when: false
+
 # ----------------------------------------------------------------------
 # GENERAL
 # ----------------------------------------------------------------------
@@ -31,7 +35,7 @@ github_repo:
 current_version:
   type: str
   help: What is the current version of the project?
-  default: "{{ '%Y-%-m' | strftime }}-1"
+  default: "{{ '%Y.%-m' | strftime }}.1"
 
 # ----------------------------------------------------------------------
 # VERSIONS
