@@ -1,8 +1,8 @@
 app = "default-example_owner"
-primary_region = "atl"
+console_command = "/app/manage.py shell_plus"
 kill_signal = "SIGINT"
 kill_timeout = "5s"
-console_command = "/app/manage.py shell_plus"
+primary_region = "atl"
 
 [deploy]
 release_command = "/release.sh"
@@ -40,12 +40,12 @@ handlers = ["http"]
 port = 80
 
 [[services.ports]]
-port = 443
 handlers = ["tls", "http"]
+port = 443
 
 [[services.tcp_checks]]
-interval = "15s"
 grace_period = "1s"
+interval = "15s"
 restart_limit = 0
 timeout = "2s"
 
