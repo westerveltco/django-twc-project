@@ -87,6 +87,9 @@ shell-plus:
 createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"', '"'"'{% raw %}{{ EMAIL }}{% endraw %}'"'"', '"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"') if not User.objects.filter(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"').exists() else None" | python manage.py shell'
 
+resetuserpassword USERNAME="admin" PASSWORD="admin":
+    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{{ USERNAME }}'"'"'); user.set_password('"'"'{{ PASSWORD }}'"'"'); user.save()" | python manage.py shell'
+
 # ----------------------------------------------------------------------
 # DOCS
 # ----------------------------------------------------------------------
@@ -125,11 +128,11 @@ docs-serve:
 # ----------------------------------------------------------------------
 
 # Build services using docker-compose
-@build:
+build:
     docker compose build
 
 # Build production stack using docker-compose
-@build-prod:
+build-prod:
     docker compose -f docker-compose.yml -f docker-compose.prod.yml build
 
 # Stop and remove all containers, networks, images, and volumes
@@ -137,39 +140,39 @@ docs-serve:
     just down --volumes --rmi local
 
 # Run a command within the 'app' container
-@command *ARGS:
+command *ARGS:
     docker compose run --rm --no-deps app /bin/bash -c "{% raw %}{{ ARGS }}{% endraw %}"
 
 # Open an interactive shell within the 'app' container opens a console
-@console:
+console:
     docker compose run --rm --no-deps app /bin/bash
 
 # Stop and remove all containers defined in docker-compose
-@down *ARGS:
+down *ARGS:
     docker compose down {% raw %}{{ ARGS }}{% endraw %}
 
 # Display the logs for containers, optionally using provided arguments (e.g., --follow)
-@logs *ARGS:
+logs *ARGS:
     docker compose logs {% raw %}{{ ARGS }}{% endraw %}
 
 # Display the running containers and their statuses
-@ps:
+ps:
     docker compose ps
 
 # Pull the latest versions of all images defined in docker-compose
-@pull:
+pull:
     docker compose pull
 
 # Restart services, optionally targeting specific ones
-@restart *ARGS:
+restart *ARGS:
     docker compose restart {% raw %}{{ ARGS }}{% endraw %}
 
 # Open an interactive shell within a specified container (default: 'app')
-@shell *ARGS="app":
+shell *ARGS="app":
     docker compose run --rm --no-deps {% raw %}{{ ARGS }}{% endraw %} /bin/bash
 
 # Open a psql shell within the 'db' container
-@shell-db:
+shell-db:
     docker compose run --rm --no-deps db psql -d {% raw %}{{ DATABASE_URL }}{% endraw %}
 
 # Start services using docker-compose, defaulting to detached mode
@@ -189,11 +192,11 @@ docs-serve:
     just logs '--follow {% raw %}{{ ARGS }}{% endraw %}'
 
 # Start services using docker-compose, with optional arguments
-@up *ARGS:
+up *ARGS:
     docker compose up {% raw %}{{ ARGS }}{% endraw %}
 
 # Start the full production stack using docker-compose
-@up-prod *ARGS:
+up-prod *ARGS:
     docker compose -f docker-compose.yml -f docker-compose.prod.yml up {% raw %}{{ ARGS }}{% endraw %}
 
 # ----------------------------------------------------------------------
@@ -218,7 +221,7 @@ envsync:
         envfile_example.write_text(''.join(lines))
 
 # format justfile
-@fmt:
+fmt:
     just --fmt --unstable
 
 # run pre-commit on all files
