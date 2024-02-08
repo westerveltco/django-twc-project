@@ -21,7 +21,7 @@
     "noFallthroughCasesInSwitch": true,
     "paths": {
       "@/*": [
-        "./static/src/src/*"
+        "./static/src/*"
       ]
     },
     "resolveJsonModule": true,
@@ -30,16 +30,16 @@
     "target": "ESNext",
     "types": [
       "node",
-      "testing-library__jest-dom",
       "vite/client",
-      "vite-plugin-svgr/client",
       "vitest"
     ],
     "useDefineForClassFields": true
   },
   "include": [
+    "postcss.config.mjs",
+    "prettier.config.mjs",
     "static",
-    "tailwind.config.js",
+    "tailwind.config.mjs",
     "vite.config.ts"
   ]
 }
