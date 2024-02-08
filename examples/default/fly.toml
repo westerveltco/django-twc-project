@@ -1,0 +1,54 @@
+app = "default-example_owner"
+primary_region = "atl"
+kill_signal = "SIGINT"
+kill_timeout = "5s"
+console_command = "/app/manage.py shell_plus"
+
+[deploy]
+release_command = "/release.sh"
+strategy = "bluegreen"
+
+[env]
+ALLOWED_HOSTS = "default-example_owner.fly.dev,default.westervelt.com"
+DEBUG = "False"
+DISABLE_SERVER_SIDE_CURSORS = "True"
+ENABLE_SENTRY = "True"
+PORT = "8000"
+SENTRY_DSN = "https://example.com"
+SENTRY_ENV = "production"
+
+[experimental]
+auto_rollback = true
+
+[processes]
+web = "/web.sh"
+worker = "/worker.sh"
+
+[[services]]
+internal_port = 8000
+processes = ["web"]
+protocol = "tcp"
+
+[services.concurrency]
+hard_limit = 25
+soft_limit = 20
+type = "connections"
+
+[[services.ports]]
+force_https = true
+handlers = ["http"]
+port = 80
+
+[[services.ports]]
+port = 443
+handlers = ["tls", "http"]
+
+[[services.tcp_checks]]
+interval = "15s"
+grace_period = "1s"
+restart_limit = 0
+timeout = "2s"
+
+[[statics]]
+guest_path = "/app/staticfiles"
+url_prefix = "/static/"

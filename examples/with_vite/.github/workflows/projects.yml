@@ -1,0 +1,24 @@
+name: Add Issues to Backlog
+
+on:
+  issues:
+    types:
+      - opened
+
+jobs:
+  add-to-project:
+    name: Add issue to project
+    runs-on: ubuntu-latest
+    steps:
+      - uses: 1password/load-secrets-action@v1
+        with:
+          export-env: true
+        env:
+          OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+          WEBDEV_PROJECT_URL: "op://GitHub Actions/WebDev Project/url"
+          WEBDEV_PROJECT_PAT: "op://GitHub Actions/WebDev Project/PAT"
+
+      - uses: actions/add-to-project@v0.5.0
+        with:
+          project-url: ${{ env.WEBDEV_PROJECT_URL }}
+          github-token: ${{ env.WEBDEV_PROJECT_PAT }}

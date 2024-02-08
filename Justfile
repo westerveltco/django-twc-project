@@ -3,8 +3,8 @@ set dotenv-load := true
 @_default:
     just --list
 
-examples:
-    pipx run copier copy {{ justfile_directory() }} {{ justfile_directory() }}/examples --force --data-file defaults.yml
+generate-example DATA_FILE:
+    rye run copier copy . {{ trim_end_match(DATA_FILE, '.yml') }} --force --data-file {{ DATA_FILE }}
 
 # ----------------------------------------------------------------------
 # UTILS

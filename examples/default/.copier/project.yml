@@ -1,0 +1,28 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: 5f7d998
+_src_path: .
+admin_email: admin@example.com
+author_name: John Doe
+current_version: 2024-2-1
+default_from_email: johndoe@example.com
+django_version: '4.2'
+domain_name: default.westervelt.com
+extra_requirements_files: requirements.nohash
+fly_app_name: default-example_owner
+fly_primary_region: atl
+github_owner: example_owner
+github_repo: default
+include_vite: false
+include_weasyprint: false
+module_name: default
+node_version: 20.9.0
+nvm_version: 0.39.5
+op_vault: default
+postgres_docker_image: postgres
+postgres_docker_version: '15'
+project_name: default
+python_version: '3.11'
+sentry_dsn: https://example.com
+sentry_org: example_owner
+sentry_project: default
+tailwindcss_version: 3.4.0
