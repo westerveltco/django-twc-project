@@ -9,7 +9,7 @@ authors = [
 dependencies = [
   "copier>=9.1.1"
 ]
-description = "Add your description here"
+description = "A Django project template for The Westervelt Company."
 dynamic = ["version"]
 license_files = {path = "LICENSE"}
 name = "django-twc-project"
