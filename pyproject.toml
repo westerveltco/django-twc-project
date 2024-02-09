@@ -9,12 +9,12 @@ authors = [
 dependencies = [
   "copier>=9.1.1"
 ]
-description = "Add your description here"
-license = {text = "MIT"}
+description = "A Django project template for The Westervelt Company."
+dynamic = ["version"]
+license = {file = "LICENSE"}
 name = "django-twc-project"
 readme = "README.md"
 requires-python = ">= 3.8"
-version = "2024.1"
 
 [tool.bumpver]
 commit = true
@@ -25,21 +25,22 @@ tag = true
 version_pattern = "YYYY.INC1"
 
 [tool.bumpver.file_patterns]
+"VERSION" = [
+  '{version}'
+]
 "copier.yml" = [
   'default: "{version}"'
-]
-"pyproject.toml" = [
-  'version = "{version}"'
 ]
 "tests/test_version.py" = [
   'assert version == "{version}"'
 ]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/django_twc_project"]
-
 [tool.hatch.metadata]
 allow-direct-references = true
+
+[tool.hatch.version]
+path = "VERSION"
+pattern = "^(?P<version>[0-9]+(?:\\.[0-9]+)*)$"
 
 [tool.pytest.ini_options]
 addopts = "-n auto --dist loadfile --doctest-modules"
