@@ -10,11 +10,11 @@ dependencies = [
   "copier>=9.1.1"
 ]
 description = "Add your description here"
-license = {text = "MIT"}
+dynamic = ["version"]
+license_files = { path = "LICENSE" }
 name = "django-twc-project"
 readme = "README.md"
 requires-python = ">= 3.8"
-version = "2024.1"
 
 [tool.bumpver]
 commit = true
@@ -28,15 +28,16 @@ version_pattern = "YYYY.INC1"
 "copier.yml" = [
   'default: "{version}"'
 ]
-"pyproject.toml" = [
-  'version = "{version}"'
-]
 "tests/test_version.py" = [
   'assert version == "{version}"'
 ]
+"VERSION" = [
+  '{version}'
+]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/django_twc_project"]
+[tool.hatch.version]
+path = "VERSION"
+pattern = "^(?P<version>[0-9]+(?:\\.[0-9]+)*)$"
 
 [tool.hatch.metadata]
 allow-direct-references = true
