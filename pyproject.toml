@@ -11,7 +11,7 @@ dependencies = [
 ]
 description = "Add your description here"
 dynamic = ["version"]
-license_files = { path = "LICENSE" }
+license_files = {path = "LICENSE"}
 name = "django-twc-project"
 readme = "README.md"
 requires-python = ">= 3.8"
@@ -25,22 +25,22 @@ tag = true
 version_pattern = "YYYY.INC1"
 
 [tool.bumpver.file_patterns]
+"VERSION" = [
+  '{version}'
+]
 "copier.yml" = [
   'default: "{version}"'
 ]
 "tests/test_version.py" = [
   'assert version == "{version}"'
 ]
-"VERSION" = [
-  '{version}'
-]
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.hatch.version]
 path = "VERSION"
 pattern = "^(?P<version>[0-9]+(?:\\.[0-9]+)*)$"
-
-[tool.hatch.metadata]
-allow-direct-references = true
 
 [tool.pytest.ini_options]
 addopts = "-n auto --dist loadfile --doctest-modules"
