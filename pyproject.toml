@@ -11,7 +11,7 @@ dependencies = [
 ]
 description = "A Django project template for The Westervelt Company."
 dynamic = ["version"]
-license_files = {path = "LICENSE"}
+license = {file = "LICENSE"}
 name = "django-twc-project"
 readme = "README.md"
 requires-python = ">= 3.8"
