@@ -1,20 +1,38 @@
 [tool.bumpver]
 commit = true
 commit_message = ":bookmark: bump version {old_version} -> {new_version}"
-current_version = "2024-2-1"
+current_version = "2024.2.1"
 push = false  # set to false for CI
-tag = true
+tag = false
 version_pattern = "YYYY.MM.INC1"
 
 [tool.bumpver.file_patterns]
+"tests/test_version.py" = [
+  'assert __version__ == "{version}"'
+]
 "with_vite/__init__.py" = [
   '__version__ = "{version}"'
 ]
+
+[tool.coverage.run]
+omit = [
+  "*/node_modules/*",
+  "with_vite/*/migrations/*",
+  "with_vite/asgi.py",
+  "with_vite/wsgi.py",
+  "templates/*",
+  "tests/*",
+  "manage.py",
+  "requirements.txt"
+]
+plugins = ["django_coverage_plugin"]
+source = ["with_vite"]
 
 [tool.django-stubs]
 django_settings_module = "with_vite.settings"
 
 [tool.djlint]
+ignore = "H031"  # Don't require `meta` tag keywords
 indent = 2
 
 [tool.mypy]
@@ -41,6 +59,8 @@ module = [
 ignore_missing_imports = true
 module = [
   "allauth.*",
+  "boto3.*",
+  "botocore.*",
   "debug_toolbar.*",
   "django_filters.*",
   "django_q.*",
@@ -88,7 +108,6 @@ ignore = ["E501", "E741"]  # temporary
 indent-width = 4
 # Same as Black.
 line-length = 88
-per-file-ignores = {}
 select = [
   "B",  # flake8-bugbear
   "E",  # Pycodestyle
@@ -111,3 +130,11 @@ quote-style = "double"
 force-single-line = true
 known-first-party = ["with_vite"]
 required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.per-file-ignores]
+# Tests can use magic values, assertions, and relative imports
+"tests/**/*" = ["PLR2004", "S101", "TID252"]
+
+[tool.ruff.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true
