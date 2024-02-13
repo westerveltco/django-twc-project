@@ -45,6 +45,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     - Actually use Copier `python_version` input for `ruff` Python target version.
     - Add some `ruff` per-file ignores for tests.
     - Add rules for `pyupgrade` to `ruff` config.
+- Favicon view in `core.views` now uses `django.contrib.staticfiles` to find the favicon file.
 
 ### Removed
 

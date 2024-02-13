@@ -1,10 +1,14 @@
 from __future__ import annotations
 
-from django.conf import settings
+from pathlib import Path
+
 from django.contrib.auth.decorators import login_required
+from django.contrib.staticfiles import finders
 from django.http import FileResponse
 from django.http import HttpRequest
 from django.http import HttpResponse
+from django.http import HttpResponseNotFound
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.cache import cache_control
@@ -45,10 +49,18 @@ def security_txt(request: HttpRequest) -> HttpResponse:
 
 @require_GET
 @cache_control(max_age=60 * 60 * 24, immutable=True, public=True)  # one day
-def favicon(request: HttpRequest) -> FileResponse:
+def favicon(request: HttpRequest) -> HttpResponse | FileResponse:
     name = request.path.lstrip("/")
-    file = (settings.BASE_DIR / "static" / "public" / name).open("rb")
-    return FileResponse(file)
+    path = finders.find(name)
+    if path:
+        file = Path(path).open("rb")
+        response = FileResponse(file)
+    else:
+        if name == "favicon.ico":
+            response = HttpResponseNotFound()
+        else:
+            response = redirect("favicon.ico")
+    return response
 
 
 @require_GET
