@@ -1,4 +1,9 @@
+# ----------------------------------------------------------------------
+# META
+# ----------------------------------------------------------------------
+
 _answers_file: .copier/project.yml
+_min_copier_version: "9.1.0"
 _secret_questions:
   - django_twc_ui_token
 _subdirectory: src/django_twc_project
