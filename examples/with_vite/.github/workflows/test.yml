@@ -91,6 +91,7 @@ jobs:
 
       - name: Build staticfiles
         run: |
+          python manage.py tailwind build
           python manage.py collectstatic
 
       # https://hynek.me/articles/ditch-codecov-python/

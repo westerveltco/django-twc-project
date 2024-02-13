@@ -72,7 +72,7 @@ DATABASE_ROUTERS = [
     "email_relay.db.EmailDatabaseRouter",
 ]
 
-DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
 DEFAULT_FROM_EMAIL = env(
     "DEFAULT_FROM_EMAIL",
@@ -85,11 +85,15 @@ EMAIL_BACKEND = (
     else "email_relay.backend.RelayDatabaseEmailBackend"
 )
 
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
 INSTALLED_APPS = [
     # First Party
     "with_vite.core",
     "with_vite.users",
     # Second Party
+    "django_q_registry",
+    "django_simple_nav",
     "django_twc_ui",
     "django_twc_ui.forms",
     "email_relay",
@@ -333,7 +337,7 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 ACCOUNT_USERNAME_REQUIRED = False
 
-LOGIN_REDIRECT_URL = "dashboard"
+LOGIN_REDIRECT_URL = "index"
 
 SOCIALACCOUNT_PROVIDERS = {
     "okta": {
