@@ -59,7 +59,7 @@ This template is built using [Copier](https://copier.readthedocs.io) and include
   - `pretty-format-toml` via [`language-formatters-pre-commit-hooks`](https://github.com/macisamuele/language-formatters-pre-commit-hooks) for TOML formatting
 - [Docker](https://www.docker.com/) for local development and deployment
   - A multi-stage `Dockerfile` to targeting different use cases (application/tailwind/vite/worker in development, full image in production)
-        - Tailscale included for easy access to private nodes on Tailnet
+    - Tailscale included for easy access to private nodes on Tailnet
   - A `docker-compose.yml` file for local development, with a `docker-compose.prod.yml` to simulate production
 - [`just`](https://github.com/casey/just) for running common development tasks
 - Deployment to [Fly.io](https://fly.io) with a `fly.toml` file, with [`django-flyio`](https://github.com/joshuadavidthomas/django-flyio) giving some niceties specific to Fly
