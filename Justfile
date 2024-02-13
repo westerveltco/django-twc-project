@@ -14,7 +14,7 @@ create-release-pr:
 
     # get changes since last tag for PR body
     # done first so none of the other commits in this script are included
-    changes=$(git log $(git tag --sort=-creatordate | head -n 1)..HEAD --pretty=format:"- `%h`: %s" --reverse)
+    changes=$(git log $(git tag --sort=-creatordate | head -n 1)..HEAD --pretty=format:"- \`%h\`: %s" --reverse)
 
     # grab the newest version for release branch name and example generation commit message
     new_version=$(just _bump --dry 2>&1 | rg 'New Version' | awk '{print $5}')
