@@ -71,3 +71,7 @@ fmt:
 # run pre-commit on all files
 lint:
     pre-commit run --all-files
+
+# run djlint through template html
+djlint:
+    rye run djlint --reformat --indent 2 --profile django src/django_twc_project
