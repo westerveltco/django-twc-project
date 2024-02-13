@@ -193,3 +193,12 @@ include_weasyprint:
   type: bool
   help: Install WeasyPrint system packages for creating PDFs?
   default: false
+
+# ----------------------------------------------------------------------
+# POST GENERATION TASKS
+# ----------------------------------------------------------------------
+
+_tasks:
+  # run pre-commit after generation, pipe any errors to /dev/null since if a file is
+  # formatted, that exits with an error and we want to continue anyway
+  - "pre-commit run --all-files 2>/dev/null || echo 'Pre-commit run on all files.'"

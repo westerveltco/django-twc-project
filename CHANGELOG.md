@@ -49,6 +49,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     - Add some `ruff` per-file ignores for tests.
     - Add rules for `pyupgrade` to `ruff` config.
 - Favicon view in `core.views` now uses `django.contrib.staticfiles` to find the favicon file.
+- `pre-commit` is now run after generation to ensure the generated project is properly formatted.
 
 ### Removed
 
