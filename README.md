@@ -39,7 +39,7 @@ This template is built using [Copier](https://copier.readthedocs.io) and include
     - [`pytest`](https://github.com/pytest-dev/pytest) for testing
       - [`pytest-django`](https://github.com/pytest-dev/pytest-django) for Django pytest helpers
       - [`pytest-is-running`](https://github.com/adamchainz/pytest-is-running), what it says on the tin
-      - [`pytest-randomly`](https://github.com/pytest-dev/pytest-randomly) for keeping tests honest
+      - [`pytest-randomly`](https://github.com/pytest-dev/pytest-randomly) and [`pytest-reverse`](https://github.com/adamchainz/pytest-reverse) for keeping tests honest
       - [`pytest-xdist`](https://github.com/pytest-dev/pytest-xdist) for parallel testing, because ain't nobody got time for a slow test suite
 - [HTMX](https://htmx.org/) with [`django-htmx`](https://github.com/adamchainz/django-htmx)
 - [Alpine.js](https://alpinejs.dev/)
