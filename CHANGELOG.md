@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Minimum Copier version set to 9.1.0.
 - `author_name` and `github_owner` in `copier.yml` now have inline validators to ensure they are not empty.
 - `FORM_RENDERER` is now set to `django.forms.renderers.TemplatesSetting` by default.
+- Test for version in `tests/test_version.py` now correctly bumped by `bumpver`.
 
 ### Changed
 
@@ -38,6 +39,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     - `rustywind` to 0.21.0
     - `validate-pyproject` to v0.16
 - `djhtml` has been swapped out in favor of `djLint` for HTML formatting.
+- `pyproject.toml` has been updated and formatted.
+    - Add `coverage` config.
+    - Add `boto3` and `botocore` to `mypy` ignore list.
+    - Actually use Copier `python_version` input for `ruff` Python target version.
+    - Add some `ruff` per-file ignores for tests.
+    - Add rules for `pyupgrade` to `ruff` config.
 
 ### Removed
 
