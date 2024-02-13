@@ -8,6 +8,7 @@ from django.http import FileResponse
 from django.http import HttpRequest
 from django.http import HttpResponse
 from django.http import HttpResponseNotFound
+from django.shortcuts import redirect
 from django.shortcuts import render
 from django.utils import timezone
 from django.views.decorators.cache import cache_control
@@ -51,10 +52,15 @@ def security_txt(request: HttpRequest) -> HttpResponse:
 def favicon(request: HttpRequest) -> HttpResponse | FileResponse:
     name = request.path.lstrip("/")
     path = finders.find(name)
-    if not path:
-        return HttpResponseNotFound()
-    file = Path(path).open("rb")
-    return FileResponse(file)
+    if path:
+        file = Path(path).open("rb")
+        response = FileResponse(file)
+    else:
+        if name == "favicon.ico":
+            response = HttpResponseNotFound()
+        else:
+            response = redirect("favicon.ico")
+    return response
 
 
 @require_GET
