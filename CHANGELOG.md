@@ -30,6 +30,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - All HTML templates in `src/django_twc_project/templates` have been formatted using djLint.
 - Add missing `django-tailwind-cli` build command in CI/CD test job.
 - Redirect after login to "index" view instead of non-existent "dashboard" view.
+- All `pre-commit` hooks have been updated to use the latest versions of the tools.
+    - `django-upgrade` to 1.16.0
+    - `language-formatters-pre-commit-hooks` to v2.12.0
+    - `prettier` to v4.0.0-alpha.8
+    - `ruff-pre-commit` to 0.2.1
+    - `rustywind` to 0.21.0
+    - `validate-pyproject` to v0.16
+- `djhtml` has been swapped out in favor of `djLint` for HTML formatting.
 
 ### Removed
 
