@@ -9,6 +9,9 @@ set dotenv-load := true
 
 create-release-pr:
     #!/usr/bin/env bash
+
+    set -euo pipefail
+
     # get changes since last tag for PR body
     # done first so none of the other commits in this script are included
     changes=$(git log $(git tag --sort=-creatordate | head -n 1)..HEAD --pretty=format:"- `%h`: %s")
