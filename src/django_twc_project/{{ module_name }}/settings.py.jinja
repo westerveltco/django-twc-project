@@ -85,6 +85,8 @@ EMAIL_BACKEND = (
     else "email_relay.backend.RelayDatabaseEmailBackend"
 )
 
+FORM_RENDERER = "django.forms.renderers.TemplatesSetting"
+
 INSTALLED_APPS = [
     # First Party
     "{{ module_name }}.core",
