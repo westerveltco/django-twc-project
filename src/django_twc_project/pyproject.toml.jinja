@@ -10,11 +10,29 @@ version_pattern = "YYYY.MM.INC1"
 "{{ module_name }}/__init__.py" = [
   '__version__ = "{version}"'
 ]
+"tests/test_version.py" = [
+  'assert __version__ == "{version}"'
+]
+
+[tool.coverage.run]
+omit = [
+  "*/node_modules/*",
+  "{{ module_name }}/*/migrations/*",
+  "{{ module_name }}/asgi.py",
+  "{{ module_name }}/wsgi.py",
+  "templates/*",
+  "tests/*",
+  "manage.py",
+  "requirements.txt"
+]
+plugins = ["django_coverage_plugin"]
+source = ["{{ module_name }}"]
 
 [tool.django-stubs]
 django_settings_module = "{{ module_name }}.settings"
 
 [tool.djlint]
+ignore = "H031"  # Don't require `meta` tag keywords
 indent = 2
 
 [tool.mypy]
@@ -34,21 +52,22 @@ warn_unused_ignores = true
 ignore_errors = true
 module = [
   "{{ module_name }}.*.migrations.*",
-  "tests.*",
+  "tests.*"
 ]
 
 [[tool.mypy.overrides]]
 ignore_missing_imports = true
 module = [
   "allauth.*",
+  "boto3.*",
+  "botocore.*",
   "debug_toolbar.*",
   "django_filters.*",
   "django_q.*",
   "djclick.*",
   "gunicorn.*",
-  "health_check.*",
-  {%- if include_weasyprint %}
-  "weasyprint.*",
+  "health_check.*"{% if include_weasyprint %},
+  "weasyprint.*"
   {%- endif %}
 ]
 
@@ -91,15 +110,14 @@ ignore = ["E501", "E741"]  # temporary
 indent-width = 4
 # Same as Black.
 line-length = 88
-per-file-ignores = {}
 select = [
   "B",  # flake8-bugbear
   "E",  # Pycodestyle
   "F",  # Pyflakes
   "I"  # isort
 ]
-# Assume Python 3.11.
-target-version = "py311"
+# Assume Python {{ python_version }}.
+target-version = "py{{ python_version | replace('.', '') }}"
 unfixable = []
 
 [tool.ruff.format]
@@ -114,3 +132,11 @@ quote-style = "double"
 force-single-line = true
 known-first-party = ["{{ module_name }}"]
 required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.per-file-ignores]
+# Tests can use magic values, assertions, and relative imports
+"tests/**/*" = ["PLR2004", "S101", "TID252"]
+
+[tool.ruff.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true
