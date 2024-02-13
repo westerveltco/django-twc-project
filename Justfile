@@ -35,7 +35,7 @@ create-release-pr:
     sed -i -e "0,/## \[Unreleased\]/s//## [${new_version}]/" $changelog
     sed -i -e "/## \[${new_version}\]/i ## [Unreleased]\n\n" $changelog
     # adjust link references at bottom of changelog
-    echo -e "[${new_version}]: ${repo_url}/releases/tag/v${new_version}\n" >> $changelog
+    echo -e "[${new_version}]: ${repo_url}/releases/tag/v${new_version}\n\n" >> $changelog
     sed -i -e "s|\[unreleased\]: ${repo_url}/compare/v.*...HEAD|\[unreleased\]: ${repo_url}/compare/v${new_version}...HEAD|" $changelog
     git add . && git commit -m "update CHANGELOG"
 
