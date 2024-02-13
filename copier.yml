@@ -29,10 +29,12 @@ module_name:
 author_name:
   type: str
   help: What is the name of the primary author/maintainer?
+  validator: "{% if author_name == '' %}You must provide an name.{% endif %}"
 
 github_owner:
   type: str
   help: Who is the GitHub owner?
+  validator: "{% if github_owner == '' %}You must provide an GitHub owner.{% endif %}"
 
 github_repo:
   type: str
