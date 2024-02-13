@@ -29,6 +29,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - All HTML templates in `src/django_twc_project/templates` have been formatted using djLint.
 - Add missing `django-tailwind-cli` build command in CI/CD test job.
 
+### Removed
+
+- Empty `{{ module_name }}/users/views.py` file has been removed.
+
 ## [2024.1]
 
 Initial release! 🎉
