@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `admin_email` help text in `copier.yml` updated to be more clear that it's the destination for emails sent to Admins. This is primarily only used in the `templates/.well-known/security.txt` file at the moment.
 - All HTML templates in `src/django_twc_project/templates` have been formatted using djLint.
 - Add missing `django-tailwind-cli` build command in CI/CD test job.
+- Redirect after login to "index" view instead of non-existent "dashboard" view.
 
 ### Removed
 
