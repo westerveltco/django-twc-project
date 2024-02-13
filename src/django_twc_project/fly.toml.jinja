@@ -1,8 +1,8 @@
 app = "{{ fly_app_name }}"
-primary_region = "{{ fly_primary_region }}"
+console_command = "/app/manage.py shell_plus"
 kill_signal = "SIGINT"
 kill_timeout = "5s"
-console_command = "/app/manage.py shell_plus"
+primary_region = "{{ fly_primary_region }}"
 
 [deploy]
 release_command = "/release.sh"
@@ -44,8 +44,8 @@ port = 443
 handlers = ["tls", "http"]
 
 [[services.tcp_checks]]
-interval = "15s"
 grace_period = "1s"
+interval = "15s"
 restart_limit = 0
 timeout = "2s"
 
