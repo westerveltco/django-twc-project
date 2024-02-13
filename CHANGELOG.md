@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Minimum Copier version set to 9.1.0.
+- Validators for `author_name` and `github_owner` in `copier.yaml`.
 
 ## [2024.1]
 
