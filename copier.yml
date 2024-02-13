@@ -178,7 +178,7 @@ default_from_email:
 
 admin_email:
   type: str
-  help: What email should be used for any admin emails?
+  help: What email should be used as the destination for any admin emails?
 
 # ----------------------------------------------------------------------
 # MISC
