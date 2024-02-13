@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Minimum Copier version set to 9.1.0.
 - `author_name` and `github_owner` in `copier.yml` now have inline validators to ensure they are not empty.
 
+### Changed
+
+- `DEFAULT_AUTO_FIELD` reverted to `django.db.models.AutoField`. We still have projects that have not migrated to the new field and this change was potentially breaking for them.
+
 ## [2024.1]
 
 Initial release! 🎉
