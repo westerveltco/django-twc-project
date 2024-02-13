@@ -40,8 +40,8 @@ handlers = ["http"]
 port = 80
 
 [[services.ports]]
-port = 443
 handlers = ["tls", "http"]
+port = 443
 
 [[services.tcp_checks]]
 grace_period = "1s"

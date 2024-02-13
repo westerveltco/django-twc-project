@@ -1,10 +1,9 @@
 from __future__ import annotations
 
 import logging
+
 import pytest
-
 from django.test.utils import override_settings
-
 
 pytest_plugins = []  # type: ignore
 
