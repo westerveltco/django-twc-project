@@ -26,14 +26,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `django-q-registry` added to `requirements.in`.
 - `django-twc-toolbox` added to `requirements.in`.
 - `django-simple-nav` added to `requirements.in`.
+- Add `coverage` config to `pyproject.toml`.
+- Add `boto3` and `botocore` to `mypy` ignore list in `pyproject.toml`.
+- Add some `ruff` per-file ignores for tests in `pyproject.toml`.
+- Add rules for `pyupgrade` to `ruff` config in `pyproject.toml`.
 
 ### Changed
 
-- `DEFAULT_AUTO_FIELD` reverted to `django.db.models.AutoField`. We still have projects that have not migrated to the new field and this change was potentially breaking for them.
 - `admin_email` help text in `copier.yml` updated to be more clear that it's the destination for emails sent to Admins. This is primarily only used in the `templates/.well-known/security.txt` file at the moment.
-- All HTML templates in `src/django_twc_project/templates` have been formatted using djLint.
-- Add missing `django-tailwind-cli` build command in CI/CD test job.
-- Redirect after login to "index" view instead of non-existent "dashboard" view.
 - All `pre-commit` hooks have been updated to use the latest versions of the tools.
     - `django-upgrade` to 1.16.0
     - `language-formatters-pre-commit-hooks` to v2.12.0
@@ -42,14 +42,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
     - `rustywind` to 0.21.0
     - `validate-pyproject` to v0.16
 - `djhtml` has been swapped out in favor of `djLint` for HTML formatting.
-- `pyproject.toml` has been updated and formatted.
-    - Add `coverage` config.
-    - Add `boto3` and `botocore` to `mypy` ignore list.
-    - Actually use Copier `python_version` input for `ruff` Python target version.
-    - Add some `ruff` per-file ignores for tests.
-    - Add rules for `pyupgrade` to `ruff` config.
+- `pyproject.toml` has been linted and formatted.
 - Favicon view in `core.views` now uses `django.contrib.staticfiles` to find the favicon file.
 - `pre-commit` is now run after generation to ensure the generated project is properly formatted.
+
+### Fixed
+
+- `DEFAULT_AUTO_FIELD` reverted to `django.db.models.AutoField`. We still have projects that have not migrated to the new field and this change was potentially breaking for them.
+- Redirect after login to "index" view instead of non-existent "dashboard" view.
+- All HTML templates in `src/django_twc_project/templates` have been formatted using djLint.
+- Add missing `django-tailwind-cli` build command in CI/CD test job.
+- Actually use Copier `python_version` input for `ruff` Python target version in `pyproject.toml`.
 
 ### Removed
 
