@@ -21,7 +21,7 @@ commit = true
 commit_message = ":bookmark: bump version {old_version} -> {new_version}"
 current_version = "2024.1"
 push = false  # set to false for CI
-tag = true
+tag = false
 version_pattern = "YYYY.INC1"
 
 [tool.bumpver.file_patterns]
