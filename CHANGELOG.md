@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Test for version in `tests/test_version.py` now correctly bumped by `bumpver`.
 - `django-q-registry` added to `requirements.in`.
 - `django-twc-toolbox` added to `requirements.in`.
+- `django-simple-nav` added to `requirements.in`.
 
 ### Changed
 
