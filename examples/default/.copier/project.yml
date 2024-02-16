@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: v2024.1-32-g21072fe
+_commit: v2024.2-9-ge936eea
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
@@ -23,6 +23,6 @@ postgres_docker_version: '15'
 project_name: default
 python_version: '3.11'
 sentry_dsn: https://example.com
-sentry_org: example_owner
+sentry_org: the-westervelt-company
 sentry_project: default
 tailwindcss_version: 3.4.0

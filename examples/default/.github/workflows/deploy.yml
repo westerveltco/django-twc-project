@@ -80,7 +80,7 @@ jobs:
       - name: Create Sentry release
         uses: getsentry/action-release@v1.4.1
         env:
-          SENTRY_ORG: "example_owner"
+          SENTRY_ORG: "the-westervelt-company"
           SENTRY_PROJECT: "default"
         with:
           environment: production
