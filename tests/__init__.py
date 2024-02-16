@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import logging
 
-
 pytest_plugins = []  # type: ignore
 
 
