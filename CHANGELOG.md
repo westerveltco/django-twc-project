@@ -17,6 +17,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Move from deprecated `ruff` config to new in `pyproject.toml`.
 
 ## [2024.2]
 
