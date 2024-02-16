@@ -76,8 +76,13 @@ This template is built using [Copier](https://copier.readthedocs.io) and include
 To use this template, you will need to install [Copier](https://copier.readthedocs.io) and then run the following command:
 
 ```bash
-copier copy gh:westerveltco/django-twc-project <destination>
+copier copy --trust gh:westerveltco/django-twc-project <destination>
 ```
+
+> [!NOTE]
+> The `--trust` flag is used to because this template uses `copier-template-extensions` to simplify some of the Jinja templating. You cannot use this template without trusting it. Please review the files within the [`extensions`](extensions) directory to see what is being done.
+
+After running the above command, you will be prompted to fill in some information about your package. Once you have filled in the necessary information, Copier will generate the package for you.
 
 ## Examples
 
