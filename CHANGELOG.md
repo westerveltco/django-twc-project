@@ -84,5 +84,4 @@ Initial release! 🎉
 [unreleased]: https://github.com/westerveltco/django-twc-project.git/compare/v2024.3...HEAD
 [2024.1]: https://github.com/westerveltco/django-simple-nav/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project.git/releases/tag/v2024.2
-
 [2024.3]: https://github.com/westerveltco/django-twc-project.git/releases/tag/v2024.3
