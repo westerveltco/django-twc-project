@@ -14,6 +14,16 @@ version_pattern = "YYYY.MM.INC1"
   'assert __version__ == "{version}"'
 ]
 
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if DEBUG:",
+  "if not DEBUG:",
+  "if settings.DEBUG:",
+  "if TYPE_CHECKING:",
+  'def __str__\(self\)\s?\-?\>?\s?\w*\:'
+]
+
 [tool.coverage.run]
 omit = [
   "*/node_modules/*",

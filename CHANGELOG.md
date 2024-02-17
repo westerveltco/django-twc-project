@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - `django-template-partials` added to `INSTALLED_APPS`.
+- Added missing `coverage-py` report config to `pyproject.toml`.
 
 ## [2024.4]
 
