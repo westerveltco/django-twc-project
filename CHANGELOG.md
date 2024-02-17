@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- All GitHub Actions steps have been updated to the latest versions.
+
 ## [2024.3]
 
 ### Changed
