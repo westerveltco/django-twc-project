@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.4]
+
 ### Changed
 
 - All GitHub Actions steps have been updated to the latest versions.
@@ -85,7 +87,8 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.3...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.4...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
+[2024.4]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.4
