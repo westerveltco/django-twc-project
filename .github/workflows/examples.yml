@@ -41,4 +41,3 @@ jobs:
           git add -A
           git commit -m "Regenerated examples" || exit 0
           git push
-
