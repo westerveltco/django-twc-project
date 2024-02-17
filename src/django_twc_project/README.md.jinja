@@ -1,1 +1,107 @@
 # {{ project_name }}
+
+## Requirements
+
+- Python {{ python_version }}
+  - It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) to manage your Python versions.
+  - [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv) is also useful for managing virtual environments, though it is not required.
+- Node.js {{ node_version }}
+  - It is recommended to use [`nvm`](https://github.com/nvm-sh/nvm) to manage your Node.js versions.
+- Docker and Docker Compose
+  - The easiest way to install Docker and Docker Compose is to use [Docker Desktop](https://www.docker.com/products/docker-desktop).
+- [Just](https://github.com/casey/just)
+- [Direnv](https://direnv.net/)
+  - This is optional, but highly recommended.
+
+## Getting Started
+
+1. Clone this repository:
+
+   ```sh
+   git clone https://github.com/{{ github_owner }}/{{ github_repo }}
+   ```
+
+2. Create and activate a virtual environment.
+
+   Using the Python standard library `venv` module:
+
+   ```sh
+   python -m venv .venv
+   source venv/bin/activate  # on Windows, use .venv\Scripts\activate
+   ```
+
+   Using `pyenv` and `pyenv-virtualenv`:
+
+   ```sh
+   pyenv virtualenv {{ python_version }} {{ module_name }}-{{ python_version }}
+   pyenv local {{ module_name }}-{{ python_version }}
+   ```
+
+3. Run the setup script:
+
+   ```sh
+   just bootstrap
+   ```
+
+   This will:
+   - Copy the `.env.example` file to `.env` if it does not already exist.
+   - Install and upgrade `pip` and `pip-tools`.
+   - Generate a `requirements.txt` file from `requirements.in` (if it does not already exist) and install the dependencies.
+   - Install the Node.js dependencies.
+   - Build the Docker images for the development environment.
+   - Migrate the database.
+   - Start the development `docker-compose` services.
+   - Create a superuser for the Django admin interface with the username `admin` and the password `admin`.
+
+4. After the setup script has completed, you should be able to access the development server at [http://localhost:8000](http://localhost:8000).
+
+   By default, the development server will run on port 8000. If you need to change the port, you can do so by setting the `DJANGO_PORT` environment variable in the `.env` file and then restarting the development server.
+
+## Development
+
+### Testing
+
+This project uses `pytest` for testing. To run the tests, use the following command:
+
+```sh
+just test
+```
+
+This command can take additional arguments, which will be passed to `pytest`. For example, to run only the tests in the `tests/test_app.py` file, you can use the following command:
+
+```sh
+just test tests/test_app.py
+```
+
+By default, the tests will run in an ephemeral `app` Docker container service. If you want to run the tests on your local machine, you can use the following command:
+
+```sh
+pytest
+```
+
+`pytest` will use the `[tool.pytest.ini_options]` configuration from the `pyproject.toml` file. It is setup to:
+
+- Reuse the database between test runs courtesy of the `pytest-django` plugin.
+- Run the tests in parallel using the `pytest-xdist` plugin, using the number of CPU cores available on your machine.
+- Randomize the order of the tests using the `pytest-randomly` plugin.
+  - This is can be disabled by passing `--no-randomly` as a command line argument.
+
+### Type Checking
+
+This project uses `mypy` and the `django-stubs` plugin for type checking. To run the type checks, use the following command:
+
+```sh
+just types
+````
+
+In general, you should aim to have `mypy` pass without any errors or warnings. However, given the dynamic nature of Django and the volunteer nature of the `django-stubs` project, it is not always possible to have `mypy` pass without any errors or warnings.
+
+In cases where you need to suppress a `mypy` error or warning, you can use the `# type: ignore` comment. However, you should always aim to minimize the use of `# type: ignore` comments. Make sure you are not ignoring a legitimate type error.
+
+If a third-party package is giving `mypy` problems, you can add it to the list of ignored packages in the `[[tool.mypy.overrides]]` section of the `pyproject.toml` file.
+
+**The overall goal is to type check as much of the code as possible, especially the code we can control, while minimizing the use of `# type: ignore` comments and ignored packages.** Though sometimes the only way to make `mypy` happy is to use `# type: ignore` and move on with your day. Do not waste too much time trying to make `mypy` happy. It never will be.
+
+### Linting and Formatting
+
+## Deployment
