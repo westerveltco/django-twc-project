@@ -11,98 +11,49 @@
 --trusted-host pypi.org
 --trusted-host files.pythonhosted.org
 annotated-types==0.6.0
-    # via pydantic
 bumpver==2023.1129
 click==8.1.7
-    # via bumpver
-    # via djlint
 colorama==0.4.6
-    # via bumpver
-    # via copier
-    # via djlint
 copier==9.1.1
 cssbeautifier==1.14.11
-    # via djlint
 decorator==5.1.1
-    # via copier
 djlint==1.34.1
 dunamai==1.19.1
-    # via copier
 editorconfig==0.12.3
-    # via cssbeautifier
-    # via jsbeautifier
+exceptiongroup==1.2.0
 execnet==2.0.2
-    # via pytest-xdist
 funcy==2.0
-    # via copier
 html-tag-names==0.1.2
-    # via djlint
 html-void-elements==0.1.0
-    # via djlint
+importlib-metadata==7.0.1
 iniconfig==2.0.0
-    # via pytest
 jinja2==3.1.3
-    # via copier
-    # via jinja2-ansible-filters
 jinja2-ansible-filters==1.3.2
-    # via copier
 jsbeautifier==1.14.11
-    # via cssbeautifier
-    # via djlint
 json5==0.9.14
-    # via djlint
 lexid==2021.1006
-    # via bumpver
 looseversion==1.3.0
-    # via bumpver
 markupsafe==2.1.5
-    # via jinja2
 packaging==23.2
-    # via copier
-    # via dunamai
-    # via pytest
 pathspec==0.12.1
-    # via copier
-    # via djlint
 pluggy==1.4.0
-    # via pytest
 plumbum==1.8.2
-    # via copier
 prompt-toolkit==3.0.36
-    # via questionary
 pydantic==2.6.1
-    # via copier
 pydantic-core==2.16.2
-    # via pydantic
 pygments==2.17.2
-    # via copier
 pytest==8.0.0
-    # via pytest-randomly
-    # via pytest-reverse
-    # via pytest-xdist
 pytest-randomly==3.15.0
 pytest-reverse==1.7.0
 pytest-xdist==3.5.0
 pyyaml==6.0.1
-    # via copier
-    # via djlint
-    # via jinja2-ansible-filters
-    # via pyyaml-include
 pyyaml-include==1.3.2
-    # via copier
 questionary==2.0.1
-    # via copier
 regex==2023.12.25
-    # via djlint
 six==1.16.0
-    # via cssbeautifier
-    # via jsbeautifier
 toml==0.10.2
-    # via bumpver
+tomli==2.0.1
 tqdm==4.66.1
-    # via djlint
 typing-extensions==4.9.0
-    # via pydantic
-    # via pydantic-core
 wcwidth==0.2.13
-    # via prompt-toolkit
+zipp==3.17.0
