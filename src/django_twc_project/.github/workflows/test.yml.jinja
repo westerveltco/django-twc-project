@@ -100,7 +100,7 @@ jobs:
 
       - name: Run migrations
         run: |
-          python manage.py migrate
+          python manage.py migrate --skip-checks
 
 {%- if include_vite %}
       - name: Build frontend
@@ -111,7 +111,7 @@ jobs:
       - name: Build staticfiles
         run: |
           python manage.py tailwind build
-          python manage.py collectstatic
+          python manage.py collectstatic --no-input --skip-checks
 
       # https://hynek.me/articles/ditch-codecov-python/
       - name: Run tests
