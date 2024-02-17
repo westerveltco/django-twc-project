@@ -27,7 +27,6 @@ jobs:
 
       - name: Install dependencies
         run: |
-          rye pin 3.8
           rye sync
 
       - name: Generate examples
