@@ -14,7 +14,7 @@ def test_copier_yml_version():
 
     version = copier_yml["template_version"]["default"]
 
-    assert version == "2024.3"
+    assert version == "2024.4"
 
 
 def test_VERSION_version():
@@ -22,4 +22,4 @@ def test_VERSION_version():
     with open(file, encoding="utf-8") as f:
         version = f.read().strip()
 
-    assert version == "2024.3"
+    assert version == "2024.4"
