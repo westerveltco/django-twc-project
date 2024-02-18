@@ -116,6 +116,7 @@ INSTALLED_APPS = [
     "health_check.contrib.migrations",
     "heroicons",
     "simple_history",
+    "template_partials",
     # Django
     "django.contrib.admin",
     "django.contrib.auth",

@@ -7,11 +7,21 @@ tag = false
 version_pattern = "YYYY.MM.INC1"
 
 [tool.bumpver.file_patterns]
+"with_vite/__init__.py" = [
+  '__version__ = "{version}"'
+]
 "tests/test_version.py" = [
   'assert __version__ == "{version}"'
 ]
-"with_vite/__init__.py" = [
-  '__version__ = "{version}"'
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if DEBUG:",
+  "if not DEBUG:",
+  "if settings.DEBUG:",
+  "if TYPE_CHECKING:",
+  'def __str__\(self\)\s?\-?\>?\s?\w*\:'
 ]
 
 [tool.coverage.run]

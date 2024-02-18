@@ -1,3 +1,3 @@
 export default {
-  tailwindConfig: './tailwind.config.js',
+  tailwindConfig: './tailwind.config.mjs',
 }
