@@ -19,7 +19,13 @@ _generate-example DATA_FILE:
 
     DIRECTORY="{{ trim_end_match(DATA_FILE, '.yml') }}"
     rm -rf $DIRECTORY
-    rye run copier copy -r HEAD . $DIRECTORY --force --trust --data-file {{ DATA_FILE }}
+
+    COMMAND="copier copy -r HEAD . $DIRECTORY --force --trust --data-file {{ DATA_FILE }}"
+    if [ -z "$(command -v rye)" ]; then
+        eval $COMMAND
+    else
+        rye run $COMMAND
+    fi
 
 # ----------------------------------------------------------------------
 # UTILS

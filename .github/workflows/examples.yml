@@ -20,14 +20,16 @@ jobs:
 
       - uses: extractions/setup-just@v1
 
-      - uses: eifinger/setup-rye@v1
+      - uses: actions/setup-python@v5
         with:
-          enable-cache: true
-          cache-prefix: ${{ github.head_ref }}
+          python-version: "3.8"
+          cache: "pip"
+          allow-prereleases: true
 
       - name: Install dependencies
         run: |
-          rye sync
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.lock
 
       - name: Generate examples
         run: |
