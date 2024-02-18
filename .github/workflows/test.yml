@@ -10,19 +10,21 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  PYTHONUNBUFFERED: "1"
   FORCE_COLOR: "1"
+  PYTHONUNBUFFERED: "1"
+  PYTHON_REQUIREMENTS: requirements-dev.lock
+  PYTHON_VERSION: "3.8"
 
 jobs:
   test:
-    runs-on: "ubuntu-latest"
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
-      - uses: westerveltco/setup-ci-action@v0.1.0
+      - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: "3.8"
-          python-requirements: "requirements-dev.lock"
+          python-requirements: ${{ env.PYTHON_REQUIREMENTS }}
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Run tests
         run: |
