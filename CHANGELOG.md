@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Django commands in CI/CD now use `--skip-checks` and/or `--no-input` where possible.
 
+### Removed
+
+- `create-release-pr` command from `Justfile` was removed and moved to a personal script.
+
 ### Fixed
 
 - `django-template-partials` added to `INSTALLED_APPS`.
