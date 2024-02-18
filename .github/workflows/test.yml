@@ -22,7 +22,7 @@ jobs:
       - uses: westerveltco/setup-ci-action@main
         with:
           python-version: "3.8"
-          python-requirements: "requirements.dev.lock"
+          python-requirements: "requirements-dev.lock"
 
       - name: Run tests
         run: |
