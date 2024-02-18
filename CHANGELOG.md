@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Now using [`westerveltco/setup-ci-action`](https://github.com/westereltco/setup-ci-action) for common Python and Node.js CI/CD setup. This action sets up a Python and Node.js environment with caching and installs all dependencies for a project.
+
 ### Changed
 
 - Django commands in CI/CD now use `--skip-checks` and/or `--no-input` where possible.
@@ -62,12 +66,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - `admin_email` help text in `copier.yml` updated to be more clear that it's the destination for emails sent to Admins. This is primarily only used in the `templates/.well-known/security.txt` file at the moment.
 - All `pre-commit` hooks have been updated to use the latest versions of the tools.
-    - `django-upgrade` to 1.16.0
-    - `language-formatters-pre-commit-hooks` to v2.12.0
-    - `prettier` to v4.0.0-alpha.8
-    - `ruff-pre-commit` to 0.2.1
-    - `rustywind` to 0.21.0
-    - `validate-pyproject` to v0.16
+  - `django-upgrade` to 1.16.0
+  - `language-formatters-pre-commit-hooks` to v2.12.0
+  - `prettier` to v4.0.0-alpha.8
+  - `ruff-pre-commit` to 0.2.1
+  - `rustywind` to 0.21.0
+  - `validate-pyproject` to v0.16
 - `djhtml` has been swapped out in favor of `djLint` for HTML formatting.
 - `pyproject.toml` has been linted and formatted.
 - Favicon view in `core.views` now uses `django.contrib.staticfiles` to find the favicon file.
@@ -96,7 +100,7 @@ Initial release! 🎉
 - Initial tests.
 - Initial CI/CD (GitHub Actions).
 
-### New Contributors!
+### New Contributors
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
