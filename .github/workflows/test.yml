@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: westerveltco/setup-ci-action@main
+      - uses: westerveltco/setup-ci-action@v0.1.0
         with:
           python-version: "3.8"
           python-requirements: "requirements-dev.lock"
