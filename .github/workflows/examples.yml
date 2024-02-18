@@ -40,8 +40,12 @@ jobs:
         run: |
           just generate-examples
 
-      - name: Commit and push if it changed
+      - name: Get SHA of push commit
+        id: shortsha
+        run: echo "shortsha=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Commit and push if examples have changed
         run: |-
           git add -A
-          git commit -m "Regenerated examples" || exit 0
+          git commit -m "Regenerated examples for ${{ steps.shortsha.outputs.shortsha }}" || exit 0
           git push
