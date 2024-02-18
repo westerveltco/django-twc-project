@@ -9,30 +9,18 @@ concurrency:
   group: {% raw %}${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}{% endraw %}
 
 env:
-  FORCE_COLOR: 1
   CI: True
+  FORCE_COLOR: 1
+  NODE_VERSION: "{{ node_version }}"
+  PYTHON_REQUIREMENTS: requirements.txt{%- for requirements_filename in extra_requirements_files.split(',') %},{{ requirements_filename }}.txt{% if not forloop.last %},{% endif %}{%- endfor %}
+  PYTHON_VERSION: "{{ python_version }}"
 
 permissions:
   contents: read
 
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-    outputs:
-      cache-dir: {% raw %}${{ steps.pip-cache.outputs.dir }}{% endraw %}
-    steps:
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "{{ python_version }}"
-
-      - name: Get pip cache dir
-        id: pip-cache
-        run: |
-          echo "dir=$(pip cache dir)" >> $GITHUB_OUTPUT
-
   test:
     runs-on: ubuntu-latest
-    needs: setup
     services:
       postgres:
         image: {{ postgres_docker_image }}:{{ postgres_docker_version }}
@@ -55,24 +43,14 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: actions/setup-python@v5
+      - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: "{{ python_version }}"
+          node-version: ${% raw %}{{ env.NODE_VERSION }}{% endraw %}
+          python-version: ${% raw %}{{ env.PYTHON_VERSION }}{% endraw %}
+          python-requirements: ${% raw %}{{ env.PYTHON_REQUIREMENTS }}{% endraw %}
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: "{{ node_version }}"
-
-      - uses: actions/cache@v4
-        with:
-          path: {% raw %}${{ needs.setup.outputs.cache-dir }}{% endraw %}
-          key: {% raw %}${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}{% endraw %}
-          restore-keys: |
-            {% raw %}${{ runner.os }}-pip-{% endraw %}
-
-      - name: Install dependencies
+      - name: Install system packages
         env:
-          PIP_CACHE_DIR: {% raw %}${{ needs.setup.outputs.cache-dir }}{% endraw %}
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends \
@@ -91,12 +69,6 @@ jobs:
             ttf-mscorefonts-installer \
 {%- endif %}
             build-essential
-          python -m pip install -U pip
-          python -m pip install --no-warn-script-location -r requirements.txt
-{%- for requirements_filename in extra_requirements_files.split(',') %}
-          python -m pip install --no-warn-script-location -r {{ requirements_filename }}.txt
-{%- endfor %}
-          npm install
 
       - name: Run migrations
         run: |
@@ -130,73 +102,16 @@ jobs:
 
   types:
     runs-on: ubuntu-latest
-    needs: setup
     steps:
       - uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: "{{ python_version }}"
+          python-version: ${% raw %}{{ env.PYTHON_VERSION }}{% endraw %}
+          python-requirements: ${% raw %}{{ env.PYTHON_REQUIREMENTS }}{% endraw %}
 
-      - uses: actions/cache@v4
-        with:
-          path: {% raw %}${{ needs.setup.outputs.cache-dir }}{% endraw %}
-          key: {% raw %}${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}{% endraw %}
-          restore-keys: |
-            {% raw %}${{ runner.os }}-pip-{% endraw %}
-
-      - name: Install dependencies
+      - name: Install system packages
         env:
-          PIP_CACHE_DIR: {% raw %}${{ needs.setup.outputs.cache-dir }}{% endraw %}
-        run: |
-          sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-{%- if postgres_docker_image == 'postgis/postgis' %}
-            libpq-dev \
-            binutils \
-            libproj-dev \
-            gdal-bin \
-            python3-gdal \
-            libaio-dev \
-{%- endif %}
-{%- if include_weasyprint %}
-            libpango-1.0-0 \
-            libharfbuzz0b \
-            libpangoft2-1.0-0 \
-            ttf-mscorefonts-installer \
-{%- endif %}
-            build-essential
-          python -m pip install -U pip
-          python -m pip install --no-warn-script-location -r requirements.txt
-{%- for requirements_filename in extra_requirements_files.split(',') %}
-          python -m pip install --no-warn-script-location -r {{ requirements_filename }}.txt
-{%- endfor %}
-
-      - name: Run mypy
-        env:
-          DATABASE_URL: sqlite:///db.sqlite3
-        run: |
-          python -m mypy
-
-  checks:
-    runs-on: ubuntu-latest
-    needs: setup
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-python@v5
-        with:
-          python-version: "{{ python_version }}"
-
-      - uses: actions/cache@v4
-        with:
-          path: {% raw %}${{ needs.setup.outputs.cache-dir }}{% endraw %}
-          key: {% raw %}${{ runner.os }}-pip-${{ hashFiles('**/requirements*.txt') }}{% endraw %}
-          restore-keys: |
-            {% raw %}${{ runner.os }}-pip-{% endraw %}
-
-      - name: Install dependencies
-        env:
-          PIP_CACHE_DIR: {% raw %}${{ needs.setup.outputs.cache-dir }}{% endraw %}
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends \
@@ -215,11 +130,43 @@ jobs:
             ttf-mscorefonts-installer \
 {%- endif %}
             build-essential
-          python -m pip install -U pip
-          python -m pip install --no-warn-script-location -r requirements.txt
-{%- for requirements_filename in extra_requirements_files.split(',') %}
-          python -m pip install --no-warn-script-location -r {{ requirements_filename }}.txt
-{%- endfor %}
+
+      - name: Run mypy
+        env:
+          DATABASE_URL: sqlite:///db.sqlite3
+        run: |
+          python -m mypy
+
+  checks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: westerveltco/setup-ci-action@v0
+        with:
+          python-version: ${% raw %}{{ env.PYTHON_VERSION }}{% endraw %}
+          python-requirements: ${% raw %}{{ env.PYTHON_REQUIREMENTS }}{% endraw %}
+
+      - name: Install dependencies
+        env:
+          DEBIAN_FRONTEND: noninteractive
+        run: |
+          sudo apt-get update && sudo apt-get install -y --no-install-recommends \
+{%- if postgres_docker_image == 'postgis/postgis' %}
+            libpq-dev \
+            binutils \
+            libproj-dev \
+            gdal-bin \
+            python3-gdal \
+            libaio-dev \
+{%- endif %}
+{%- if include_weasyprint %}
+            libpango-1.0-0 \
+            libharfbuzz0b \
+            libpangoft2-1.0-0 \
+            ttf-mscorefonts-installer \
+{%- endif %}
+            build-essential
 
       - name: Run deployment checks
         env:
