@@ -10,6 +10,11 @@ on:
 
 concurrency: production
 
+env:
+  CI: True
+  FORCE_COLOR: 1
+  PYTHON_VERSION: "{{ python_version }}"
+
 jobs:
   bumpver:
     runs-on: ubuntu-latest
@@ -20,7 +25,7 @@ jobs:
 
       - uses: actions/setup-python@v5
         with:
-          python-version: "{{ python_version }}"
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install bumpver
         run: |
