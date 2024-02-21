@@ -175,4 +175,4 @@ This workflow is triggered on every push to the `main` branch. It is responsible
 
 - Bumping the version number across the project.
 - Deploying the application to the production environment on [Fly.io](https://fly.io/).
-- Notifying [SendGrid](https://sendgrid.com/) of the new release.
+- Notifying [Sentry](https://sentry.io/) of the new release.
