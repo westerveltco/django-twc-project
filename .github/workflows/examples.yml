@@ -3,6 +3,9 @@ name: examples
 on:
   push:
     branches: [main]
+    paths:
+      - "examples/**.yml"
+      - "src/**"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.head_ref }}
