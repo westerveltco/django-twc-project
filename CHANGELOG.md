@@ -19,6 +19,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [2024.6]
 
+### Fixed
+
+- The release link and text in the `README.md` was not referencing the correct SaaS product.
+
 ## [2024.5]
 
 ### Added
