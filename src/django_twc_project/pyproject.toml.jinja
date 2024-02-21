@@ -76,7 +76,9 @@ module = [
   "django_q.*",
   "djclick.*",
   "gunicorn.*",
-  "health_check.*"{% if include_weasyprint %},
+  "health_check.*",
+  "neapolitan.*",
+  "simple_history.*"{% if include_weasyprint %},
   "weasyprint.*"
   {%- endif %}
 ]
