@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Default vm settings for Fly.io app now set to 1 shared CPU and 1GB RAM.
+
 ### Fixed
 
 - Database connection now requires SSL connection by default in production.
