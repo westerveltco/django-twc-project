@@ -25,6 +25,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Adjust how `DISABLE_SERVER_SIDE_CURSORS` is set in dev and production settings.
 - Adjust how Sentry is configured and enabled.
+- Always have one machine running in the Fly.io production environment.
+- `[services.concurrency]` in `fly.toml` config now based on requests per [Fly.io's recommendation](https://fly.io/docs/reference/configuration/#services-concurrency) for web services.
 
 ## [2024.6]
 
