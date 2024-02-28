@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Adjust how `DISABLE_SERVER_SIDE_CURSORS` is set in dev and production settings.
+- Adjust how Sentry is configured and enabled.
 
 ## [2024.6]
 
