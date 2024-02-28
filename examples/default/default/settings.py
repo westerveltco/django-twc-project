@@ -395,7 +395,7 @@ TAILWIND_CLI_SRC_CSS = "static/src/tailwind.css"
 TAILWIND_CLI_VERSION = env.str("TAILWIND_CLI_VERSION", default="3.4.0")
 
 # sentry
-if not DEBUG or env.bool("ENABLE_SENTRY", default=False):
+if not DEBUG and env.bool("ENABLE_SENTRY", default=True):
     sentry_sdk.init(
         dsn=env("SENTRY_DSN", default=None),
         environment=env("SENTRY_ENV", default=None),
