@@ -19,7 +19,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
-- Database connection not requires SSL connection by default in production.
+- Database connection now requires SSL connection by default in production.
+
+### Changed
+
+- Adjust how `DISABLE_SERVER_SIDE_CURSORS` is set in dev and production settings.
 
 ## [2024.6]
 
