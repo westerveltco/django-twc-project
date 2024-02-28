@@ -54,12 +54,14 @@ DATABASES = {
         default="sqlite:///db.sqlite3",
         conn_max_age=600,  # 10 minutes
         conn_health_checks=True,
+        ssl_require=not DEBUG and not env.bool("CI", default=False),
     ),
     EMAIL_RELAY_DATABASE_ALIAS: env.dj_db_url(
         "EMAIL_RELAY_DATABASE_URL",
         default="sqlite:///email_relay.sqlite3",
         conn_max_age=600,  # 10 minutes
         conn_health_checks=True,
+        ssl_require=not DEBUG and not env.bool("CI", default=False),
     ),
 }
 DISABLE_SERVER_SIDE_CURSORS = env.bool("DISABLE_SERVER_SIDE_CURSORS", default=False)
