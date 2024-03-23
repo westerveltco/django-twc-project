@@ -120,13 +120,12 @@ ARG VITE_API_BASE_URL=http://localhost:8000/api/
 COPY --from=tailwind --link /usr/local /usr/local
 COPY --from=app --link /app /app
 COPY --link static /app/static
-COPY --link postcss.config.js tailwind.config.js tsconfig.json vite.config.ts /app/
 {%- if include_vite %}
-COPY --link postcss.config.js tailwind.config.js tsconfig.json vite.config.ts /app/
+COPY --link postcss.config.mjs tailwind.config.mjs tsconfig.json vite.config.ts /app/
 RUN npm run build \
   && python manage.py tailwind --skip-checks build
 {%- else %}
-COPY --link postcss.config.js tailwind.config.js /app/
+COPY --link postcss.config.mjs tailwind.config.mjs /app/
 RUN python manage.py tailwind --skip-checks build
 {%- endif %}
 
