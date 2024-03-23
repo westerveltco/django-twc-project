@@ -44,7 +44,8 @@ jobs:
         with:
           node-version: {{ node_version }}
           python-version: {{ python_version }}
-          python-requirements: requirements.txt{% for requirements_filename in extra_requirements_files.split(',') %},{{ requirements_filename }}.txt{% if not loop.last %},{% endif %}{% endfor %}
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install system packages
         env:
@@ -65,7 +66,8 @@ jobs:
             libpangoft2-1.0-0 \
             ttf-mscorefonts-installer \
 {%- endif %}
-            build-essential
+            build-essential \
+          playwright install --with-deps
 
       - name: Run migrations
         run: |
@@ -105,7 +107,8 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           python-version: {{ python_version }}
-          python-requirements: requirements.txt{% for requirements_filename in extra_requirements_files.split(',') %},{{ requirements_filename }}.txt{% if not loop.last %},{% endif %}{% endfor %}
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install system packages
         env:
@@ -142,7 +145,8 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           python-version: {{ python_version }}
-          python-requirements: requirements.txt{% for requirements_filename in extra_requirements_files.split(',') %},{{ requirements_filename }}.txt{% if not loop.last %},{% endif %}{% endfor %}
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install dependencies
         env:
