@@ -42,16 +42,18 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          node-version: 20.9.0
+          node-version: 20
           python-version: 3.11
-          python-requirements: requirements.txt,requirements.nohash.txt
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install system packages
         env:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-            build-essential
+            build-essential \
+          playwright install --with-deps
 
       - name: Run migrations
         run: |
@@ -88,7 +90,8 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           python-version: 3.11
-          python-requirements: requirements.txt,requirements.nohash.txt
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install system packages
         env:
@@ -111,7 +114,8 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           python-version: 3.11
-          python-requirements: requirements.txt,requirements.nohash.txt
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install dependencies
         env:

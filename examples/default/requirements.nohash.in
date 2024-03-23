@@ -1,4 +1,0 @@
--c requirements.txt
-git+https://super-secret-token:x-oauth-basic@github.com/westerveltco/django-twc-ui.git@main
-# our fork of neapolitan
-https://github.com/westerveltco/neapolitan/archive/main.zip

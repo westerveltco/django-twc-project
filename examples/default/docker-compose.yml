@@ -7,7 +7,7 @@ x-app: &default-app
     target: app
   depends_on:
     db:
-      condition: "service_started"
+      condition: service_healthy
   env_file: .env
   init: true
   user: "${UID:-1000}:${GID:-1000}"
@@ -18,6 +18,8 @@ x-app: &default-app
 services:
   app:
     <<: *default-app
+    build:
+      target: dev
     command: python manage.py runserver 0.0.0.0:8000 --skip-checks
     ports:
       - "${DJANGO_PORT:-8000}:8000"

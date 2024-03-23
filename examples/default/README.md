@@ -5,7 +5,7 @@
 - Python 3.11
   - It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) to manage your Python versions.
   - [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv) is also useful for managing virtual environments, though it is not required.
-- Node.js 20.9.0
+- Node.js 20
   - It is recommended to use [`nvm`](https://github.com/nvm-sh/nvm) to manage your Node.js versions.
 - Docker and Docker Compose
   - The easiest way to install Docker and Docker Compose is to use [Docker Desktop](https://www.docker.com/products/docker-desktop).

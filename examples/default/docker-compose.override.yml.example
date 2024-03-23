@@ -1,17 +1,15 @@
 services:
   app:
-    # build:
-    #   args:
-    #     TAILWINDCSS_ARCH: arm64
-    # platform: linux/arm64
+    # environment:
+    #   DISPLAY: ":0"
+    # platform: linux/amd64
+    # volumes:
+    #   - /tmp/.X11-unix:/tmp/.X11-unix
 
   db:
     # platform: linux/amd64
 
   tailwind:
-    # build:
-    #   args:
-    #     TAILWINDCSS_ARCH: arm64
     # platform: linux/amd64
 
   worker:
