@@ -101,7 +101,7 @@ docs-serve:
 
 docs-build LOCATION="docs/_build/html":
     just _cog
-    sphinx-build docs
+    sphinx-build docs 
 
 # ----------------------------------------------------------------------
 # DOCKER
