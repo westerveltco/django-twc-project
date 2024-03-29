@@ -26,6 +26,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   `project.yml` GitHub Actions workflow file. This is now taken care of by a custom GitHub bot.
 
+### Fixed
+
+-   Now mirroring the `default` database when testing. This is the recommendation from the Django documentation.
+
 ## [2024.7]
 
 ### Added
