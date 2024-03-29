@@ -54,7 +54,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: 1password/load-secrets-action@v1
+      - uses: 1password/load-secrets-action@v2
         with:
           export-env: true
         env:
@@ -74,7 +74,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - uses: 1password/load-secrets-action@v1
+      - uses: 1password/load-secrets-action@v2
         with:
           export-env: true
         env:
