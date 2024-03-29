@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Now using v2 of `1password/load-secrets-action` GitHub Action.
 -   Now using v0.3.2 of `ruff` in pre-commit.
+-   Shortened all `docker-compose*.yml` files to `compose*.yml` files. This is the recommended file naming scheme now.
 
 ### Removed
 
