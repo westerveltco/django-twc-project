@@ -17,6 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+-   `django_browser_reload` middleware now only loaded in development (`DEBUG=True`).
+-   `template_partials` template loader has been removed in favor of built-in behavior. (The package automatically wraps the template loaders with the correct loader class.)
+
 ### Fixed
 
 -   Added missing `--no-default-ignore` to static collection step in `test.yml`. By default Vite puts the `manifest.json` in a `.vite` directory, so we need to make sure this is not ignored when collecting static files.
