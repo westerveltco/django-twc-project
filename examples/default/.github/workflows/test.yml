@@ -52,7 +52,7 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-            build-essential \
+            build-essential
           playwright install --with-deps
 
       - name: Run migrations
@@ -61,7 +61,7 @@ jobs:
 
       - name: Build staticfiles
         run: |
-          python manage.py tailwind build
+          python manage.py tailwind build --skip-checks
           python manage.py collectstatic --no-input --skip-checks
 
       # https://hynek.me/articles/ditch-codecov-python/

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import multiprocessing
 import re
 import socket
@@ -68,9 +69,10 @@ if not DEBUG and (
     DISABLE_SERVER_SIDE_CURSORS := env.bool("DISABLE_SERVER_SIDE_CURSORS", default=True)
 ):
     DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = DISABLE_SERVER_SIDE_CURSORS
-    DATABASES[EMAIL_RELAY_DATABASE_ALIAS]["DISABLE_SERVER_SIDE_CURSORS"] = (
-        DISABLE_SERVER_SIDE_CURSORS
-    )
+    DATABASES[EMAIL_RELAY_DATABASE_ALIAS][
+        "DISABLE_SERVER_SIDE_CURSORS"
+    ] = DISABLE_SERVER_SIDE_CURSORS
+DATABASES[EMAIL_RELAY_DATABASE_ALIAS]["TEST"] = {"MIRROR": "default"}
 
 DATABASE_ROUTERS = [
     "email_relay.db.EmailDatabaseRouter",
@@ -392,7 +394,12 @@ TAILWIND_CLI_PATH = env("TAILWIND_CLI_PATH", default="/usr/local/bin/")
 
 TAILWIND_CLI_SRC_CSS = "static/src/tailwind.css"
 
-TAILWIND_CLI_VERSION = env.str("TAILWIND_CLI_VERSION", default="3.4.0")
+with open(BASE_DIR / "package.json") as f:
+    package_json = json.load(f)
+
+TAILWIND_CLI_VERSION = (
+    package_json.get("devDependencies", {}).get("tailwindcss", "3.4.2").lstrip("^~>=")
+)
 
 # sentry
 if not DEBUG and env.bool("ENABLE_SENTRY", default=True):

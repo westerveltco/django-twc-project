@@ -66,7 +66,7 @@ createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('"'"'{{ USERNAME }}'"'"', '"'"'{{ EMAIL }}'"'"', '"'"'{{ PASSWORD }}'"'"') if not User.objects.filter(username='"'"'{{ USERNAME }}'"'"').exists() else None" | python manage.py shell'
 
 resetuserpassword USERNAME="admin" PASSWORD="admin":
-    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"''"'"'); user.set_password('"'"''"'"'); user.save()" | python manage.py shell'
+    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{{ USERNAME }}'"'"'); user.set_password('"'"'{{ PASSWORD }}'"'"'); user.save()" | python manage.py shell'
 
 # ----------------------------------------------------------------------
 # DOCS
@@ -101,15 +101,15 @@ docs-serve:
 
 docs-build LOCATION="docs/_build/html":
     just _cog
-    sphinx-build docs
+    sphinx-build docs {{ LOCATION }}
 
 # ----------------------------------------------------------------------
 # DOCKER
 # ----------------------------------------------------------------------
 
 # Build services using docker-compose
-build:
-    docker compose build
+build *ARGS:
+    docker compose build {{ ARGS }}
 
 # Build production stack using docker-compose
 build-prod:
@@ -121,7 +121,7 @@ clean:
 
 # Run the Playwright codegen command within the 'app' container
 codegen *ARGS:
-    @just command "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {{ ARGS }}; kill %1"
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app /bin/bash -c "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {{ ARGS }}; kill %1"
 
 # Run a command within the 'app' container
 command *ARGS:
@@ -174,6 +174,14 @@ stop:
 # Continuously display the latest logs by using the --follow option, optionally targeting specific containers
 tail *ARGS:
     @just logs '--follow {{ ARGS }}'
+
+# Run tests using pytest within the 'app' container, with optional arguments
+@test *ARGS:
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app pytest {{ ARGS }}
+
+# Run tests with Playwright debug mode enabled, in the 'app' container, with optional arguments
+@test-debug *ARGS:
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node -e PWDEBUG=1 app pytest {{ ARGS }}
 
 # Start services using docker-compose, with optional arguments
 up *ARGS:

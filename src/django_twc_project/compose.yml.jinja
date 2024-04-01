@@ -25,7 +25,7 @@ services:
       - "${DJANGO_PORT:-8000}:8000"
 
   db:
-    image: postgres:15
+    image: {{ postgres_docker_image }}:{{ postgres_docker_version }}
     env_file:
       - .env
     init: true
@@ -33,9 +33,14 @@ services:
       POSTGRES_DB: postgres
       POSTGRES_PASSWORD: postgres
       POSTGRES_USER: postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    healthcheck:
+      test: "exit 0"
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - .:/app
+{%- if include_vite %}
 
   node:
     <<: *default-app
@@ -50,6 +55,7 @@ services:
     depends_on: []
     ports:
       - "5173:5173"
+{%- endif %}
 
   tailwind:
     <<: *default-app

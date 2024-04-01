@@ -17,9 +17,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+-   Now using v2 of `1password/load-secrets-action` GitHub Action.
+-   Now using v0.3.2 of `ruff` in pre-commit.
+-   Shortened all `docker-compose*.yml` files to `compose*.yml` files. This is the recommended file naming scheme now.
+-   Tailwind CSS version now read from `package.json` anywhere the version is needed.
+-   Playwright installation stage in `Dockerfile` moved to earlier stage with the dev stage inheriting from it later on. This allows for the system dependencies and browsers installation and building to be cached without anything in the project busting it.
+
 ### Removed
 
 -   `project.yml` GitHub Actions workflow file. This is now taken care of by a custom GitHub bot.
+
+### Fixed
+
+-   Now mirroring the `default` database when testing. This is the recommendation from the Django documentation.
 
 ## [2024.7]
 

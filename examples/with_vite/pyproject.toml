@@ -1,17 +1,17 @@
 [tool.bumpver]
 commit = true
 commit_message = ":bookmark: bump version {old_version} -> {new_version}"
-current_version = "2024.3.1"
+current_version = "2024.4.1"
 push = false  # set to false for CI
 tag = false
 version_pattern = "YYYY.MM.INC1"
 
 [tool.bumpver.file_patterns]
-"tests/test_version.py" = [
-  'assert __version__ == "{version}"'
-]
 "with_vite/__init__.py" = [
   '__version__ = "{version}"'
+]
+"tests/test_version.py" = [
+  'assert __version__ == "{version}"'
 ]
 
 [tool.coverage.report]
@@ -76,7 +76,9 @@ module = [
   "django_q.*",
   "djclick.*",
   "gunicorn.*",
-  "health_check.*"
+  "health_check.*",
+  "neapolitan.*",
+  "simple_history.*"
 ]
 
 [tool.mypy_django_plugin]

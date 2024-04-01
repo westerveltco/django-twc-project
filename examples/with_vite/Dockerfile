@@ -1,7 +1,6 @@
 # syntax=docker/dockerfile:1
 ARG PYTHON_VERSION=3.11
 ARG NODE_VERSION=20
-ARG VITE_API_BASE_URL=http://localhost:8000/api/
 ARG UID=1000
 ARG GID=1000
 
@@ -54,6 +53,13 @@ RUN --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.
   && uv pip install -r requirements.txt
 
 
+FROM py as playwright
+ENV PLAYWRIGHT_BROWSERS_PATH /usr/local/bin/playwright-browsers
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get update --fix-missing \
+  && playwright install --with-deps
+
+
 FROM node-base as node
 COPY --from=py --link /usr/local /usr/local
 COPY --link package*.json /app
@@ -87,15 +93,11 @@ COPY --link with_vite /app/with_vite
 COPY --link templates /app/templates
 
 
-FROM app as dev
-ENV PLAYWRIGHT_BROWSERS_PATH /usr/local/bin/playwright-browsers
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  apt-get update --fix-missing \
-  && playwright install --with-deps
+FROM playwright as dev
+COPY --from=app --link /app /app
 
 
 FROM node as node-final
-ARG VITE_API_BASE_URL=http://localhost:8000/api/
 COPY --from=tailwind --link /usr/local /usr/local
 COPY --from=app --link /app /app
 COPY --link static /app/static

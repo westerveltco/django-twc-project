@@ -66,14 +66,14 @@ jobs:
             libpangoft2-1.0-0 \
             ttf-mscorefonts-installer \
 {%- endif %}
-            build-essential \
+            build-essential
           playwright install --with-deps
 
       - name: Run migrations
         run: |
           python manage.py migrate --skip-checks
-
 {%- if include_vite %}
+
       - name: Build frontend
         run: |
           npm run build
@@ -81,7 +81,7 @@ jobs:
 
       - name: Build staticfiles
         run: |
-          python manage.py tailwind build
+          python manage.py tailwind build --skip-checks
           python manage.py collectstatic --no-input --skip-checks
 
       # https://hynek.me/articles/ditch-codecov-python/

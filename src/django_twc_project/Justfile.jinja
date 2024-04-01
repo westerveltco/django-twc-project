@@ -66,7 +66,7 @@ createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"', '"'"'{% raw %}{{ EMAIL }}{% endraw %}'"'"', '"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"') if not User.objects.filter(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"').exists() else None" | python manage.py shell'
 
 resetuserpassword USERNAME="admin" PASSWORD="admin":
-    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{{ USERNAME }}'"'"'); user.set_password('"'"'{{ PASSWORD }}'"'"'); user.save()" | python manage.py shell'
+    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"'); user.set_password('"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"'); user.save()" | python manage.py shell'
 
 # ----------------------------------------------------------------------
 # DOCS
@@ -101,15 +101,15 @@ docs-serve:
 
 docs-build LOCATION="docs/_build/html":
     just _cog
-    sphinx-build docs {{ LOCATION }}
+    sphinx-build docs {% raw %}{{ LOCATION }}{% endraw %}
 
 # ----------------------------------------------------------------------
 # DOCKER
 # ----------------------------------------------------------------------
 
 # Build services using docker-compose
-build:
-    docker compose build
+build *ARGS:
+    docker compose build {% raw %}{{ ARGS }}{% endraw %}
 
 # Build production stack using docker-compose
 build-prod:
@@ -121,7 +121,11 @@ clean:
 
 # Run the Playwright codegen command within the 'app' container
 codegen *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app /bin/bash -c "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {% raw %}{{ ARGS }}{% endraw %}; kill %1"
+{%- else %}
     @just command "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {% raw %}{{ ARGS }}{% endraw %}; kill %1"
+{%- endif %}
 
 # Run a command within the 'app' container
 command *ARGS:
@@ -174,6 +178,22 @@ stop:
 # Continuously display the latest logs by using the --follow option, optionally targeting specific containers
 tail *ARGS:
     @just logs '--follow {% raw %}{{ ARGS }}{% endraw %}'
+
+# Run tests using pytest within the 'app' container, with optional arguments
+@test *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- else %}
+    @just command "pytest {% raw %}{{ ARGS }}{% endraw %}"
+{%- endif %}
+
+# Run tests with Playwright debug mode enabled, in the 'app' container, with optional arguments
+@test-debug *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node -e PWDEBUG=1 app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- else %}
+    docker compose run --rm --no-deps -e PWDEBUG=1 app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- endif %}
 
 # Start services using docker-compose, with optional arguments
 up *ARGS:
