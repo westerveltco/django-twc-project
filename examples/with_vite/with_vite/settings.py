@@ -5,6 +5,7 @@ import multiprocessing
 import re
 import socket
 import sys
+from email.utils import parseaddr
 from pathlib import Path
 
 import django_stubs_ext
@@ -12,6 +13,8 @@ import sentry_sdk
 from django.template import base
 from email_relay.conf import EMAIL_RELAY_DATABASE_ALIAS
 from environs import Env
+from marshmallow.validate import Email
+from marshmallow.validate import OneOf
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
 
@@ -45,7 +48,7 @@ STAGING = env.bool("STAGING", default=False)
 # 1. Django Core Settings
 # https://docs.djangoproject.com/en/4.0/ref/settings/
 
-ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"])
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str)
 
 ASGI_APPLICATION = "with_vite.asgi.application"
 
@@ -69,9 +72,9 @@ if not DEBUG and (
     DISABLE_SERVER_SIDE_CURSORS := env.bool("DISABLE_SERVER_SIDE_CURSORS", default=True)
 ):
     DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = DISABLE_SERVER_SIDE_CURSORS
-    DATABASES[EMAIL_RELAY_DATABASE_ALIAS]["DISABLE_SERVER_SIDE_CURSORS"] = (
-        DISABLE_SERVER_SIDE_CURSORS
-    )
+    DATABASES[EMAIL_RELAY_DATABASE_ALIAS][
+        "DISABLE_SERVER_SIDE_CURSORS"
+    ] = DISABLE_SERVER_SIDE_CURSORS
 DATABASES[EMAIL_RELAY_DATABASE_ALIAS]["TEST"] = {"MIRROR": "default"}
 
 DATABASE_ROUTERS = [
@@ -80,9 +83,10 @@ DATABASE_ROUTERS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-DEFAULT_FROM_EMAIL = env(
+DEFAULT_FROM_EMAIL = env.str(
     "DEFAULT_FROM_EMAIL",
     default="johndoe@example.com",
+    validate=lambda v: Email()(parseaddr(v)[1]),
 )
 
 EMAIL_BACKEND = (
@@ -169,11 +173,11 @@ LOGGING = {
     "loggers": {
         "django": {
             "handlers": ["stdout"],
-            "level": env("DJANGO_LOG_LEVEL", default="INFO"),
+            "level": env.log_level("DJANGO_LOG_LEVEL", default="INFO"),
         },
         "with_vite": {
             "handlers": ["stdout"],
-            "level": env("WITH_VITE_LOG_LEVEL", default="INFO"),
+            "level": env.log_level("WITH_VITE_LOG_LEVEL", default="INFO"),
         },
     },
 }
@@ -215,7 +219,7 @@ if DEBUG:
 
 ROOT_URLCONF = "with_vite.urls"
 
-SECRET_KEY = env(
+SECRET_KEY = env.str(
     "SECRET_KEY",
     default="eZPdvuAaLrVY8Kj3DG2QNqJaJc4fPp6iDgYneKN3fkNmqgkcNnoNLkFe3NCRXqW",
 )
@@ -231,7 +235,11 @@ SECURE_HSTS_SECONDS = 0 if DEBUG else 600
 # https://fly.io/docs/reference/runtime-environment/#x-forwarded-proto
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-SERVER_EMAIL = env("SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
+SERVER_EMAIL = env.str(
+    "SERVER_EMAIL",
+    default=DEFAULT_FROM_EMAIL,
+    validate=lambda v: Email()(parseaddr(v)[1]),
+)
 
 SESSION_COOKIE_SECURE = not DEBUG
 
@@ -344,8 +352,8 @@ LOGIN_REDIRECT_URL = "index"
 SOCIALACCOUNT_PROVIDERS = {
     "okta": {
         "APP": {
-            "client_id": env("OKTA_CLIENT_ID", default=""),
-            "secret": env("OKTA_CLIENT_SECRET", default=""),
+            "client_id": env.str("OKTA_CLIENT_ID", default=None),
+            "secret": env.str("OKTA_CLIENT_SECRET", default=None),
         },
         "OKTA_BASE_URL": "westervelt.okta.com",
         "OAUTH_PKCE_ENABLED": True,
@@ -369,24 +377,24 @@ Q_CLUSTER = {
 }
 
 # django-storages
-AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID", default=None)
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", default=None)
 
-AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY", default=None)
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", default=None)
 
-AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default=None)
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", default=None)
 
-AWS_S3_ADDRESSING_STYLE = env("AWS_S3_ADDRESSING_STYLE", default="virtual")
+AWS_S3_ADDRESSING_STYLE = env.str("AWS_S3_ADDRESSING_STYLE", default="virtual")
 
-AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME", default=None)
+AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default=None)
 
-AWS_S3_SIGNATURE_VERSION = env("AWS_S3_SIGNATURE_VERSION", default="s3v4")
+AWS_S3_SIGNATURE_VERSION = env.str("AWS_S3_SIGNATURE_VERSION", default="s3v4")
 
 # django-tailwind-cli
 TAILWIND_CLI_CONFIG_FILE = "tailwind.config.mjs"
 
 TAILWIND_CLI_DIST_CSS = "css/tailwind.css"
 
-TAILWIND_CLI_PATH = env("TAILWIND_CLI_PATH", default="/usr/local/bin/")
+TAILWIND_CLI_PATH = env.path("TAILWIND_CLI_PATH", default="/usr/local/bin/")
 
 TAILWIND_CLI_SRC_CSS = "static/src/tailwind.css"
 
@@ -409,8 +417,12 @@ DJANGO_VITE_DEV_SERVER_PORT = 5173
 # sentry
 if not DEBUG and env.bool("ENABLE_SENTRY", default=True):
     sentry_sdk.init(
-        dsn=env("SENTRY_DSN", default=None),
-        environment=env("SENTRY_ENV", default=None),
+        dsn=env.url("SENTRY_DSN", default=None),
+        environment=env.str(
+            "SENTRY_ENV",
+            default="development",
+            validate=OneOf(["development", "test", "staging", "production"]),
+        ),
         integrations=[
             DjangoIntegration(),
             LoggingIntegration(event_level=None, level=None),
