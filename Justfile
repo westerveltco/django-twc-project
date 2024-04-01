@@ -11,6 +11,7 @@ set dotenv-load := true
     for file in `ls examples/*.yml`; do \
         just _generate-example $file; \
     done
+    @just lint
 
 _generate-example DATA_FILE:
     #!/usr/bin/env bash
