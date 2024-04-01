@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 import multiprocessing
 import re
 import socket
@@ -394,7 +395,12 @@ TAILWIND_CLI_PATH = env("TAILWIND_CLI_PATH", default="/usr/local/bin/")
 
 TAILWIND_CLI_SRC_CSS = "static/src/tailwind.css"
 
-TAILWIND_CLI_VERSION = env.str("TAILWIND_CLI_VERSION", default="3.4.0")
+with open(BASE_DIR / "package.json") as f:
+    package_json = json.load(f)
+
+TAILWIND_CLI_VERSION = (
+    package_json.get("devDependencies", {}).get("tailwindcss", "3.4.2").lstrip("^~>=")
+)
 
 # django-vite
 DJANGO_VITE_ASSETS_PATH = BASE_DIR / "static" / "dist"

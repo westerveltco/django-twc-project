@@ -1,9 +1,9 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: e80182f
+_commit: '2460858'
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
-current_version: 2024.3.1
+current_version: 2024.4.1
 default_from_email: johndoe@example.com
 django_version: '4.2'
 domain_name: default.westervelt.com
