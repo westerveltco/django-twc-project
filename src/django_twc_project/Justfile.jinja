@@ -66,7 +66,7 @@ createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"', '"'"'{% raw %}{{ EMAIL }}{% endraw %}'"'"', '"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"') if not User.objects.filter(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"').exists() else None" | python manage.py shell'
 
 resetuserpassword USERNAME="admin" PASSWORD="admin":
-    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{{ USERNAME }}'"'"'); user.set_password('"'"'{{ PASSWORD }}'"'"'); user.save()" | python manage.py shell'
+    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"'); user.set_password('"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"'); user.save()" | python manage.py shell'
 
 # ----------------------------------------------------------------------
 # DOCS
