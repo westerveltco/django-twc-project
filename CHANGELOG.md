@@ -34,6 +34,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 -   Now mirroring the `default` database when testing. This is the recommendation from the Django documentation.
+-   `STORAGES["staticfiles"]["BACKEND"]` now correctly using `django.contrib.staticfiles.StaticFilesStorage` instead of the `InMemoryStorage` backend. This was causing the static templatetag to look in the `mediafiles` directory instead of the `static` directory.
 
 ## [2024.7]
 
