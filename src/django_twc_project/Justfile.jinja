@@ -108,8 +108,8 @@ docs-build LOCATION="docs/_build/html":
 # ----------------------------------------------------------------------
 
 # Build services using docker-compose
-build:
-    docker compose build
+build *ARGS:
+    docker compose build {% raw %}{{ ARGS }}{% endraw %}
 
 # Build production stack using docker-compose
 build-prod:
@@ -121,7 +121,11 @@ clean:
 
 # Run the Playwright codegen command within the 'app' container
 codegen *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app /bin/bash -c "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {% raw %}{{ ARGS }}{% endraw %}; kill %1"
+{%- else %}
     @just command "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {% raw %}{{ ARGS }}{% endraw %}; kill %1"
+{%- endif %}
 
 # Run a command within the 'app' container
 command *ARGS:
@@ -174,6 +178,22 @@ stop:
 # Continuously display the latest logs by using the --follow option, optionally targeting specific containers
 tail *ARGS:
     @just logs '--follow {% raw %}{{ ARGS }}{% endraw %}'
+
+# Run tests using pytest within the 'app' container, with optional arguments
+@test *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- else %}
+    @just command "pytest {% raw %}{{ ARGS }}{% endraw %}"
+{%- endif %}
+
+# Run tests with Playwright debug mode enabled, in the 'app' container, with optional arguments
+@test-debug *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node -e PWDEBUG=1 app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- else %}
+    docker compose run --rm --no-deps -e PWDEBUG=1 app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- endif %}
 
 # Start services using docker-compose, with optional arguments
 up *ARGS:
