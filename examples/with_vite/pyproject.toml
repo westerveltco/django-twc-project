@@ -7,11 +7,11 @@ tag = false
 version_pattern = "YYYY.MM.INC1"
 
 [tool.bumpver.file_patterns]
-"tests/test_version.py" = [
-  'assert __version__ == "{version}"'
-]
 "with_vite/__init__.py" = [
   '__version__ = "{version}"'
+]
+"tests/test_version.py" = [
+  'assert __version__ == "{version}"'
 ]
 
 [tool.coverage.report]
@@ -76,7 +76,9 @@ module = [
   "django_q.*",
   "djclick.*",
   "gunicorn.*",
-  "health_check.*"
+  "health_check.*",
+  "neapolitan.*",
+  "simple_history.*"
 ]
 
 [tool.mypy_django_plugin]

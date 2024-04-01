@@ -76,7 +76,9 @@ module = [
   "django_q.*",
   "djclick.*",
   "gunicorn.*",
-  "health_check.*"
+  "health_check.*",
+  "neapolitan.*",
+  "simple_history.*"
 ]
 
 [tool.mypy_django_plugin]
