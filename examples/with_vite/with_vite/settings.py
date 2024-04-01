@@ -49,9 +49,7 @@ STAGING = env.bool("STAGING", default=False)
 # 1. Django Core Settings
 # https://docs.djangoproject.com/en/4.0/ref/settings/
 
-ALLOWED_HOSTS = env.list(
-    "ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str
-)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str)
 
 ASGI_APPLICATION = "with_vite.asgi.application"
 
@@ -75,9 +73,9 @@ if not DEBUG and (
     DISABLE_SERVER_SIDE_CURSORS := env.bool("DISABLE_SERVER_SIDE_CURSORS", default=True)
 ):
     DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = DISABLE_SERVER_SIDE_CURSORS
-    DATABASES[EMAIL_RELAY_DATABASE_ALIAS]["DISABLE_SERVER_SIDE_CURSORS"] = (
-        DISABLE_SERVER_SIDE_CURSORS
-    )
+    DATABASES[EMAIL_RELAY_DATABASE_ALIAS][
+        "DISABLE_SERVER_SIDE_CURSORS"
+    ] = DISABLE_SERVER_SIDE_CURSORS
 DATABASES[EMAIL_RELAY_DATABASE_ALIAS]["TEST"] = {"MIRROR": "default"}
 
 DATABASE_ROUTERS = [
