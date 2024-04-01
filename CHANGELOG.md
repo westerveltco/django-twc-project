@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   `django_browser_reload` middleware now only loaded in development (`DEBUG=True`).
 -   `template_partials` template loader has been removed in favor of built-in behavior. (The package automatically wraps the template loaders with the correct loader class.)
+-   All reading of environment variables using `environs.env` now have the correct types associated with them.
 
 ### Fixed
 
