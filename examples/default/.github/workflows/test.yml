@@ -61,7 +61,7 @@ jobs:
 
       - name: Build staticfiles
         run: |
-          python manage.py tailwind build
+          python manage.py tailwind build --skip-checks
           python manage.py collectstatic --no-input --skip-checks
 
       # https://hynek.me/articles/ditch-codecov-python/
