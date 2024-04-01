@@ -3,6 +3,7 @@ from __future__ import annotations
 import json
 import multiprocessing
 import re
+import secrets
 import socket
 import sys
 from email.utils import parseaddr
@@ -221,10 +222,7 @@ if DEBUG:
 
 ROOT_URLCONF = "{{ module_name }}.urls"
 
-SECRET_KEY = env.str(
-    "SECRET_KEY",
-    default="eZPdvuAaLrVY8Kj3DG2QNqJaJc4fPp6iDgYneKN3fkNmqgkcNnoNLkFe3NCRXqW",
-)
+SECRET_KEY = env.str("SECRET_KEY", default=secrets.token_hex(32))
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
 

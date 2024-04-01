@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 -   `django_browser_reload` middleware now only loaded in development (`DEBUG=True`).
 -   `template_partials` template loader has been removed in favor of built-in behavior. (The package automatically wraps the template loaders with the correct loader class.)
 -   All reading of environment variables using `environs.env` now have the correct types associated with them.
+-   `SECRET_KEY` now uses `secrets` stdlib module to generate a new secret key if not set. H/T to [@jacobian](https://github.com/jacobian) for the [inspiration](https://github.com/jacobian/personal-app-template/blob/f2318d8734cdffea66c9c874f6292d6bfdd8fc21/%7B%7B%20cookiecutter.project_slug%20%7D%7D/config/settings.py#L16).
 
 ### Fixed
 
