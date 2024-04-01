@@ -23,6 +23,7 @@ django-stubs
 django-tailwind-cli
 django-template-partials
 django-twc-toolbox
+django-vite
 environs[django]
 gunicorn
 heroicons
@@ -31,12 +32,14 @@ ipython
 model_bakery
 mypy
 pip-tools
+playwright
 pre-commit
 psycopg
 psycopg-binary
 pytest
 pytest-django
 pytest-is-running
+pytest-playwright
 pytest-randomly
 pytest-reverse
 pytest-xdist
@@ -44,3 +47,6 @@ ruff
 sentry-sdk[django]
 types-croniter
 whitenoise
+
+django-twc-ui @ git+https://super-secret-token:x-oauth-basic@github.com/westerveltco/django-twc-ui.git@main
+neapolitan @ git+https://github.com/westerveltco/neapolitan.git@main

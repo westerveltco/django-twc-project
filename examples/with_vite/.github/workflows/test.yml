@@ -42,9 +42,10 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          node-version: 20.9.0
+          node-version: 20
           python-version: 3.11
-          python-requirements: requirements.txt,requirements.nohash.txt
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install system packages
         env:
@@ -52,17 +53,19 @@ jobs:
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends \
             build-essential
+          playwright install --with-deps
 
       - name: Run migrations
         run: |
           python manage.py migrate --skip-checks
+
       - name: Build frontend
         run: |
           npm run build
 
       - name: Build staticfiles
         run: |
-          python manage.py tailwind build
+          python manage.py tailwind build --skip-checks
           python manage.py collectstatic --no-input --skip-checks
 
       # https://hynek.me/articles/ditch-codecov-python/
@@ -88,7 +91,8 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           python-version: 3.11
-          python-requirements: requirements.txt,requirements.nohash.txt
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install system packages
         env:
@@ -111,7 +115,8 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           python-version: 3.11
-          python-requirements: requirements.txt,requirements.nohash.txt
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install dependencies
         env:

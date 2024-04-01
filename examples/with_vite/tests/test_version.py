@@ -4,4 +4,4 @@ from with_vite import __version__
 
 
 def test_version():
-    assert __version__ == "2024.2.1"
+    assert __version__ == "2024.4.1"

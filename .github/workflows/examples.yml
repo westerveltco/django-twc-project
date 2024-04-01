@@ -22,7 +22,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: extractions/setup-just@v1
+      - uses: extractions/setup-just@v2
 
       - uses: westerveltco/setup-ci-action@v0
         with:

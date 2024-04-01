@@ -5,51 +5,29 @@ export DATABASE_URL := env_var_or_default('DATABASE_URL', 'postgres://postgres:p
 @_default:
     just --list
 
-venv:
-    pyenv virtualenv {{ python_version }} {{ module_name }}-{{ python_version }}
-    pyenv local {{ module_name }}-{{ python_version }}
-
-bootstrap:
-    just envsync
-    just pup
-    if ! {% raw %}{{ path_exists("requirements.txt") }}{% endraw %}; then \
-        just pip-compile; \
-    fi
-    just install
-    just build
-    just migrate
-    just start
-    just createsuperuser
-
 # ----------------------------------------------------------------------
 # DEPENDENCIES
 # ----------------------------------------------------------------------
 
-_pip-compile *ARGS:
-    python -m piptools compile --resolver=backtracking --strip-extras {% raw %}{{ ARGS }}{% endraw %}
+bootstrap:
+    python -m pip install --upgrade pip uv
+    @just install
 
-@pip-compile *ARGS:
-    just _pip-compile {% raw %}{{ ARGS }}{% endraw %} --generate-hashes requirements.in
-{%- for requirements_filename in extra_requirements_files.split(',') %}
-    just _pip-compile {% raw %}{{ ARGS }}{% endraw %} {{ requirements_filename }}.in
-{%- endfor %}
+lock *ARGS:
+    python -m uv pip compile {% raw %}{{ ARGS }}{% endraw %} --generate-hashes requirements.in --output-file requirements.txt
 
-_install *ARGS:
-    python -m pip install --upgrade {% raw %}{{ ARGS }}{% endraw %}
+install *ARGS:
+    python -m uv pip install --upgrade -r requirements.txt
 
-@install:
-    just _install -r requirements.txt
-{%- for requirements_filename in extra_requirements_files.split(',') %}
-    just _install -r {{ requirements_filename }}.txt
-{%- endfor %}
-    npm install
+upgrade:
+    @just lock --upgrade
 
 pup:
-    python -m pip install --upgrade pip pip-tools
+    python -m pip install --upgrade pip uv
 
 update:
     @just pup
-    @just pip-compile --upgrade
+    @just upgrade
     @just install
 
 # ----------------------------------------------------------------------
@@ -88,7 +66,7 @@ createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"', '"'"'{% raw %}{{ EMAIL }}{% endraw %}'"'"', '"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"') if not User.objects.filter(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"').exists() else None" | python manage.py shell'
 
 resetuserpassword USERNAME="admin" PASSWORD="admin":
-    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{{ USERNAME }}'"'"'); user.set_password('"'"'{{ PASSWORD }}'"'"'); user.save()" | python manage.py shell'
+    docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"'); user.set_password('"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"'); user.save()" | python manage.py shell'
 
 # ----------------------------------------------------------------------
 # DOCS
@@ -103,41 +81,51 @@ graph:
         --group-models \
         --output ./docs/applications/images/users.svg
 
-@docs-pip-compile *ARGS:
-    just pip-compile {{ ARGS }} --output-file docs/requirements.txt docs/requirements.in
+docs-lock *ARGS:
+    python -m uv pip compile {% raw %}{{ ARGS }}{% endraw %} --generate-hashes docs/requirements.in --output-file docs/requirements.txt
 
-@docs-upgrade:
-    just docs-pip-compile --upgrade
+docs-upgrade:
+    @just docs-lock --upgrade
 
-@docs-install:
-    just _install -r docs/requirements.txt
+docs-install:
+    python -m uv pip install --upgrade -r docs/requirements.txt
 
 docs-serve:
     #!/usr/bin/env sh
-
     just _cog
-
     if [ -f "/.dockerenv" ]; then
         sphinx-autobuild docs docs/_build/html --host "0.0.0.0"
     else
         sphinx-autobuild docs docs/_build/html --host "localhost"
     fi
 
+docs-build LOCATION="docs/_build/html":
+    just _cog
+    sphinx-build docs {% raw %}{{ LOCATION }}{% endraw %}
+
 # ----------------------------------------------------------------------
 # DOCKER
 # ----------------------------------------------------------------------
 
 # Build services using docker-compose
-build:
-    docker compose build
+build *ARGS:
+    docker compose build {% raw %}{{ ARGS }}{% endraw %}
 
 # Build production stack using docker-compose
 build-prod:
     docker compose -f docker-compose.yml -f docker-compose.prod.yml build
 
 # Stop and remove all containers, networks, images, and volumes
-@clean:
-    just down --volumes --rmi local
+clean:
+    @just down --volumes --rmi local
+
+# Run the Playwright codegen command within the 'app' container
+codegen *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app /bin/bash -c "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {% raw %}{{ ARGS }}{% endraw %}; kill %1"
+{%- else %}
+    @just command "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {% raw %}{{ ARGS }}{% endraw %}; kill %1"
+{%- endif %}
 
 # Run a command within the 'app' container
 command *ARGS:
@@ -176,20 +164,36 @@ shell-db:
     docker compose run --rm --no-deps db psql -d {% raw %}{{ DATABASE_URL }}{% endraw %}
 
 # Start services using docker-compose, defaulting to detached mode
-@start *ARGS="--detach":
-    just up {% raw %}{{ ARGS }}{% endraw %}
+start *ARGS="--detach":
+    @just up {% raw %}{{ ARGS }}{% endraw %}
 
 # Start the full production stack using docker-compose, defaulting to detached mode
-@start-prod *ARGS="--detach":
-    just up-prod {% raw %}{{ ARGS }}{% endraw %}
+start-prod *ARGS="--detach":
+    @just up-prod {% raw %}{{ ARGS }}{% endraw %}
 
 # Stop services by calling the 'down' command
-@stop:
-    just down
+stop:
+    @just down
 
 # Continuously display the latest logs by using the --follow option, optionally targeting specific containers
-@tail *ARGS:
-    just logs '--follow {% raw %}{{ ARGS }}{% endraw %}'
+tail *ARGS:
+    @just logs '--follow {% raw %}{{ ARGS }}{% endraw %}'
+
+# Run tests using pytest within the 'app' container, with optional arguments
+@test *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- else %}
+    @just command "pytest {% raw %}{{ ARGS }}{% endraw %}"
+{%- endif %}
+
+# Run tests with Playwright debug mode enabled, in the 'app' container, with optional arguments
+@test-debug *ARGS:
+{%- if include_vite %}
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node -e PWDEBUG=1 app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- else %}
+    docker compose run --rm --no-deps -e PWDEBUG=1 app pytest {% raw %}{{ ARGS }}{% endraw %}
+{%- endif %}
 
 # Start services using docker-compose, with optional arguments
 up *ARGS:
@@ -198,6 +202,42 @@ up *ARGS:
 # Start the full production stack using docker-compose
 up-prod *ARGS:
     docker compose -f docker-compose.yml -f docker-compose.prod.yml up {% raw %}{{ ARGS }}{% endraw %}
+
+
+# ----------------------------------------------------------------------
+# POSTGRES BACKUP AND RESTORE
+# ----------------------------------------------------------------------
+
+# dump our local database to file
+pg_dump database_url=DATABASE_URL file='db.dump':
+    docker compose run \
+        --rm \
+        --no-deps \
+        db \
+        pg_dump \
+            --dbname {% raw %}{{ database_url }}{% endraw %} \
+            --file /app/{% raw %}{{ file }}{% endraw %} \
+            --format=c \
+            --verbose
+
+# dump our production database to file
+pg_dump_prod file='production.dump':
+    set PROD_DATABASE_URL := "{% raw %}{{ env_var('PROD_DATABASE_URL') }}{% endraw %}"
+    @just pg_dump ${PROD_DATABASE_URL} {% raw %}{{ file }}{% endraw %}
+
+# restore database backup to our local database
+pg_restore file='db.dump':
+    docker compose run \
+        --rm \
+        --no-deps \
+        db \
+        pg_restore \
+            --clean \
+            --dbname {% raw %}{{ DATABASE_URL }}{% endraw %} \
+            --if-exists \
+            --no-owner \
+            --verbose \
+            /app/{% raw %}{{ file }}{% endraw %}
 
 # ----------------------------------------------------------------------
 # UTILS

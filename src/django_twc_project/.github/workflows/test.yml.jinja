@@ -44,7 +44,8 @@ jobs:
         with:
           node-version: {{ node_version }}
           python-version: {{ python_version }}
-          python-requirements: requirements.txt{% for requirements_filename in extra_requirements_files.split(',') %},{{ requirements_filename }}.txt{% if not loop.last %},{% endif %}{% endfor %}
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install system packages
         env:
@@ -66,12 +67,13 @@ jobs:
             ttf-mscorefonts-installer \
 {%- endif %}
             build-essential
+          playwright install --with-deps
 
       - name: Run migrations
         run: |
           python manage.py migrate --skip-checks
-
 {%- if include_vite %}
+
       - name: Build frontend
         run: |
           npm run build
@@ -79,7 +81,7 @@ jobs:
 
       - name: Build staticfiles
         run: |
-          python manage.py tailwind build
+          python manage.py tailwind build --skip-checks
           python manage.py collectstatic --no-input --skip-checks
 
       # https://hynek.me/articles/ditch-codecov-python/
@@ -105,7 +107,8 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           python-version: {{ python_version }}
-          python-requirements: requirements.txt{% for requirements_filename in extra_requirements_files.split(',') %},{{ requirements_filename }}.txt{% if not loop.last %},{% endif %}{% endfor %}
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install system packages
         env:
@@ -142,7 +145,8 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           python-version: {{ python_version }}
-          python-requirements: requirements.txt{% for requirements_filename in extra_requirements_files.split(',') %},{{ requirements_filename }}.txt{% if not loop.last %},{% endif %}{% endfor %}
+          python-requirements: requirements.txt
+          use-uv: true
 
       - name: Install dependencies
         env:

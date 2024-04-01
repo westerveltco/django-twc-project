@@ -9,7 +9,7 @@ _secret_questions:
 _subdirectory: src/django_twc_project
 
 template_version:
-  default: "2024.6"
+  default: "2024.7"
   when: false
 
 # ----------------------------------------------------------------------
@@ -73,12 +73,7 @@ django_version:
 node_version:
   type: str
   help: Which version of Node.js should be used?
-  default: "20.9.0"
-
-nvm_version:
-  type: str
-  help: Which version of Node Version Manager (nvm) should be used?
-  default: "0.39.5"
+  default: "20"
 
 tailwindcss_version:
   type: str
@@ -88,11 +83,6 @@ tailwindcss_version:
 # ----------------------------------------------------------------------
 # DEPENDENCIES
 # ----------------------------------------------------------------------
-
-extra_requirements_files:
-  type: str
-  help: Comma separated list of all extra `requirements.{in,txt}` filenames without the extension
-  default: requirements.nohash
 
 django_twc_ui_token:
   type: str

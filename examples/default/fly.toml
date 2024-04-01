@@ -11,8 +11,6 @@ strategy = "bluegreen"
 [env]
 ALLOWED_HOSTS = "default-example_owner.fly.dev,default.westervelt.com"
 DEBUG = "False"
-DISABLE_SERVER_SIDE_CURSORS = "True"
-ENABLE_SENTRY = "True"
 PORT = "8000"
 SENTRY_DSN = "https://example.com"
 SENTRY_ENV = "production"
@@ -26,13 +24,14 @@ worker = "/worker.sh"
 
 [[services]]
 internal_port = 8000
+min_machines_running = 1
 processes = ["web"]
 protocol = "tcp"
 
 [services.concurrency]
-hard_limit = 25
-soft_limit = 20
-type = "connections"
+hard_limit = 250
+soft_limit = 200
+type = "requests"
 
 [[services.ports]]
 force_https = true
@@ -52,3 +51,7 @@ timeout = "2s"
 [[statics]]
 guest_path = "/app/staticfiles"
 url_prefix = "/static/"
+
+[[vm]]
+memory = "1gb"
+size = "shared-cpu-1x"

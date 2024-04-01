@@ -189,3 +189,6 @@ mediafiles/
 
 # pyright config for nvim-lspconfig
 pyrightconfig.json
+
+# docker
+compose.override.yml

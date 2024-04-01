@@ -1,13 +1,12 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 1a4c5d1
+_commit: 11ecd20
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
-current_version: 2024.2.1
+current_version: 2024.4.1
 default_from_email: johndoe@example.com
 django_version: '4.2'
 domain_name: with_vite.westervelt.com
-extra_requirements_files: requirements.nohash
 fly_app_name: with_vite-example_owner
 fly_primary_region: atl
 github_owner: example_owner
@@ -15,8 +14,7 @@ github_repo: with_vite
 include_vite: true
 include_weasyprint: false
 module_name: with_vite
-node_version: 20.9.0
-nvm_version: 0.39.5
+node_version: '20'
 op_vault: with_vite
 postgres_docker_image: postgres
 postgres_docker_version: '15'

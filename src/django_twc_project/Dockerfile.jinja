@@ -1,11 +1,6 @@
+# syntax=docker/dockerfile:1
 ARG PYTHON_VERSION={{ python_version }}
 ARG NODE_VERSION={{ node_version }}
-ARG NVM_VERSION={{ nvm_version }}
-ARG TAILWINDCSS_VERSION={{ tailwindcss_version }}
-ARG TAILWINDCSS_ARCH=x64
-{%- if include_vite %}
-ARG VITE_API_BASE_URL=http://localhost:8000/api/
-{%- endif %}
 ARG UID=1000
 ARG GID=1000
 
@@ -13,15 +8,20 @@ FROM python:${PYTHON_VERSION}-slim as base
 ARG UID
 ARG GID
 ENV DEBUG False
+ENV DEBIAN_FRONTEND noninteractive
+ENV PIP_DISABLE_PIP_VERSION_CHECK 1
 ENV PYTHONPATH /app
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
-RUN mkdir -p /app /app/mediafiles
-RUN echo 'deb http://deb.debian.org/debian/ bookworm main contrib' >> /etc/apt/sources.list \
-  && DEBIAN_FRONTEND=noninteractive apt-get update && apt-get install -y --no-install-recommends \
+ENV UV_SYSTEM_PYTHON true
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  echo 'deb http://deb.debian.org/debian/ bookworm main contrib' >> /etc/apt/sources.list \
+  && apt-get update --fix-missing \
+  && apt-get install -y --no-install-recommends \
   build-essential \
   curl \
   git \
+  jq \
   # tailscale
   ca-certificates \
   iptables \
@@ -44,91 +44,113 @@ RUN echo 'deb http://deb.debian.org/debian/ bookworm main contrib' >> /etc/apt/s
   ttf-mscorefonts-installer \
 {%- endif %}
   # cleanup
-  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
-RUN addgroup -gid "${GID}" --system django \
+  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
+  && mkdir -p /app \
+  && addgroup -gid "${GID}" --system django \
   && adduser -uid "${UID}" -gid "${GID}" --home /home/django --system django
 WORKDIR /app
 
 
-FROM base as py
-COPY requirements*.txt ./
-RUN python -m pip install --upgrade pip \
-  && python -m pip install -r requirements.txt \
-{%- for requirements_filename in extra_requirements_files.split(',') %}
-  && python -m pip install -r {{ requirements_filename }}.txt{% if not loop.last %} \{% endif %}
-{%- endfor %}
-
-
-FROM base as node
+FROM base as node-base
 ARG NODE_VERSION
-ARG NVM_VERSION
-ENV NVM_DIR=/usr/local/share/nvm
-ENV PATH="$NVM_DIR/versions/node/v${NODE_VERSION}/bin:${PATH}"
-COPY --from=py /usr/local /usr/local
-COPY package*.json /app/
-RUN mkdir -p ${NVM_DIR} \
-  && curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v${NVM_VERSION}/install.sh | bash \
-  && . "$NVM_DIR/nvm.sh" \
-  && nvm use v${NODE_VERSION} \
-  && nvm alias default v${NODE_VERSION} \
-  && chmod -R 755 "$NVM_DIR" \
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  curl -sL https://deb.nodesource.com/setup_${NODE_VERSION}.x | bash - \
+  && apt-get update --fix-missing \
+  && apt-get install -y --no-install-recommends nodejs \
   && npm install -g npm@latest \
-  && npm install
+  && apt-get autoremove -y \
+  && apt-get clean -y \
+  && rm -rf /var/lib/apt/lists/*
+
+
+FROM base as py
+COPY --link requirements*.txt ./
+RUN --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.cache/uv \
+  python -m pip install --upgrade pip uv \
+  && uv pip install -r requirements.txt
+
+
+FROM py as playwright
+ENV PLAYWRIGHT_BROWSERS_PATH /usr/local/bin/playwright-browsers
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get update --fix-missing \
+  && playwright install --with-deps
+
+
+FROM node-base as node
+COPY --from=py --link /usr/local /usr/local
+COPY --link package*.json /app
+RUN --mount=type=cache,target=/root/.npm npm install
 
 
 FROM node as tailwind
-ARG TAILWINDCSS_VERSION
-ARG TAILWINDCSS_ARCH
-ADD https://github.com/tailwindlabs/tailwindcss/releases/download/v${TAILWINDCSS_VERSION}/tailwindcss-linux-${TAILWINDCSS_ARCH} /usr/local/bin/tailwindcss-linux-${TAILWINDCSS_ARCH}-${TAILWINDCSS_VERSION}
-RUN chmod 755 /usr/local/bin/tailwindcss-linux-${TAILWINDCSS_ARCH}-${TAILWINDCSS_VERSION} \
+ARG UID
+ARG GID
+ARG BUILDARCH
+ARG BUILDVARIANT
+RUN case ${BUILDARCH} in \
+  arm64) \
+  case ${BUILDVARIANT} in \
+  v7) TAILWINDCSS_ARCH=armv7 ;; \
+  *)  TAILWINDCSS_ARCH=arm64 ;; \
+  esac ;; \
+  *) TAILWINDCSS_ARCH=x64 ;; \
+  esac \
+  && TAILWINDCSS_VERSION=$(jq -r '.dependencies.tailwindcss // .devDependencies.tailwindcss' package.json | sed 's/^[^0-9]*//') \
+  && curl -L https://github.com/tailwindlabs/tailwindcss/releases/download/v${TAILWINDCSS_VERSION}/tailwindcss-linux-${TAILWINDCSS_ARCH} -o /usr/local/bin/tailwindcss-linux-${TAILWINDCSS_ARCH}-${TAILWINDCSS_VERSION} \
+  && chmod 755 /usr/local/bin/tailwindcss-linux-${TAILWINDCSS_ARCH}-${TAILWINDCSS_VERSION} \
   && chown ${UID}:${GID} /usr/local/bin/tailwindcss-linux-${TAILWINDCSS_ARCH}-${TAILWINDCSS_VERSION}
 
 
 FROM base as app
-COPY --from=py /usr/local /usr/local
-COPY manage.py /app
-COPY {{ module_name }} /app/{{ module_name }}
-COPY templates /app/templates
+COPY --from=py --link /usr/local /usr/local
+COPY --link manage.py /app
+COPY --link package.json /app
+COPY --link {{ module_name }} /app/{{ module_name }}
+COPY --link templates /app/templates
+
+
+FROM playwright as dev
+COPY --from=app --link /app /app
 
 
 FROM node as node-final
+COPY --from=tailwind --link /usr/local /usr/local
+COPY --from=app --link /app /app
+COPY --link static /app/static
 {%- if include_vite %}
-ARG VITE_API_BASE_URL
-{%- endif %}
-COPY --from=tailwind /usr/local /usr/local
-COPY --from=app /app /app
-COPY static /app/static
-{%- if include_vite %}
-COPY postcss.config.js tailwind.config.js tsconfig.json vite.config.ts /app/
+COPY --link postcss.config.mjs tailwind.config.mjs tsconfig.json vite.config.ts /app/
 RUN npm run build \
   && python manage.py tailwind --skip-checks build
 {%- else %}
-COPY postcss.config.js tailwind.config.js /app/
+COPY --link postcss.config.mjs tailwind.config.mjs /app/
 RUN python manage.py tailwind --skip-checks build
 {%- endif %}
 
 
 FROM app as static
 ENV DATABASE_URL sqlite://:memory:
-COPY --from=py /usr/local /usr/local
-COPY --from=node-final /app/static/dist /app/static/dist
-COPY static/public /app/static/public
+COPY --from=py --link /usr/local /usr/local
+COPY --from=node-final --link /app/static/dist /app/static/dist
+COPY --from=node-final --link /app/package*.json /app/
+COPY --link static/public /app/static/public
 RUN python manage.py collectstatic --noinput --clear --skip-checks --no-default-ignore
 
 
 FROM base as final
-COPY --from=py /usr/local /usr/local
-COPY --from=app /app /app
-COPY --from=static /app/staticfiles /app/staticfiles
+ARG UID
+ARG GID
+COPY --from=py --link /usr/local /usr/local
+COPY --from=app --chown=${UID}:${GID} --link /app /app
+COPY --from=static --chown=${UID}:${GID} --link /app/staticfiles /app/staticfiles
 COPY --from=docker.io/tailscale/tailscale:stable /usr/local/bin/tailscaled /usr/local/bin/tailscaled
 COPY --from=docker.io/tailscale/tailscale:stable /usr/local/bin/tailscale /usr/local/bin/tailscale
-COPY .bin /
+COPY --chmod=755 --link .bin /
 RUN mkdir -p /var/run/tailscale /var/cache/tailscale /var/lib/tailscale \
-  && chmod +x /release.sh /tailscale.sh /web.sh /worker.sh \
-  && chown -R django:django /app \
-  && DEBIAN_FRONTEND=noninteractive apt-get remove -y --purge \
+  && apt-get remove -y --purge \
   build-essential \
   curl \
   git \
+  jq \
   && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 EXPOSE 8000
