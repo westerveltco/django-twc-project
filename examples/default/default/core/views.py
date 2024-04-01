@@ -54,13 +54,11 @@ def favicon(request: HttpRequest) -> HttpResponse | FileResponse:
     path = finders.find(name)
     if path:
         file = Path(path).open("rb")
-        response = FileResponse(file)
+        return FileResponse(file)
     else:
         if name == "favicon.ico":
-            response = HttpResponseNotFound()
-        else:
-            response = redirect("favicon.ico")
-    return response
+            return HttpResponseNotFound()
+    return redirect("favicon.ico")
 
 
 @require_GET
