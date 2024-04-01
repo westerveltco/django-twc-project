@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+-   Added missing `--no-default-ignore` to static collection step in `test.yml`. By default Vite puts the `manifest.json` in a `.vite` directory, so we need to make sure this is not ignored when collecting static files.
+
 ## [2024.8]
 
 ### Changed
