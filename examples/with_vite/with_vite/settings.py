@@ -200,7 +200,6 @@ MIDDLEWARE = [
     "simple_history.middleware.HistoryRequestMiddleware",
     "django_htmx.middleware.HtmxMiddleware",
     "django_flyio.middleware.FlyResponseMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
     # should be last
     "django.middleware.cache.FetchFromCacheMiddleware",
 ]
@@ -212,6 +211,7 @@ if DEBUG:
         MIDDLEWARE.index("django.middleware.common.CommonMiddleware") + 1,
         "debug_toolbar.middleware.DebugToolbarMiddleware",
     )
+    MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware")
 
 ROOT_URLCONF = "with_vite.urls"
 
