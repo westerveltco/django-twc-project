@@ -80,7 +80,7 @@ DATABASE_ROUTERS = [
 
 DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 
-DEFAULT_FROM_EMAIL = env(
+DEFAULT_FROM_EMAIL = env.str(
     "DEFAULT_FROM_EMAIL",
     default="{{ default_from_email }}",
 )
@@ -171,11 +171,11 @@ LOGGING = {
     "loggers": {
         "django": {
             "handlers": ["stdout"],
-            "level": env("DJANGO_LOG_LEVEL", default="INFO"),
+            "level": env.str("DJANGO_LOG_LEVEL", default="INFO"),
         },
         "{{ module_name }}": {
             "handlers": ["stdout"],
-            "level": env("{{ module_name | upper }}_LOG_LEVEL", default="INFO"),
+            "level": env.str("{{ module_name | upper }}_LOG_LEVEL", default="INFO"),
         },
     },
 }
@@ -217,7 +217,7 @@ if DEBUG:
 
 ROOT_URLCONF = "{{ module_name }}.urls"
 
-SECRET_KEY = env(
+SECRET_KEY = env.str(
     "SECRET_KEY",
     default="eZPdvuAaLrVY8Kj3DG2QNqJaJc4fPp6iDgYneKN3fkNmqgkcNnoNLkFe3NCRXqW",
 )
@@ -233,7 +233,7 @@ SECURE_HSTS_SECONDS = 0 if DEBUG else 600
 # https://fly.io/docs/reference/runtime-environment/#x-forwarded-proto
 SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
 
-SERVER_EMAIL = env("SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
+SERVER_EMAIL = env.str("SERVER_EMAIL", default=DEFAULT_FROM_EMAIL)
 
 SESSION_COOKIE_SECURE = not DEBUG
 
@@ -346,8 +346,8 @@ LOGIN_REDIRECT_URL = "index"
 SOCIALACCOUNT_PROVIDERS = {
     "okta": {
         "APP": {
-            "client_id": env("OKTA_CLIENT_ID", default=""),
-            "secret": env("OKTA_CLIENT_SECRET", default=""),
+            "client_id": env.str("OKTA_CLIENT_ID", default=""),
+            "secret": env.str("OKTA_CLIENT_SECRET", default=""),
         },
         "OKTA_BASE_URL": "westervelt.okta.com",
         "OAUTH_PKCE_ENABLED": True,
@@ -371,24 +371,24 @@ Q_CLUSTER = {
 }
 
 # django-storages
-AWS_ACCESS_KEY_ID = env("AWS_ACCESS_KEY_ID", default=None)
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", default=None)
 
-AWS_SECRET_ACCESS_KEY = env("AWS_SECRET_ACCESS_KEY", default=None)
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", default=None)
 
-AWS_STORAGE_BUCKET_NAME = env("AWS_STORAGE_BUCKET_NAME", default=None)
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", default=None)
 
-AWS_S3_ADDRESSING_STYLE = env("AWS_S3_ADDRESSING_STYLE", default="virtual")
+AWS_S3_ADDRESSING_STYLE = env.str("AWS_S3_ADDRESSING_STYLE", default="virtual")
 
-AWS_S3_REGION_NAME = env("AWS_S3_REGION_NAME", default=None)
+AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default=None)
 
-AWS_S3_SIGNATURE_VERSION = env("AWS_S3_SIGNATURE_VERSION", default="s3v4")
+AWS_S3_SIGNATURE_VERSION = env.str("AWS_S3_SIGNATURE_VERSION", default="s3v4")
 
 # django-tailwind-cli
 TAILWIND_CLI_CONFIG_FILE = "tailwind.config.mjs"
 
 TAILWIND_CLI_DIST_CSS = "css/tailwind.css"
 
-TAILWIND_CLI_PATH = env("TAILWIND_CLI_PATH", default="/usr/local/bin/")
+TAILWIND_CLI_PATH = env.str("TAILWIND_CLI_PATH", default="/usr/local/bin/")
 
 TAILWIND_CLI_SRC_CSS = "static/src/tailwind.css"
 
@@ -413,8 +413,8 @@ DJANGO_VITE_DEV_SERVER_PORT = 5173
 # sentry
 if not DEBUG and env.bool("ENABLE_SENTRY", default=True):
     sentry_sdk.init(
-        dsn=env("SENTRY_DSN", default=None),
-        environment=env("SENTRY_ENV", default=None),
+        dsn=env.str("SENTRY_DSN", default=None),
+        environment=env.str("SENTRY_ENV", default=None),
         integrations=[
             DjangoIntegration(),
             LoggingIntegration(event_level=None, level=None),
