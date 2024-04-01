@@ -9,7 +9,8 @@ concurrency:
   group: {% raw %}${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}{% endraw %}
 
 env:
-  CI: True
+  CI: true
+  ENABLE_SENTRY: false
   FORCE_COLOR: 1
 
 permissions:
