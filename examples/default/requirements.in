@@ -30,7 +30,6 @@ httpx
 ipython
 model_bakery
 mypy
-pip-tools
 playwright
 pre-commit
 psycopg
@@ -45,6 +44,7 @@ pytest-xdist
 ruff
 sentry-sdk[django]
 types-croniter
+uv
 whitenoise
 
 django-twc-ui @ git+https://super-secret-token:x-oauth-basic@github.com/westerveltco/django-twc-ui.git@main
