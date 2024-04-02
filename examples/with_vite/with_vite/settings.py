@@ -415,9 +415,9 @@ DJANGO_VITE_DEV_MODE = DEBUG and env.bool("DJANGO_VITE_DEV_MODE", default=True)
 DJANGO_VITE_DEV_SERVER_PORT = 5173
 
 # sentry
-if not DEBUG and env.bool("ENABLE_SENTRY", default=True):
+if (SENTRY_DSN := env.url("SENTRY_DSN", default=None)).scheme and not DEBUG:
     sentry_sdk.init(
-        dsn=env.url("SENTRY_DSN", default=None),
+        dsn=SENTRY_DSN.geturl(),
         environment=env.str(
             "SENTRY_ENV",
             default="development",
