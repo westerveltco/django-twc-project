@@ -3,11 +3,10 @@ build-backend = "hatchling.build"
 requires = ["hatchling"]
 
 [project]
-authors = [
-  {name = "Josh", email = "josh@joshthomas.dev"}
-]
+authors = [{name = "Josh", email = "josh@joshthomas.dev"}]
 dependencies = [
-  "copier>=9.1.1"
+  "copier>=9.1.1",
+  "pyyaml-include<2"  # temp fix for https://github.com/copier-org/copier/issues/1568
 ]
 description = "A Django project template for The Westervelt Company."
 dynamic = ["version"]
@@ -25,15 +24,9 @@ tag = false
 version_pattern = "YYYY.INC1"
 
 [tool.bumpver.file_patterns]
-"VERSION" = [
-  '{version}'
-]
-"copier.yml" = [
-  'default: "{version}"'
-]
-"tests/test_version.py" = [
-  'assert version == "{version}"'
-]
+"VERSION" = ['{version}']
+"copier.yml" = ['default: "{version}"']
+"tests/test_version.py" = ['assert version == "{version}"']
 
 [tool.hatch.metadata]
 allow-direct-references = true

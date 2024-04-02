@@ -36,8 +36,6 @@ execnet==2.0.2
     # via pytest-xdist
 filelock==3.13.3
     # via virtualenv
-fsspec==2024.3.1
-    # via pyyaml-include
 funcy==2.0
     # via copier
 html-tag-names==0.1.2
@@ -101,7 +99,7 @@ pyyaml==6.0.1
     # via jinja2-ansible-filters
     # via pre-commit
     # via pyyaml-include
-pyyaml-include==2.0
+pyyaml-include==1.4.1
     # via copier
 questionary==2.0.1
     # via copier
