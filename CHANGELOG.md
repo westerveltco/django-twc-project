@@ -23,10 +23,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Now prompted for the version of PostGIS to use in the project, if `postgis/postgis` is chosen as the PostgreSQL database.
 -   A new example project has been added to the `examples` directory using PostGIS.
+-   Two new `Justfile` commands for using `copier`'s recopy command: `copier-recopy` and `copier-recopy-all`.
+-   All `Justfile` commands now have a short description that is displayed when running `just` (default command) or `just --list`.
 
 ### Changed
 
 -   PostgreSQL version now takes into account the version of PostGIS, if that option is chosen.
+
+### Fixed
+
+-   Removed extra `test` command in `Justfile`.
+-   Fixed `compose.yml` filename in various `Justfile` commands.
 
 ## [2024.9]
 
