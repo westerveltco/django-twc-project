@@ -19,7 +19,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Fixed
 
--   Removed the `--skip-checks` flag from `django-tailwind-cli`'s build command in CI/CD.
+-   Moved the `--skip-checks` flag in `django-tailwind-cli`'s build command in CI/CD.
 
 ## [2024.11]
 
