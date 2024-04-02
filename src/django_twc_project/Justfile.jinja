@@ -296,7 +296,7 @@ copier-copy TEMPLATE_PATH DESTINATION_PATH=".":
     python -m copier copy --trust {% raw %}{{ TEMPLATE_PATH }}{% endraw %} {% raw %}{{ DESTINATION_PATH }}{% endraw %}
 
 # Recopy the project from the original template
-copier-recopy ANSWER_FILE *ARGS:
+copier-recopy ANSWERS_FILE *ARGS:
     python -m copier recopy --trust --answers-file {% raw %}{{ ANSWERS_FILE }}{% endraw %} {% raw %}{{ ARGS }}{% endraw %}
 
 # Loop through all answers files and recopy the project using copier
