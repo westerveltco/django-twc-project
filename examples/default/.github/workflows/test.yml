@@ -44,7 +44,7 @@ jobs:
       - uses: westerveltco/setup-ci-action@v0
         with:
           node-version: 20
-          python-version: 3.11
+          python-version: 3.12
           python-requirements: requirements.txt
           use-uv: true
 
@@ -87,7 +87,7 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: 3.11
+          python-version: 3.12
           python-requirements: requirements.txt
           use-uv: true
 
@@ -111,7 +111,7 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: 3.11
+          python-version: 3.12
           python-requirements: requirements.txt
           use-uv: true
 

@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 60e7d5d
+_commit: ae05efa
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
@@ -19,7 +19,7 @@ op_vault: with_vite
 postgres_docker_image: postgres
 postgres_docker_version: '15'
 project_name: with_vite
-python_version: '3.11'
+python_version: '3.12'
 sentry_dsn: https://example.com
 sentry_org: the-westervelt-company
 sentry_project: with_vite

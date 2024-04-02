@@ -2,7 +2,7 @@
 
 ## Requirements
 
-- Python 3.11
+- Python 3.12
   - It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) to manage your Python versions.
   - [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv) is also useful for managing virtual environments, though it is not required.
 - Node.js 20
@@ -33,8 +33,8 @@
    Using `pyenv` and `pyenv-virtualenv`:
 
    ```sh
-   pyenv virtualenv 3.11 with_vite-3.11
-   pyenv local with_vite-3.11
+   pyenv virtualenv 3.12 with_vite-3.12
+   pyenv local with_vite-3.12
    ```
 
 3. Run the setup script:
