@@ -26,6 +26,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 -   `.dockerignore` now uses a whitelist of files to include, rather than a blacklist. H/T to [@mhlut](https://github.com/mhlut) for the [inspiration](https://marijkeluttekes.dev/blog/articles/2024/03/18/smaller-docker-images-by-using-a-blanket-ignore/).
 -   Now using maximum Python version (3.12) throughout CI for repo.
 -   In `settings.py`, `SENTRY_DSN` now correctly using `environs.env.url` to validate the URL from the environment and passing the URL string to `sentry_sdk.init`.
+-   `uv` explicitly added to template's `requirements.in` file.
+
+### Removed
+
+-   `pip-tools` has been removed from `requirements.in`, in favor of `uv`.
 
 ### Fixed
 
