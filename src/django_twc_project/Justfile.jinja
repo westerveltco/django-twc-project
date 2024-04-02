@@ -89,28 +89,31 @@ createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
 resetuserpassword USERNAME="admin" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"'); user.set_password('"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"'); user.save()" | python manage.py shell'
 
-# ----------------------------------------------------------------------
-# DOCS
-# ----------------------------------------------------------------------
-
-_cog:
-    cog -r docs/just.md
-
+# Graph models using django-extensions graph_models command
 graph:
     just manage graph_models users \
         --exclude-models AbstractUser \
         --group-models \
         --output ./docs/applications/images/users.svg
 
-docs-lock *ARGS:
-    python -m uv pip compile {% raw %}{{ ARGS }}{% endraw %} --generate-hashes docs/requirements.in --output-file docs/requirements.txt
+# ----------------------------------------------------------------------
+# DOCS
+# ----------------------------------------------------------------------
 
-docs-upgrade:
-    @just docs-lock --upgrade
+# Build documentation using Sphinx
+docs-build LOCATION="docs/_build/html":
+    just _cog
+    sphinx-build docs {% raw %}{{ LOCATION }}{% endraw %}
 
+# Install documentation dependencies
 docs-install:
     python -m uv pip install --upgrade -r docs/requirements.txt
 
+# Generate documentation requirements
+docs-lock *ARGS:
+    python -m uv pip compile {% raw %}{{ ARGS }}{% endraw %} --generate-hashes docs/requirements.in --output-file docs/requirements.txt
+
+# Serve documentation locally
 docs-serve:
     #!/usr/bin/env sh
     just _cog
@@ -120,9 +123,12 @@ docs-serve:
         sphinx-autobuild docs docs/_build/html --host "localhost"
     fi
 
-docs-build LOCATION="docs/_build/html":
-    just _cog
-    sphinx-build docs {% raw %}{{ LOCATION }}{% endraw %}
+# Generate and upgrade documentation dependencies
+docs-upgrade:
+    @just docs-lock --upgrade
+
+_cog:
+    cog -r docs/just.md
 
 # ----------------------------------------------------------------------
 # DOCKER
