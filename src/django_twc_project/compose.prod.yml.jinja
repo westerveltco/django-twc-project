@@ -5,7 +5,6 @@ x-app: &prod-app
     target: final
   environment:
     DEBUG: False
-    ENABLE_SENTRY: ${ENABLE_SENTRY:-False}
 
 x-no-run: &no-run
   profiles:
