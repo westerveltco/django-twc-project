@@ -25,7 +25,7 @@ services:
       - "${DJANGO_PORT:-8000}:8000"
 
   db:
-    image: {{ postgres_docker_image }}:{{ postgres_version }}
+    image: postgis/postgis:15-3.4
     env_file:
       - .env
     init: true
@@ -40,22 +40,6 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
       - .:/app
-{%- if include_vite %}
-
-  node:
-    <<: *default-app
-    build:
-      target: node
-    command:
-      - bash
-      - -c
-      - |
-        npm install
-        npm run dev
-    depends_on: []
-    ports:
-      - "5173:5173"
-{%- endif %}
 
   tailwind:
     <<: *default-app

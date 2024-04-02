@@ -6,7 +6,7 @@ on:
 
 concurrency:
   cancel-in-progress: true
-  group: {% raw %}${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}{% endraw %}
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.sha }}
 
 env:
   CI: true
@@ -21,7 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     services:
       postgres:
-        image: {{ postgres_docker_image }}:{{ postgres_version }}
+        image: postgis/postgis:15-3.4
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
@@ -34,8 +34,8 @@ jobs:
           --health-timeout 5s
           --health-retries 5
     env:
-      DATABASE_URL: {{ postgres_uri_scheme }}://postgres:postgres@localhost:5432/postgres
-      EMAIL_RELAY_DATABASE_URL: {{postgres_uri_scheme}}://postgres:postgres@localhost:5432/email-relay
+      DATABASE_URL: postgis://postgres:postgres@localhost:5432/postgres
+      EMAIL_RELAY_DATABASE_URL: postgis://postgres:postgres@localhost:5432/email-relay
     steps:
       - uses: actions/checkout@v4
         with:
@@ -43,8 +43,8 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          node-version: {{ node_version }}
-          python-version: {{ python_version }}
+          node-version: 20
+          python-version: 3.12
           python-requirements: requirements.txt
           use-uv: true
 
@@ -53,32 +53,18 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-{%- if postgres_docker_image == 'postgis/postgis' %}
             libpq-dev \
             binutils \
             libproj-dev \
             gdal-bin \
             python3-gdal \
             libaio-dev \
-{%- endif %}
-{%- if include_weasyprint %}
-            libpango-1.0-0 \
-            libharfbuzz0b \
-            libpangoft2-1.0-0 \
-            ttf-mscorefonts-installer \
-{%- endif %}
             build-essential
           playwright install --with-deps
 
       - name: Run migrations
         run: |
           python manage.py migrate --skip-checks
-{%- if include_vite %}
-
-      - name: Build frontend
-        run: |
-          npm run build
-{%- endif %}
 
       - name: Build staticfiles
         run: |
@@ -96,9 +82,9 @@ jobs:
       - name: Upload coverage
         uses: actions/upload-artifact@v4
         with:
-          name: {% raw %}coverage-report-${{ github.run_id }}{% endraw %}
+          name: coverage-report-${{ github.run_id }}
           path: htmlcov
-        if: {% raw %}${{ failure() }}{% endraw %}
+        if: ${{ failure() }}
 
   types:
     runs-on: ubuntu-latest
@@ -107,7 +93,7 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: {{ python_version }}
+          python-version: 3.12
           python-requirements: requirements.txt
           use-uv: true
 
@@ -116,20 +102,12 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-{%- if postgres_docker_image == 'postgis/postgis' %}
             libpq-dev \
             binutils \
             libproj-dev \
             gdal-bin \
             python3-gdal \
             libaio-dev \
-{%- endif %}
-{%- if include_weasyprint %}
-            libpango-1.0-0 \
-            libharfbuzz0b \
-            libpangoft2-1.0-0 \
-            ttf-mscorefonts-installer \
-{%- endif %}
             build-essential
 
       - name: Run mypy
@@ -145,7 +123,7 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: {{ python_version }}
+          python-version: 3.12
           python-requirements: requirements.txt
           use-uv: true
 
@@ -154,20 +132,12 @@ jobs:
           DEBIAN_FRONTEND: noninteractive
         run: |
           sudo apt-get update && sudo apt-get install -y --no-install-recommends \
-{%- if postgres_docker_image == 'postgis/postgis' %}
             libpq-dev \
             binutils \
             libproj-dev \
             gdal-bin \
             python3-gdal \
             libaio-dev \
-{%- endif %}
-{%- if include_weasyprint %}
-            libpango-1.0-0 \
-            libharfbuzz0b \
-            libpangoft2-1.0-0 \
-            ttf-mscorefonts-installer \
-{%- endif %}
             build-essential
 
       - name: Run deployment checks

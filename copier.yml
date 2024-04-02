@@ -126,6 +126,17 @@ postgres_docker_version:
   help: Which version to use for the {{ postgres_docker_image }} image?
   default: "15"
 
+postgis_version:
+  when: "{{ postgres_docker_image == 'postgis/postgis' }}"
+  type: str
+  help: Which version of PostGIS should be used?
+  default: "3.4"
+
+postgres_version:
+  type: str
+  default: "{% if postgres_docker_image == 'postgis/postgis' %}{{ postgres_docker_version }}-{{ postgis_version }}{% else %}{{ postgres_docker_version }}{% endif %}"
+  when: false
+
 postgres_uri_scheme:
   type: str
   default: "{% if postgres_docker_image == 'postgis/postgis' %}postgis{% else %}postgres{% endif %}"

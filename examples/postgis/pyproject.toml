@@ -1,0 +1,156 @@
+[tool.bumpver]
+commit = true
+commit_message = ":bookmark: bump version {old_version} -> {new_version}"
+current_version = "2024.4.1"
+push = false  # set to false for CI
+tag = false
+version_pattern = "YYYY.MM.INC1"
+
+[tool.bumpver.file_patterns]
+"default/__init__.py" = [
+  '__version__ = "{version}"'
+]
+"tests/test_version.py" = [
+  'assert __version__ == "{version}"'
+]
+
+[tool.coverage.report]
+exclude_lines = [
+  "pragma: no cover",
+  "if DEBUG:",
+  "if not DEBUG:",
+  "if settings.DEBUG:",
+  "if TYPE_CHECKING:",
+  'def __str__\(self\)\s?\-?\>?\s?\w*\:'
+]
+
+[tool.coverage.run]
+omit = [
+  "*/node_modules/*",
+  "default/*/migrations/*",
+  "default/asgi.py",
+  "default/wsgi.py",
+  "templates/*",
+  "tests/*",
+  "manage.py",
+  "requirements.txt"
+]
+plugins = ["django_coverage_plugin"]
+source = ["default"]
+
+[tool.django-stubs]
+django_settings_module = "default.settings"
+
+[tool.djlint]
+ignore = "H031"  # Don't require `meta` tag keywords
+indent = 2
+
+[tool.mypy]
+check_untyped_defs = true
+files = [
+  "default"
+]
+no_implicit_optional = true
+plugins = [
+  "mypy_django_plugin.main"
+]
+warn_redundant_casts = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+ignore_errors = true
+module = [
+  "default.*.migrations.*",
+  "tests.*"
+]
+
+[[tool.mypy.overrides]]
+ignore_missing_imports = true
+module = [
+  "allauth.*",
+  "boto3.*",
+  "botocore.*",
+  "debug_toolbar.*",
+  "django_filters.*",
+  "django_q.*",
+  "djclick.*",
+  "gunicorn.*",
+  "health_check.*",
+  "neapolitan.*",
+  "simple_history.*"
+]
+
+[tool.mypy_django_plugin]
+ignore_missing_model_attributes = true
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "default.settings"
+addopts = "--reuse-db -n auto --dist loadfile"
+norecursedirs = ".* bin build dist *.egg htmlcov logs node_modules static templates venv"
+python_files = "tests.py test_*.py *_tests.py"
+
+[tool.ruff]
+# Exclude a variety of commonly ignored directories.
+exclude = [
+  ".bzr",
+  ".direnv",
+  ".eggs",
+  ".git",
+  ".github",
+  ".hg",
+  ".mypy_cache",
+  ".ruff_cache",
+  ".svn",
+  ".tox",
+  ".venv",
+  "__pypackages__",
+  "_build",
+  "build",
+  "dist",
+  "migrations",
+  "node_modules",
+  "venv"
+]
+extend-include = ["*.pyi?"]
+indent-width = 4
+# Same as Black.
+line-length = 88
+# Assume Python 3.12
+target-version = "py312"
+
+[tool.ruff.format]
+# Like Black, indent with spaces, rather than tabs.
+indent-style = "space"
+# Like Black, automatically detect the appropriate line ending.
+line-ending = "auto"
+# Like Black, use double quotes for strings.
+quote-style = "double"
+
+[tool.ruff.lint]
+# Allow unused variables when underscore-prefixed.
+dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+# Allow autofix for all enabled rules (when `--fix`) is provided.
+fixable = ["A", "B", "C", "D", "E", "F", "I"]
+ignore = ["E501", "E741"]  # temporary
+select = [
+  "B",  # flake8-bugbear
+  "E",  # Pycodestyle
+  "F",  # Pyflakes
+  "I",  # isort
+  "UP"  # pyupgrade
+]
+unfixable = []
+
+[tool.ruff.lint.isort]
+force-single-line = true
+known-first-party = ["default"]
+required-imports = ["from __future__ import annotations"]
+
+[tool.ruff.lint.per-file-ignores]
+# Tests can use magic values, assertions, and relative imports
+"tests/**/*" = ["PLR2004", "S101", "TID252"]
+
+[tool.ruff.lint.pyupgrade]
+# Preserve types, even if a file imports `from __future__ import annotations`.
+keep-runtime-typing = true
