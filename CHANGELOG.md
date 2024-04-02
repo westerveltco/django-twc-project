@@ -17,23 +17,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.11]
+
+### Added
+
+-   Two new `Justfile` commands for using `copier`'s recopy command: `copier-recopy` and `copier-recopy-all`.
+-   All `Justfile` commands now have a short description that is displayed when running `just` (default command) or `just --list`.
+
+### Fixed
+
+-   Removed extra `test` command in `Justfile`.
+-   Fixed `compose.yml` filename in various `Justfile` commands.
+
 ## [2024.10]
 
 ### Added
 
 -   Now prompted for the version of PostGIS to use in the project, if `postgis/postgis` is chosen as the PostgreSQL database.
 -   A new example project has been added to the `examples` directory using PostGIS.
--   Two new `Justfile` commands for using `copier`'s recopy command: `copier-recopy` and `copier-recopy-all`.
--   All `Justfile` commands now have a short description that is displayed when running `just` (default command) or `just --list`.
 
 ### Changed
 
 -   PostgreSQL version now takes into account the version of PostGIS, if that option is chosen.
-
-### Fixed
-
--   Removed extra `test` command in `Justfile`.
--   Fixed `compose.yml` filename in various `Justfile` commands.
 
 ## [2024.9]
 
@@ -196,7 +201,7 @@ Initial release! 🎉
 
 -   Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.10...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.11...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -207,3 +212,4 @@ Initial release! 🎉
 [2024.8]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.8
 [2024.9]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.9
 [2024.10]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.10
+[2024.11]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.11
