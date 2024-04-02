@@ -28,6 +28,10 @@ version_pattern = "YYYY.INC1"
 "copier.yml" = ['default: "{version}"']
 "tests/test_version.py" = ['assert version == "{version}"']
 
+[tool.djlint]
+ignore = "H031"  # Don't require `meta` tag keywords
+indent = 2
+
 [tool.hatch.metadata]
 allow-direct-references = true
 
