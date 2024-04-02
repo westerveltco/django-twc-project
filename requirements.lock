@@ -7,27 +7,51 @@
 #   all-features: false
 #   with-sources: false
 
---trusted-host pypi.python.org
---trusted-host pypi.org
---trusted-host files.pythonhosted.org
 annotated-types==0.6.0
+    # via pydantic
 colorama==0.4.6
+    # via copier
 copier==9.1.1
 decorator==5.1.1
+    # via copier
 dunamai==1.19.2
+    # via copier
+fsspec==2024.3.1
+    # via pyyaml-include
 funcy==2.0
+    # via copier
 jinja2==3.1.3
+    # via copier
+    # via jinja2-ansible-filters
 jinja2-ansible-filters==1.3.2
+    # via copier
 markupsafe==2.1.5
-packaging==23.2
+    # via jinja2
+packaging==24.0
+    # via copier
+    # via dunamai
 pathspec==0.12.1
+    # via copier
 plumbum==1.8.2
+    # via copier
 prompt-toolkit==3.0.36
-pydantic==2.6.1
-pydantic-core==2.16.2
+    # via questionary
+pydantic==2.6.4
+    # via copier
+pydantic-core==2.16.3
+    # via pydantic
 pygments==2.17.2
+    # via copier
 pyyaml==6.0.1
-pyyaml-include==1.3.2
+    # via copier
+    # via jinja2-ansible-filters
+    # via pyyaml-include
+pyyaml-include==2.0
+    # via copier
 questionary==2.0.1
-typing-extensions==4.9.0
+    # via copier
+typing-extensions==4.10.0
+    # via pydantic
+    # via pydantic-core
 wcwidth==0.2.13
+    # via prompt-toolkit
