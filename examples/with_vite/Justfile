@@ -284,7 +284,7 @@ copier-copy TEMPLATE_PATH DESTINATION_PATH=".":
     python -m copier copy --trust {{ TEMPLATE_PATH }} {{ DESTINATION_PATH }}
 
 # Recopy the project from the original template
-copier-recopy ANSWER_FILE *ARGS:
+copier-recopy ANSWERS_FILE *ARGS:
     python -m copier recopy --trust --answers-file {{ ANSWERS_FILE }} {{ ARGS }}
 
 # Loop through all answers files and recopy the project using copier
