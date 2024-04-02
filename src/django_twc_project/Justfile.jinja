@@ -134,13 +134,13 @@ _cog:
 # DOCKER
 # ----------------------------------------------------------------------
 
-# Build services using docker-compose
+# Build services using docker compose
 build *ARGS:
     docker compose build {% raw %}{{ ARGS }}{% endraw %}
 
-# Build production stack using docker-compose
+# Build production stack using docker compose
 build-prod:
-    docker compose -f docker-compose.yml -f docker-compose.prod.yml build
+    docker compose -f compose.yml -f compose.prod.yml build
 
 # Stop and remove all containers, networks, images, and volumes
 clean:
@@ -154,7 +154,7 @@ command *ARGS:
 console:
     docker compose run --rm --no-deps app /bin/bash
 
-# Stop and remove all containers defined in docker-compose
+# Stop and remove all containers defined in docker compose
 down *ARGS:
     docker compose down {% raw %}{{ ARGS }}{% endraw %}
 
@@ -166,7 +166,7 @@ logs *ARGS:
 ps:
     docker compose ps
 
-# Pull the latest versions of all images defined in docker-compose
+# Pull the latest versions of all images defined in docker compose
 pull:
     docker compose pull
 
@@ -182,11 +182,11 @@ shell *ARGS="app":
 shell-db:
     docker compose run --rm --no-deps db psql -d {% raw %}{{ DATABASE_URL }}{% endraw %}
 
-# Start services using docker-compose, defaulting to detached mode
+# Start services using docker compose, defaulting to detached mode
 start *ARGS="--detach":
     @just up {% raw %}{{ ARGS }}{% endraw %}
 
-# Start the full production stack using docker-compose, defaulting to detached mode
+# Start the full production stack using docker compose, defaulting to detached mode
 start-prod *ARGS="--detach":
     @just up-prod {% raw %}{{ ARGS }}{% endraw %}
 
@@ -198,13 +198,13 @@ stop:
 tail *ARGS:
     @just logs '--follow {% raw %}{{ ARGS }}{% endraw %}'
 
-# Start services using docker-compose, with optional arguments
+# Start services using docker compose, with optional arguments
 up *ARGS:
     docker compose up {% raw %}{{ ARGS }}{% endraw %}
 
-# Start the full production stack using docker-compose
+# Start the full production stack using docker compose
 up-prod *ARGS:
-    docker compose -f docker-compose.yml -f docker-compose.prod.yml up {% raw %}{{ ARGS }}{% endraw %}
+    docker compose -f compose.yml -f compose.prod.yml up {% raw %}{{ ARGS }}{% endraw %}
 
 
 # ----------------------------------------------------------------------
