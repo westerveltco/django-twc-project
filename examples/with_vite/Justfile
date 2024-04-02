@@ -2,6 +2,7 @@ set dotenv-load := true
 
 export DATABASE_URL := env_var_or_default('DATABASE_URL', 'postgres://postgres:postgres@db:5432/postgres')
 
+# List all available commands
 @_default:
     just --list
 
@@ -9,22 +10,28 @@ export DATABASE_URL := env_var_or_default('DATABASE_URL', 'postgres://postgres:p
 # DEPENDENCIES
 # ----------------------------------------------------------------------
 
+# Bootstrap local development environment
 bootstrap:
-    python -m pip install --upgrade pip uv
+    @just pup
     @just install
 
+# Generate requirements file
 lock *ARGS:
     python -m uv pip compile {{ ARGS }} --generate-hashes requirements.in --output-file requirements.txt
 
+# Install dependencies
 install *ARGS:
     python -m uv pip install --upgrade -r requirements.txt
 
+# Generate and upgrade dependencies
 upgrade:
     @just lock --upgrade
 
+# Install and update dependency tools
 pup:
     python -m pip install --upgrade pip uv
 
+# Update local development environment
 update:
     @just pup
     @just upgrade
@@ -50,6 +57,7 @@ coverage:
 @test-debug *ARGS:
     docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node -e PWDEBUG=1 app pytest {{ ARGS }}
 
+# Run mypy on project
 types:
     just command python -m mypy .
 
@@ -57,48 +65,58 @@ types:
 # DJANGO
 # ----------------------------------------------------------------------
 
+# Run a Django management command
 @manage *COMMAND:
     just command python -m manage {{ COMMAND }}
 
+# Alias for makemigrations
 alias mm := makemigrations
 
+# Generate Django migrations
 makemigrations *APPS:
     @just manage makemigrations {{ APPS }}
 
+# Run Django migrations
 migrate *ARGS:
     @just manage migrate {{ ARGS }}
 
+# Open a Django shell using django-extensions shell_plus command
 shell-plus:
     @just manage shell_plus
 
+# Quickly create a superuser with the provided credentials
 createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('"'"'{{ USERNAME }}'"'"', '"'"'{{ EMAIL }}'"'"', '"'"'{{ PASSWORD }}'"'"') if not User.objects.filter(username='"'"'{{ USERNAME }}'"'"').exists() else None" | python manage.py shell'
 
+# Reset a user's password
 resetuserpassword USERNAME="admin" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{{ USERNAME }}'"'"'); user.set_password('"'"'{{ PASSWORD }}'"'"'); user.save()" | python manage.py shell'
 
-# ----------------------------------------------------------------------
-# DOCS
-# ----------------------------------------------------------------------
-
-_cog:
-    cog -r docs/just.md
-
+# Graph models using django-extensions graph_models command
 graph:
     just manage graph_models users \
         --exclude-models AbstractUser \
         --group-models \
         --output ./docs/applications/images/users.svg
 
-docs-lock *ARGS:
-    python -m uv pip compile {{ ARGS }} --generate-hashes docs/requirements.in --output-file docs/requirements.txt
+# ----------------------------------------------------------------------
+# DOCS
+# ----------------------------------------------------------------------
 
-docs-upgrade:
-    @just docs-lock --upgrade
+# Build documentation using Sphinx
+docs-build LOCATION="docs/_build/html":
+    just _cog
+    sphinx-build docs {{ LOCATION }}
 
+# Install documentation dependencies
 docs-install:
     python -m uv pip install --upgrade -r docs/requirements.txt
 
+# Generate documentation requirements
+docs-lock *ARGS:
+    python -m uv pip compile {{ ARGS }} --generate-hashes docs/requirements.in --output-file docs/requirements.txt
+
+# Serve documentation locally
 docs-serve:
     #!/usr/bin/env sh
     just _cog
@@ -108,21 +126,24 @@ docs-serve:
         sphinx-autobuild docs docs/_build/html --host "localhost"
     fi
 
-docs-build LOCATION="docs/_build/html":
-    just _cog
-    sphinx-build docs {{ LOCATION }}
+# Generate and upgrade documentation dependencies
+docs-upgrade:
+    @just docs-lock --upgrade
+
+_cog:
+    cog -r docs/just.md
 
 # ----------------------------------------------------------------------
 # DOCKER
 # ----------------------------------------------------------------------
 
-# Build services using docker-compose
+# Build services using docker compose
 build *ARGS:
     docker compose build {{ ARGS }}
 
-# Build production stack using docker-compose
+# Build production stack using docker compose
 build-prod:
-    docker compose -f docker-compose.yml -f docker-compose.prod.yml build
+    docker compose -f compose.yml -f compose.prod.yml build
 
 # Stop and remove all containers, networks, images, and volumes
 clean:
@@ -136,7 +157,7 @@ command *ARGS:
 console:
     docker compose run --rm --no-deps app /bin/bash
 
-# Stop and remove all containers defined in docker-compose
+# Stop and remove all containers defined in docker compose
 down *ARGS:
     docker compose down {{ ARGS }}
 
@@ -148,7 +169,7 @@ logs *ARGS:
 ps:
     docker compose ps
 
-# Pull the latest versions of all images defined in docker-compose
+# Pull the latest versions of all images defined in docker compose
 pull:
     docker compose pull
 
@@ -164,11 +185,11 @@ shell *ARGS="app":
 shell-db:
     docker compose run --rm --no-deps db psql -d {{ DATABASE_URL }}
 
-# Start services using docker-compose, defaulting to detached mode
+# Start services using docker compose, defaulting to detached mode
 start *ARGS="--detach":
     @just up {{ ARGS }}
 
-# Start the full production stack using docker-compose, defaulting to detached mode
+# Start the full production stack using docker compose, defaulting to detached mode
 start-prod *ARGS="--detach":
     @just up-prod {{ ARGS }}
 
@@ -180,20 +201,20 @@ stop:
 tail *ARGS:
     @just logs '--follow {{ ARGS }}'
 
-# Start services using docker-compose, with optional arguments
+# Start services using docker compose, with optional arguments
 up *ARGS:
     docker compose up {{ ARGS }}
 
-# Start the full production stack using docker-compose
+# Start the full production stack using docker compose
 up-prod *ARGS:
-    docker compose -f docker-compose.yml -f docker-compose.prod.yml up {{ ARGS }}
+    docker compose -f compose.yml -f compose.prod.yml up {{ ARGS }}
 
 
 # ----------------------------------------------------------------------
 # POSTGRES BACKUP AND RESTORE
 # ----------------------------------------------------------------------
 
-# dump our local database to file
+# Dump our local database to file
 pg_dump database_url=DATABASE_URL file='db.dump':
     docker compose run \
         --rm \
@@ -205,12 +226,12 @@ pg_dump database_url=DATABASE_URL file='db.dump':
             --format=c \
             --verbose
 
-# dump our production database to file
+# Dump our production database to file
 pg_dump_prod file='production.dump':
     set PROD_DATABASE_URL := "{{ env_var('PROD_DATABASE_URL') }}"
     @just pg_dump ${PROD_DATABASE_URL} {{ file }}
 
-# restore database backup to our local database
+# Restore database backup to our local database
 pg_restore file='db.dump':
     docker compose run \
         --rm \
@@ -228,6 +249,7 @@ pg_restore file='db.dump':
 # UTILS
 # ----------------------------------------------------------------------
 
+# Sync .env* files
 envsync:
     #!/usr/bin/env python
     from pathlib import Path
@@ -245,11 +267,11 @@ envsync:
         lines.sort()
         envfile_example.write_text(''.join(lines))
 
-# format justfile
+# Format justfile
 fmt:
     just --fmt --unstable
 
-# run pre-commit on all files
+# Run pre-commit on all files
 lint:
     pre-commit run --all-files
 
@@ -257,14 +279,22 @@ lint:
 # COPIER
 # ----------------------------------------------------------------------
 
-# create a copier answers file
+# Create a copier answers file
 copier-copy TEMPLATE_PATH DESTINATION_PATH=".":
-    pipx run copier copy {{ TEMPLATE_PATH }} {{ DESTINATION_PATH }}
+    python -m copier copy --trust {{ TEMPLATE_PATH }} {{ DESTINATION_PATH }}
 
-# update the project using a copier answers file
+# Recopy the project from the original template
+copier-recopy ANSWER_FILE *ARGS:
+    python -m copier recopy --trust --answers-file {{ ANSWERS_FILE }} {{ ARGS }}
+
+# Loop through all answers files and recopy the project using copier
+@copier-recopy-all *ARGS:
+    for file in `ls .copier/`; do just copier-recopy .copier/$file "{{ ARGS }}"; done
+
+# Update the project using a copier answers file
 copier-update ANSWERS_FILE *ARGS:
-    pipx run copier update --answers-file {{ ANSWERS_FILE }} {{ ARGS }}
+    python -m copier update --trust --answers-file {{ ANSWERS_FILE }} {{ ARGS }}
 
-# loop through all answers files and update the project using copier
+# Loop through all answers files and update the project using copier
 @copier-update-all *ARGS:
-    for file in `ls .copier-answers/`; do just copier-update .copier-answers/$file "{{ ARGS }}"; done
+    for file in `ls .copier/`; do just copier-update .copier/$file "{{ ARGS }}"; done
