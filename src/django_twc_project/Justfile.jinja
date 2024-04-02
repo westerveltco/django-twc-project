@@ -1,6 +1,6 @@
 set dotenv-load := true
 
-export DATABASE_URL := env_var_or_default('DATABASE_URL', 'postgres://postgres:postgres@db:5432/postgres')
+export DATABASE_URL := env_var_or_default('DATABASE_URL', '{{ postgres_uri_scheme }}://postgres:postgres@db:5432/postgres')
 
 @_default:
     just --list
