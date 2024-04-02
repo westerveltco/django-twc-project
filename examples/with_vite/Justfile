@@ -34,12 +34,21 @@ update:
 # TESTING/TYPES
 # ----------------------------------------------------------------------
 
-test *ARGS:
-    just command python -m pytest {{ ARGS }}
+# Run the Playwright codegen command within the 'app' container
+codegen *ARGS:
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app /bin/bash -c "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {{ ARGS }}; kill %1"
 
 coverage:
     rm -rf htmlcov
     just command python -m coverage run -m pytest && python -m coverage html --skip-covered --skip-empty
+
+# Run tests using pytest within the 'app' container, with optional arguments
+@test *ARGS:
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app pytest {{ ARGS }}
+
+# Run tests with Playwright debug mode enabled, in the 'app' container, with optional arguments
+@test-debug *ARGS:
+    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node -e PWDEBUG=1 app pytest {{ ARGS }}
 
 types:
     just command python -m mypy .
@@ -119,10 +128,6 @@ build-prod:
 clean:
     @just down --volumes --rmi local
 
-# Run the Playwright codegen command within the 'app' container
-codegen *ARGS:
-    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app /bin/bash -c "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {{ ARGS }}; kill %1"
-
 # Run a command within the 'app' container
 command *ARGS:
     docker compose run --rm --no-deps app /bin/bash -c "{{ ARGS }}"
@@ -174,14 +179,6 @@ stop:
 # Continuously display the latest logs by using the --follow option, optionally targeting specific containers
 tail *ARGS:
     @just logs '--follow {{ ARGS }}'
-
-# Run tests using pytest within the 'app' container, with optional arguments
-@test *ARGS:
-    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node app pytest {{ ARGS }}
-
-# Run tests with Playwright debug mode enabled, in the 'app' container, with optional arguments
-@test-debug *ARGS:
-    docker compose run --rm --no-deps -e DJANGO_VITE_DEV_SERVER_HOST=node -e PWDEBUG=1 app pytest {{ ARGS }}
 
 # Start services using docker-compose, with optional arguments
 up *ARGS:
