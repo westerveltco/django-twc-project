@@ -2,6 +2,7 @@ set dotenv-load := true
 
 export DATABASE_URL := env_var_or_default('DATABASE_URL', '{{ postgres_uri_scheme }}://postgres:postgres@db:5432/postgres')
 
+# List all available commands
 @_default:
     just --list
 
@@ -9,22 +10,28 @@ export DATABASE_URL := env_var_or_default('DATABASE_URL', '{{ postgres_uri_schem
 # DEPENDENCIES
 # ----------------------------------------------------------------------
 
+# Bootstrap local development environment
 bootstrap:
-    python -m pip install --upgrade pip uv
+    @just pup
     @just install
 
+# Generate requirements file
 lock *ARGS:
     python -m uv pip compile {% raw %}{{ ARGS }}{% endraw %} --generate-hashes requirements.in --output-file requirements.txt
 
+# Install dependencies
 install *ARGS:
     python -m uv pip install --upgrade -r requirements.txt
 
+# Generate and upgrade dependencies
 upgrade:
     @just lock --upgrade
 
+# Install and update dependency tools
 pup:
     python -m pip install --upgrade pip uv
 
+# Update local development environment
 update:
     @just pup
     @just upgrade
@@ -62,6 +69,7 @@ coverage:
     docker compose run --rm --no-deps -e PWDEBUG=1 app pytest {% raw %}{{ ARGS }}{% endraw %}
 {%- endif %}
 
+# Run mypy on project
 types:
     just command python -m mypy .
 
@@ -69,23 +77,30 @@ types:
 # DJANGO
 # ----------------------------------------------------------------------
 
+# Run a Django management command
 @manage *COMMAND:
     just command python -m manage {% raw %}{{ COMMAND }}{% endraw %}
 
+# Alias for makemigrations
 alias mm := makemigrations
 
+# Generate Django migrations
 makemigrations *APPS:
     @just manage makemigrations {% raw %}{{ APPS }}{% endraw %}
 
+# Run Django migrations
 migrate *ARGS:
     @just manage migrate {% raw %}{{ ARGS }}{% endraw %}
 
+# Open a Django shell using django-extensions shell_plus command
 shell-plus:
     @just manage shell_plus
 
+# Quickly create a superuser with the provided credentials
 createsuperuser USERNAME="admin" EMAIL="" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); User.objects.create_superuser('"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"', '"'"'{% raw %}{{ EMAIL }}{% endraw %}'"'"', '"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"') if not User.objects.filter(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"').exists() else None" | python manage.py shell'
 
+# Reset a user's password
 resetuserpassword USERNAME="admin" PASSWORD="admin":
     docker compose run --rm --no-deps app /bin/bash -c 'echo "from django.contrib.auth import get_user_model; User = get_user_model(); user = User.objects.get(username='"'"'{% raw %}{{ USERNAME }}{% endraw %}'"'"'); user.set_password('"'"'{% raw %}{{ PASSWORD }}{% endraw %}'"'"'); user.save()" | python manage.py shell'
 
@@ -246,6 +261,7 @@ pg_restore file='db.dump':
 # UTILS
 # ----------------------------------------------------------------------
 
+# Sync .env* files
 envsync:
     #!/usr/bin/env python
     from pathlib import Path
