@@ -21,7 +21,7 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           python-requirements: requirements-dev.lock
 
       - name: Run tests
@@ -37,7 +37,7 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: "3.11"
+          python-version: "3.12"
           python-requirements: requirements-dev.lock
 
       - name: Setup Git
