@@ -9,8 +9,10 @@
 !postcss.config.mjs
 !requirements*.txt
 !tailwind.config.mjs
+{%- if include_vite %}
 !tsconfig.json
 !vite.config.ts
+{%- endif %}
 
 **/*~
 **/*.log

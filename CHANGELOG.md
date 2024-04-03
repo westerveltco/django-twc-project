@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 -   Added more files to `coverage` exclude list.
+-   Node.js/Vite specific files now excluded from `.dockerignore`.
 
 ### Fixed
 
