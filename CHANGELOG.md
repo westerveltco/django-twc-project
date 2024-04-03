@@ -28,6 +28,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Template now has a `CODEOWNERS` file.
 
+### Removed
+
+-   `ENABLE_SENTRY` has been removed from template in favor of checking for the existence of `SENTRY_DSN`.
+
 ### Fixed
 
 -   Moved the `--skip-checks` flag in `django-tailwind-cli`'s build command in CI/CD.
