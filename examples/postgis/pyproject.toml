@@ -29,6 +29,8 @@ omit = [
   "*/node_modules/*",
   "default/*/migrations/*",
   "default/asgi.py",
+  "default/gunicorn.py",
+  "default/settings.py",
   "default/wsgi.py",
   "templates/*",
   "tests/*",

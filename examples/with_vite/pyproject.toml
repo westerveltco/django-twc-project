@@ -29,6 +29,8 @@ omit = [
   "*/node_modules/*",
   "with_vite/*/migrations/*",
   "with_vite/asgi.py",
+  "with_vite/gunicorn.py",
+  "with_vite/settings.py",
   "with_vite/wsgi.py",
   "templates/*",
   "tests/*",
