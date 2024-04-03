@@ -30,7 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Removed
 
--   `ENABLE_SENTRY` has been removed from template in favor of checking for the existence of `SENTRY_DSN`.
+-   `ENABLE_SENTRY` environment variable has been removed from template in favor of checking for the existence of `SENTRY_DSN`.
 
 ### Fixed
 
