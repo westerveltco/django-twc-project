@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 -   Added more files to `coverage` exclude list.
 -   Node.js/Vite specific files now excluded from `.dockerignore`.
 
+### Added
+
+-   Template now has a `CODEOWNERS` file.
+
 ### Fixed
 
 -   Moved the `--skip-checks` flag in `django-tailwind-cli`'s build command in CI/CD.
