@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.12]
+
 ### Changed
 
 -   Added more files to `coverage` exclude list.
@@ -214,7 +216,7 @@ Initial release! 🎉
 
 -   Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.11...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.12...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -226,3 +228,4 @@ Initial release! 🎉
 [2024.9]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.9
 [2024.10]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.10
 [2024.11]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.11
+[2024.12]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.12
