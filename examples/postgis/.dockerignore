@@ -9,8 +9,6 @@
 !postcss.config.mjs
 !requirements*.txt
 !tailwind.config.mjs
-!tsconfig.json
-!vite.config.ts
 
 **/*~
 **/*.log
