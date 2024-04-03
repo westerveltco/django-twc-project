@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+-   Added more files to `coverage` exclude list.
+
 ### Fixed
 
 -   Moved the `--skip-checks` flag in `django-tailwind-cli`'s build command in CI/CD.
