@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Adjusted all `Justfile` commands to only echo the command being run.
 
+### Removed
+
+- Removed the template version from the main project's `__init__.py` since it is already captured in the copier answers file.
+
 ## [2024.13]
 
 ### Added
