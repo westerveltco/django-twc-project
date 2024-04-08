@@ -6,7 +6,7 @@ requires = ["hatchling"]
 authors = [{name = "Josh", email = "josh@joshthomas.dev"}]
 dependencies = [
   "copier>=9.1.1",
-  "pyyaml-include<2"  # temp fix for https://github.com/copier-org/copier/issues/1568
+  "pyyaml-include<3"  # temp fix for https://github.com/copier-org/copier/issues/1568
 ]
 description = "A Django project template for The Westervelt Company."
 dynamic = ["version"]
