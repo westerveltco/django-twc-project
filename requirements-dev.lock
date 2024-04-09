@@ -19,11 +19,9 @@ colorama==0.4.6
     # via bumpver
     # via copier
     # via djlint
-copier==9.1.1
+copier==9.2.0
 cssbeautifier==1.15.1
     # via djlint
-decorator==5.1.1
-    # via copier
 distlib==0.3.8
     # via virtualenv
 djlint==1.34.1
@@ -98,9 +96,6 @@ pyyaml==6.0.1
     # via djlint
     # via jinja2-ansible-filters
     # via pre-commit
-    # via pyyaml-include
-pyyaml-include==1.4.1
-    # via copier
 questionary==2.0.1
     # via copier
 regex==2023.12.25
