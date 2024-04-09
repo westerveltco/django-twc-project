@@ -11,9 +11,7 @@ annotated-types==0.6.0
     # via pydantic
 colorama==0.4.6
     # via copier
-copier==9.1.1
-decorator==5.1.1
-    # via copier
+copier==9.2.0
 dunamai==1.19.2
     # via copier
 funcy==2.0
@@ -43,9 +41,6 @@ pygments==2.17.2
 pyyaml==6.0.1
     # via copier
     # via jinja2-ansible-filters
-    # via pyyaml-include
-pyyaml-include==1.4.1
-    # via copier
 questionary==2.0.1
     # via copier
 typing-extensions==4.10.0
