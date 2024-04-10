@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 -   Added S3 and Okta credentials to `.env.prod`.
+-   Added the version specified in the Copier answers file `.copier/project.yml` to `bumpver` config. Copier advises not to edit this file directly, however when updating a project to a new version of the template it is a bit of a pain to lookup what the current version is. Since `bumpver` bumps the project's version in every place it needs to, the risk that it messes up Copier is very low.
 
 ### Changed
 
