@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Removed
+
+-   `uv` was removed from `requirements.in`.
+
 ## [2024.15]
 
 ### Added
@@ -40,7 +44,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Removed
 
-- Removed the template version from the main project's `__init__.py` since it is already captured in the copier answers file.
+-   Removed the template version from the main project's `__init__.py` since it is already captured in the copier answers file.
 
 ## [2024.13]
 
