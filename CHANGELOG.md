@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Added S3 and Okta credentials to `.env.prod`.
 
+### Changed
+
+-   Now calling `manage.py` file in CI as a module instead of using the file name directly.
+
 ### Fixed
 
 -   Added upper bounds for `django-email-relay` dependency. Since it runs distributed, with a central relay service that is responsible for sending emails, the roll-out of a new version should be more controlled. With the upper bounds, the version won't accidentally get bumped in day-to-day work (hopefully!).
