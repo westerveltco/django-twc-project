@@ -57,12 +57,12 @@ jobs:
 
       - name: Run migrations
         run: |
-          python manage.py migrate --skip-checks
+          python -m manage migrate --skip-checks
 
       - name: Build staticfiles
         run: |
-          python manage.py tailwind --skip-checks build
-          python manage.py collectstatic --no-input --skip-checks --no-default-ignore
+          python -m manage tailwind --skip-checks build
+          python -m manage collectstatic --no-input --skip-checks --no-default-ignore
 
       # https://hynek.me/articles/ditch-codecov-python/
       - name: Run tests
