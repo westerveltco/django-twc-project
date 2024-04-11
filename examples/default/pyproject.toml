@@ -47,6 +47,7 @@ source = ["default"]
 django_settings_module = "default.settings"
 
 [tool.djlint]
+custom_blocks = "partialdef"
 ignore = "H031"  # Don't require `meta` tag keywords
 indent = 2
 
