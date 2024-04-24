@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 -   Moved the Python and Node.js versions from arguments to `setup-ci-action` to environment variables at the top of the workflow to cut down on duplication in `test.yml` GitHub Action workflow.
+-   `.mise.toml` config files are now ignored by Git.
 
 ### Removed
 
