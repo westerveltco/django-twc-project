@@ -192,3 +192,6 @@ pyrightconfig.json
 
 # docker
 compose.override.yml
+
+# mise
+.mise*.toml
