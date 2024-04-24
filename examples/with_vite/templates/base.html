@@ -1,0 +1,85 @@
+{% load static %}
+{% load django_htmx %}
+{% load tailwind_cli %}
+{% load django_vite %}
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>
+      {% block title %}
+        With_vite
+      {% endblock title %}
+    </title>
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="preconnect" href="https://rsms.me" preconnect>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
+    {% block css %}
+    {% endblock css %}
+    {% tailwind_css %}
+    {% vite_react_refresh %}
+    {% vite_hmr_client %}
+    <script src="https://unpkg.com/htmx.org@1.9.10"
+            integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/head-support.js"
+            integrity="sha384-CtqhRhV1bHrqMSWc8cQGQL4epjUqCHjq/kJ9ztGHS39vO/1phOgyhFIieE87UKMu"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/idiomorph@0.3.0"
+            integrity="sha384-tg/2Ca9U/RohyxmGCb8qJVR3j9cswtKbdRSXOaPX/aDDOW1bfbeyV+7G9ifYF4bC"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org/dist/ext/preload.js"
+            integrity="sha384-NoiTdF/KjxH4wa6OHMdM4F6e/LIPNMcFBgOIINTTaczWo0vX1mWTOzckySqlGQS/"
+            crossorigin="anonymous"></script>
+    {% django_htmx_script %}
+    {% if debug %}
+      <script>
+        if (typeof window.htmx !== "undefined") {
+          htmx.on("htmx:afterSettle", function(detail) {
+            if (
+              typeof window.djdt !== "undefined"
+              && detail.target instanceof HTMLBodyElement
+            ) {
+              djdt.show_toolbar();
+            }
+
+            if (typeof window.Alpine !== "undefined") {
+              Alpine.start();
+            }
+          });
+        }
+      </script>
+    {% endif %}
+    <script defer
+            src="https://unpkg.com/@alpinejs/ui@3.13.3-beta.4"
+            integrity="sha384-BOC0hrQPTXQv3X+4j0CDVtDdBplQLPPs6KJfKnc3r7/DNlbvpd9EjykBWP/sNH9v"
+            crossorigin="anonymous"></script>
+    <script defer
+            src="https://unpkg.com/@alpinejs/collapse@3.13.3"
+            integrity="sha384-2OH1oWuzGQTwIVsefc3w96FepRDcaddeEJiyo8ZXCQA4jP7C4mQMdI70jDKtgq0R"
+            crossorigin="anonymous"></script>
+    <script defer
+            src="https://unpkg.com/@alpinejs/focus@3.13.3"
+            integrity="sha384-KbHuoVQjZqKnY0E8Zy6AadqsgGJwz0QYY5kk9XyFE2GTDeOqNYsSBDLCNOuSwcis"
+            crossorigin="anonymous"></script>
+    <script defer
+            src="https://unpkg.com/alpinejs@3.13.3"
+            integrity="sha384-Rpe/8orFUm5Q1GplYBHxbuA8Az8O8C5sAoOsdbRWkqPjKFaxPgGZipj4zeHL7lxX"
+            crossorigin="anonymous"></script>
+    {% block javascript_head %}
+    {% endblock javascript_head %}
+  </head>
+  {% block body %}
+    <body {% if debug %}class="debug-screens"{% endif %}
+          hx-ext="head-support, preload">
+      <main class="mt-16">
+        {% block content %}
+        {% endblock content %}
+      </main>
+      {% block javascript_foot %}
+      {% endblock javascript_foot %}
+    </body>
+  {% endblock body %}
+</html>
