@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   `partialdef` template tag from `django-template-partials` has been added to the config for `djlint`.
 
+### Changed
+
+-   Moved the Python and Node.js versions from arguments to `setup-ci-action` to environment variables at the top of the workflow to cut down on duplication in `test.yml` GitHub Action workflow.
+
 ### Removed
 
 -   `uv` was removed from `requirements.in`.

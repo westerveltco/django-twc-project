@@ -11,6 +11,9 @@ concurrency:
 env:
   CI: true
   FORCE_COLOR: 1
+  NODE_VERSION: "{{ node_version }}"
+  PYTHON_REQUIREMENTS: "requirements.txt"
+  PYTHON_VERSION: "{{ python_version }}"
 
 permissions:
   contents: read
@@ -34,7 +37,7 @@ jobs:
           --health-retries 5
     env:
       DATABASE_URL: {{ postgres_uri_scheme }}://postgres:postgres@localhost:5432/postgres
-      EMAIL_RELAY_DATABASE_URL: {{postgres_uri_scheme}}://postgres:postgres@localhost:5432/email-relay
+      EMAIL_RELAY_DATABASE_URL: {{ postgres_uri_scheme }}://postgres:postgres@localhost:5432/email-relay
     steps:
       - uses: actions/checkout@v4
         with:
@@ -42,9 +45,9 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          node-version: {{ node_version }}
-          python-version: {{ python_version }}
-          python-requirements: requirements.txt
+          node-version: {% raw %}${{ env.NODE_VERSION }}{% endraw %}
+          python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
+          python-requirements: {% raw %}${{ env.PYTHON_REQUIREMENTS }}{% endraw %}
           use-uv: true
 
       - name: Install system packages
@@ -106,8 +109,8 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: {{ python_version }}
-          python-requirements: requirements.txt
+          python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
+          python-requirements: {% raw %}${{ env.PYTHON_REQUIREMENTS }}{% endraw %}
           use-uv: true
 
       - name: Install system packages
@@ -144,8 +147,8 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: {{ python_version }}
-          python-requirements: requirements.txt
+          python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
+          python-requirements: {% raw %}${{ env.PYTHON_REQUIREMENTS }}{% endraw %}
           use-uv: true
 
       - name: Install dependencies
