@@ -3,6 +3,9 @@
 # ----------------------------------------------------------------------
 
 _answers_file: .copier/project.yml
+_jinja_extensions:
+  - copier_templates_extensions.TemplateExtensionLoader
+  - extensions/context.py:SecretKey
 _min_copier_version: "9.1.0"
 _secret_questions:
   - django_twc_ui_token
