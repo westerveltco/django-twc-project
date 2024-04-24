@@ -20,6 +20,8 @@ colorama==0.4.6
     # via copier
     # via djlint
 copier==9.2.0
+    # via copier-templates-extensions
+copier-templates-extensions==0.3.0
 cssbeautifier==1.15.1
     # via djlint
 distlib==0.3.8
