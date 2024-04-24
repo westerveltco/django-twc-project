@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 import multiprocessing
 import re
-import secrets
 import socket
 import sys
 from email.utils import parseaddr
@@ -221,7 +220,10 @@ if DEBUG:
 
 ROOT_URLCONF = "default.urls"
 
-SECRET_KEY = env.str("SECRET_KEY", default=secrets.token_hex(32))
+SECRET_KEY = env.str(
+    "SECRET_KEY",
+    default="83fd05207cf5f230baaf1f99133e264baa9c3522af87873df8c36045f85febca",
+)
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
 

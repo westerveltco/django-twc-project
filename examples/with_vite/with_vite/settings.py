@@ -3,7 +3,6 @@ from __future__ import annotations
 import json
 import multiprocessing
 import re
-import secrets
 import socket
 import sys
 from email.utils import parseaddr
@@ -222,7 +221,10 @@ if DEBUG:
 
 ROOT_URLCONF = "with_vite.urls"
 
-SECRET_KEY = env.str("SECRET_KEY", default=secrets.token_hex(32))
+SECRET_KEY = env.str(
+    "SECRET_KEY",
+    default="b87c6812f24c920f2a9c0737839b1697231687f44984add9d0ada5609cde0c52",
+)
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
 
