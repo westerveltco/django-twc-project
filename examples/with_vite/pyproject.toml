@@ -8,7 +8,7 @@ version_pattern = "YYYY.MM.INC1"
 
 [tool.bumpver.file_patterns]
 ".copier/project.yml" = [
-  'current_version: "{version}"'
+  'current_version: {version}'
 ]
 "tests/test_version.py" = [
   'assert __version__ == "{version}"'
