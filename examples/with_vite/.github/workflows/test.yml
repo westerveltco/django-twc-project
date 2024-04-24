@@ -11,6 +11,9 @@ concurrency:
 env:
   CI: true
   FORCE_COLOR: 1
+  NODE_VERSION: "20"
+  PYTHON_REQUIREMENTS: "requirements.txt"
+  PYTHON_VERSION: "3.12"
 
 permissions:
   contents: read
@@ -42,9 +45,9 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          node-version: 20
-          python-version: 3.12
-          python-requirements: requirements.txt
+          node-version: ${{ env.NODE_VERSION }}
+          python-version: ${{ env.PYTHON_VERSION }}
+          python-requirements: ${{ env.PYTHON_REQUIREMENTS }}
           use-uv: true
 
       - name: Install system packages
@@ -90,8 +93,8 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: 3.12
-          python-requirements: requirements.txt
+          python-version: ${{ env.PYTHON_VERSION }}
+          python-requirements: ${{ env.PYTHON_REQUIREMENTS }}
           use-uv: true
 
       - name: Install system packages
@@ -114,8 +117,8 @@ jobs:
 
       - uses: westerveltco/setup-ci-action@v0
         with:
-          python-version: 3.12
-          python-requirements: requirements.txt
+          python-version: ${{ env.PYTHON_VERSION }}
+          python-requirements: ${{ env.PYTHON_REQUIREMENTS }}
           use-uv: true
 
       - name: Install dependencies
