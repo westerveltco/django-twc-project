@@ -33,7 +33,7 @@ httpx
 ipython
 model_bakery
 mypy
-playwright
+playwright==1.43.0
 pre-commit
 psycopg
 psycopg-binary

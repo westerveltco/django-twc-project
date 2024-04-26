@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: ed2b516
+_commit: 026cf31
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
@@ -16,6 +16,7 @@ include_weasyprint: false
 module_name: default
 node_version: '20'
 op_vault: default
+playwright_version: 1.43.0
 postgis_version: '3.4'
 postgres_docker_image: postgis/postgis
 postgres_docker_version: '15'

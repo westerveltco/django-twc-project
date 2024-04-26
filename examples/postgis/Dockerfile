@@ -61,13 +61,6 @@ RUN --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.
   && uv pip install -r requirements.txt
 
 
-FROM py as playwright
-ENV PLAYWRIGHT_BROWSERS_PATH /usr/local/bin/playwright-browsers
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  apt-get update --fix-missing \
-  && playwright install --with-deps
-
-
 FROM node-base as node
 COPY --from=py --link /usr/local /usr/local
 COPY --link package*.json /app
@@ -101,7 +94,8 @@ COPY --link default /app/default
 COPY --link templates /app/templates
 
 
-FROM playwright as dev
+FROM mcr.microsoft.com/playwright/python:v1.43.0 as dev
+COPY --from=py --link /usr/local /usr/local
 COPY --from=app --link /app /app
 
 
