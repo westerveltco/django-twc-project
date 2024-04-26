@@ -16,17 +16,8 @@ admin.site.site_title = admin_header
 
 urlpatterns = [
     path(".well-known/security.txt", core_views.security_txt),
-    path("android-chrome-192x192.png", core_views.favicon),
-    path("android-chrome-512x512.png", core_views.favicon),
-    path("apple-touch-icon.png", core_views.favicon),
-    path("browserconfig.xml", core_views.favicon),
-    path("favicon-16x16.png", core_views.favicon),
-    path("favicon-32x32.png", core_views.favicon),
-    path("favicon.ico", core_views.favicon),
-    path("mstile-150x150.png", core_views.favicon),
     path("robots.txt", core_views.robots_txt),
-    path("safari-pinned-tab.svg", core_views.favicon),
-    path("site.webmanifest", core_views.favicon),
+    path("", include("django_twc_ui.favicons.urls")),
     path("404/", core_views.custom_error_404, name="404"),
     path("500/", core_views.custom_error_500, name="500"),
     path("accounts/", include("allauth.urls")),
