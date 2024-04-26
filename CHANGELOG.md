@@ -22,6 +22,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 -   Pinned Django in `requirements.in` to less than the next major release based on the version chosen when answering copier questions.
 -   Added more ignore rules to `.gitignore` pertaining to SQLite, PostgreSQL, and other database files.
 
+### Changed
+
+-   Now using official Playwright Docker image provided my Microsoft, instead of installing manually inside project's `Dockerfile`. The build times when updating any Python dependency got to be too long to deal with, so instead we pin which version of Playwright to use in both `requirements.in` and the aforementioned `Dockerfile` so there is no drift between the two.
+
 ## [2024.16]
 
 ### Added
