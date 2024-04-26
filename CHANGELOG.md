@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 -   Pinned Django in `requirements.in` to less than the next major release based on the version chosen when answering copier questions.
+-   Added more ignore rules to `.gitignore` pertaining to SQLite, PostgreSQL, and other database files.
 
 ## [2024.16]
 
