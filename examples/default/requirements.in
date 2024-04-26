@@ -2,7 +2,7 @@ attrs
 boto3
 coverage[toml]
 croniter
-django
+django<5.0
 django-allauth
 django-browser-reload
 django-click
