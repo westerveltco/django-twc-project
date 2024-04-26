@@ -107,6 +107,7 @@ INSTALLED_APPS = [
     "django_q_registry",
     "django_simple_nav",
     "django_twc_ui",
+    "django_twc_ui.favicons",
     "django_twc_ui.forms",
     "email_relay",
     "neapolitan",
@@ -223,7 +224,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="1b560d5698db1bf8f1d66f8693fa772b61a3a54a99fafc3081e061ae26963cfb",
+    default="000de85b1207f45f924934abb971fc7344754c33e14d3e50ab0b86558b60d790",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG

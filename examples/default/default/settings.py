@@ -107,6 +107,7 @@ INSTALLED_APPS = [
     "django_q_registry",
     "django_simple_nav",
     "django_twc_ui",
+    "django_twc_ui.favicons",
     "django_twc_ui.forms",
     "email_relay",
     "neapolitan",
@@ -222,7 +223,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="520937d0030dd1c049a21b99eb47258724d67917c1dfe678c89586d8194474c9",
+    default="68bb73d8124dad4ca3266aea429c637dc6625990339d6aaec64e9b39205ced5d",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
