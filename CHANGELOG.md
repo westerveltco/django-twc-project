@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.17]
+
 ### Added
 
 -   Pinned Django in `requirements.in` to less than the next major release based on the version chosen when answering copier questions.
@@ -283,7 +285,7 @@ Initial release! 🎉
 
 -   Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.16...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.17...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -300,3 +302,4 @@ Initial release! 🎉
 [2024.14]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.14
 [2024.15]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.15
 [2024.16]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.16
+[2024.17]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.17
