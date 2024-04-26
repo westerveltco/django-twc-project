@@ -13,19 +13,16 @@ _default:
 # Bootstrap local development environment
 bootstrap:
     @just pup
+    @just lock
     @just install
-
-# Generate requirements file
-lock *ARGS:
-    python -m uv pip compile {{ ARGS }} --generate-hashes requirements.in --output-file requirements.txt
 
 # Install dependencies
 install *ARGS:
     python -m uv pip install --upgrade -r requirements.txt
 
-# Generate and upgrade dependencies
-upgrade:
-    @just lock --upgrade
+# Generate requirements file
+lock *ARGS:
+    python -m uv pip compile {{ ARGS }} --generate-hashes requirements.in --output-file requirements.txt
 
 # Install and update dependency tools
 pup:
@@ -36,6 +33,10 @@ update:
     @just pup
     @just upgrade
     @just install
+
+# Generate and upgrade dependencies
+upgrade:
+    @just lock --upgrade
 
 # ----------------------------------------------------------------------
 # TESTING/TYPES
