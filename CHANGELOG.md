@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 -   Now using official Playwright Docker image provided my Microsoft, instead of installing manually inside project's `Dockerfile`. The build times when updating any Python dependency got to be too long to deal with, so instead we pin which version of Playwright to use in both `requirements.in` and the aforementioned `Dockerfile` so there is no drift between the two.
+-   `just bootstrap` command in template now calls `just lock` to address when a `requirements.txt` may not exist.
 
 ## [2024.16]
 
