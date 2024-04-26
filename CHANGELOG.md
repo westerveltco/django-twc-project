@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+-   Pinned Django in `requirements.in` to less than the next major release based on the version chosen when answering copier questions.
+
 ## [2024.16]
 
 ### Added

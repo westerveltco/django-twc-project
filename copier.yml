@@ -5,6 +5,7 @@
 _answers_file: .copier/project.yml
 _jinja_extensions:
   - copier_templates_extensions.TemplateExtensionLoader
+  - extensions/context.py:DjangoNextVersion
   - extensions/context.py:SecretKey
 _min_copier_version: "9.1.0"
 _secret_questions:
