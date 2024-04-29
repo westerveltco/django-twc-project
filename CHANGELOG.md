@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+-   Added two CSS utilities previously set in the shared central Tailwind CSS config: `x-cloak` for hiding certain Alpine.js elements until Alpine has been initialized and the `htmx-indicator` for controlling the Z-index of the loading indicator.
+
 ## [2024.17]
 
 ### Added

@@ -1,3 +1,19 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer utilities {
+  [x-cloak] {
+    display: none !important;
+  }
+
+  .htmx-indicator {
+    z-index: -9999;
+  }
+  .htmx-request .htmx-indicator {
+    z-index: 10;
+  }
+  .htmx-request.htmx-indicator {
+    z-index: 10;
+  }
+}
