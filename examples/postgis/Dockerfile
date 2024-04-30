@@ -95,8 +95,17 @@ COPY --link templates /app/templates
 
 
 FROM mcr.microsoft.com/playwright/python:v1.43.0 as dev
+ENV DEBIAN_FRONTEND noninteractive
 COPY --from=py --link /usr/local /usr/local
 COPY --from=app --link /app /app
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
+  apt-get update --fix-missing \
+  && apt-get install -y --no-install-recommends \
+  # timezone data missing from Ubuntu base image that Playwright uses
+  # (it's normally included in the Python based images)
+  tzdata \
+  # cleanup
+  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 
 FROM node as node-final
