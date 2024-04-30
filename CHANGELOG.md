@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Added two CSS utilities previously set in the shared central Tailwind CSS config: `x-cloak` for hiding certain Alpine.js elements until Alpine has been initialized and the `htmx-indicator` for controlling the Z-index of the loading indicator.
 
+### Fixed
+
+-   `tzdata` system utility package now explicitly installed in the `dev` stage of the template's `Dockerfile`. Previously all of the stages were based on the `python-slim` base image, which includes `tzdata` by default. The `mcr.microsoft.com/playwright/python` image is based on `ubuntu` and does not include `tzdata` by default.
+
 ## [2024.17]
 
 ### Added
