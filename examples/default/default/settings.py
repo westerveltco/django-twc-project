@@ -223,7 +223,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="58faa856a9db0222a0dfe2859c5cdfd47bf7c23b67b538424aff164a60f6c285",
+    default="0f8b8c04275ed8e405f1dd605eb0137d34a35001b1b95bb10af2bc1033fc10fd",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
