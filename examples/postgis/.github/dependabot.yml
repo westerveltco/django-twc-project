@@ -6,7 +6,7 @@ updates:
       interval: weekly
       timezone: America/Chicago
     labels:
-      - dependabot
+      - 🤖 dependabot
     groups:
       gha:
         patterns:
@@ -17,7 +17,7 @@ updates:
       interval: weekly
       timezone: America/Chicago
     labels:
-      - dependabot
+      - 🤖 dependabot
     groups:
       python:
         patterns:
@@ -30,7 +30,7 @@ updates:
       interval: weekly
       timezone: America/Chicago
     labels:
-      - dependabot
+      - 🤖 dependabot
     groups:
       javascript:
         patterns:

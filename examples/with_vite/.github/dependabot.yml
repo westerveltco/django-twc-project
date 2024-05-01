@@ -6,7 +6,7 @@ updates:
       interval: weekly
       timezone: America/Chicago
     labels:
-      - dependabot
+      - 🤖 dependabot
     groups:
       gha:
         patterns:
@@ -17,7 +17,7 @@ updates:
       interval: weekly
       timezone: America/Chicago
     labels:
-      - dependabot
+      - 🤖 dependabot
     ignore:
       - dependency-name: "django-vite"
         update-types: ["version-update:semver-major"]
@@ -33,7 +33,7 @@ updates:
       interval: weekly
       timezone: America/Chicago
     labels:
-      - dependabot
+      - 🤖 dependabot
     groups:
       javascript:
         patterns:
