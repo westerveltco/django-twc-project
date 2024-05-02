@@ -27,7 +27,7 @@ django-template-partials
 django-twc-toolbox
 environs[django]
 gunicorn
-heroicons
+heroicons[django]
 httpx
 ipython
 model_bakery

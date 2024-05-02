@@ -28,7 +28,7 @@ django-twc-toolbox
 django-vite
 environs[django]
 gunicorn
-heroicons
+heroicons[django]
 httpx
 ipython
 model_bakery
