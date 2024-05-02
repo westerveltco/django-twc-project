@@ -226,7 +226,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="660743a035e2cb133d8e49503e925b1703e8dcbb5a6bde7dc552a19ddd99719d",
+    default="ef9cd5b63040249b7cd1a591df9ad0c650934438559139a4bbb9ab490d4064aa",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
@@ -389,6 +389,8 @@ AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", default=None)
 AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", default=None)
 
 AWS_S3_ADDRESSING_STYLE = env.str("AWS_S3_ADDRESSING_STYLE", default="virtual")
+
+AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN", default=None)
 
 AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default=None)
 
