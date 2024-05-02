@@ -52,6 +52,8 @@ ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhos
 
 ASGI_APPLICATION = "{{ module_name }}.asgi.application"
 
+CSRF_COOKIE_SECURE = not DEBUG
+
 DATABASES = {
     "default": env.dj_db_url(
         "DATABASE_URL",
