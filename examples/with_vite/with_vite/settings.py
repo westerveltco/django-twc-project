@@ -54,6 +54,8 @@ ALLOWED_HOSTS = env.list(
 
 ASGI_APPLICATION = "with_vite.asgi.application"
 
+CSRF_COOKIE_SECURE = not DEBUG
+
 DATABASES = {
     "default": env.dj_db_url(
         "DATABASE_URL",
@@ -224,7 +226,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="35883603d162ee138218aae10c9bbed57859719251c2f6db7de619919cef98e8",
+    default="660743a035e2cb133d8e49503e925b1703e8dcbb5a6bde7dc552a19ddd99719d",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG

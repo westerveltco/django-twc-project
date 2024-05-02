@@ -54,6 +54,8 @@ ALLOWED_HOSTS = env.list(
 
 ASGI_APPLICATION = "default.asgi.application"
 
+CSRF_COOKIE_SECURE = not DEBUG
+
 DATABASES = {
     "default": env.dj_db_url(
         "DATABASE_URL",
@@ -223,7 +225,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="2d522c194ba93763c1e75b413febcfa1d21d654ba50ca2eb23fc7160d2e33edf",
+    default="375a5622b8c35879018395ed551920011161f556dd8ff36097fcf5c8a2880dd1",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
