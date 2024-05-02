@@ -1,5 +1,15 @@
 version: 2
 updates:
+  - package-ecosystem: docker
+    directory: "/"
+    schedule:
+      interval: weekly
+    labels:
+      - 🤖 dependabot
+    groups:
+      docker:
+        patterns:
+          - "*"
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
@@ -9,6 +19,17 @@ updates:
       - 🤖 dependabot
     groups:
       gha:
+        patterns:
+          - "*"
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      timezone: America/Chicago
+    labels:
+      - 🤖 dependabot
+    groups:
+      javascript:
         patterns:
           - "*"
   - package-ecosystem: pip
@@ -30,14 +51,3 @@ updates:
       email-relay:
         patterns:
           - "django-email-relay"
-  - package-ecosystem: npm
-    directory: "/"
-    schedule:
-      interval: weekly
-      timezone: America/Chicago
-    labels:
-      - 🤖 dependabot
-    groups:
-      javascript:
-        patterns:
-          - "*"
