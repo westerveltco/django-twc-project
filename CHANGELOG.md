@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+-   Repo now has a `CODEOWNERS` file to automatically assign reviewers to pull requests. (Template already has one.)
+
 ## [2024.19]
 
 ### Added
