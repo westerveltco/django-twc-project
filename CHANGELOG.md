@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 -   Repo now has a `CODEOWNERS` file to automatically assign reviewers to pull requests. (Template already has one.)
+-   Added a new, separate Dependabot group for `django-email-relay` updates.
 
 ## [2024.19]
 
