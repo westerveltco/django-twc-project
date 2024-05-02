@@ -27,6 +27,9 @@ updates:
           - "*"
         exclude-patterns:
           - "django-email-relay"
+      email-relay:
+        patterns:
+          - "django-email-relay"
   - package-ecosystem: npm
     directory: "/"
     schedule:
