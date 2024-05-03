@@ -80,7 +80,7 @@ RUN case ${BUILDARCH} in \
 
 FROM base as app
 COPY --from=py --link /usr/local /usr/local
-COPY --link manage.py package.json /app
+COPY --link manage.py package.json /app/
 COPY --link default /app/default
 COPY --link templates /app/templates
 
