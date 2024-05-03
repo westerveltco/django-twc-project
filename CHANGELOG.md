@@ -28,6 +28,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 -   Tweaked a few of the commands in the template's `Dockerfile` to consolidate the ones that could be.
+-   Added the ability to specify repo specific labels, in addition to the global shared labels.
 
 ### Fixed
 
