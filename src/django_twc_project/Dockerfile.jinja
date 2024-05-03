@@ -97,8 +97,7 @@ RUN case ${BUILDARCH} in \
 
 FROM base as app
 COPY --from=py --link /usr/local /usr/local
-COPY --link manage.py /app
-COPY --link package.json /app
+COPY --link manage.py package.json /app
 COPY --link {{ module_name }} /app/{{ module_name }}
 COPY --link templates /app/templates
 
@@ -118,9 +117,10 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,t
 
 
 FROM node as node-final
+ENV DATABASE_URL sqlite://:memory:
 COPY --from=tailwind --link /usr/local /usr/local
 COPY --from=app --link /app /app
-COPY --link static /app/static
+COPY --link static/src /app/static/src
 {%- if include_vite %}
 COPY --link postcss.config.mjs tailwind.config.mjs tsconfig.json vite.config.ts /app/
 RUN npm run build \
@@ -146,8 +146,7 @@ ARG GID
 COPY --from=py --link /usr/local /usr/local
 COPY --from=app --chown=${UID}:${GID} --link /app /app
 COPY --from=static --chown=${UID}:${GID} --link /app/staticfiles /app/staticfiles
-COPY --from=docker.io/tailscale/tailscale:stable /usr/local/bin/tailscaled /usr/local/bin/tailscaled
-COPY --from=docker.io/tailscale/tailscale:stable /usr/local/bin/tailscale /usr/local/bin/tailscale
+COPY --from=docker.io/tailscale/tailscale:stable /usr/local/bin/tailscaled /usr/local/bin/tailscale /usr/local/bin/
 COPY --chmod=755 --link .bin /
 RUN mkdir -p /var/run/tailscale /var/cache/tailscale /var/lib/tailscale \
   && apt-get remove -y --purge \

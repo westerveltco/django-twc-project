@@ -25,6 +25,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 -   Added `CSRF_COOKIE_SECURE = not DEBUG` setting to template.
 -   Added `AWS_S3_CUSTOM_DOMAIN` setting to template.
 
+### Changed
+
+-   Tweaked a few of the commands in the template's `Dockerfile` to consolidate the ones that could be.
+
 ### Fixed
 
 -   Fixed a bug with the `ssl_require` argument in the database config in `settings.py`. When building or testing, we sometimes fall back to just using SQLite to avoid having to spin up a Postgres database. However, SQLite doesn't know what to do with the `sql_require` argument, so we disable it for SQLite.
