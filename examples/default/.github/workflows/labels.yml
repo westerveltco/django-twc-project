@@ -7,6 +7,7 @@ on:
   workflow_dispatch:
 
 permissions:
+  contents: read
   issues: write
 
 jobs:
@@ -16,4 +17,6 @@ jobs:
     steps:
       - uses: EndBug/label-sync@v2
         with:
-          config-file: https://raw.githubusercontent.com/westerveltco/.github/main/.github/labels.yml
+          config-file: |
+            https://raw.githubusercontent.com/westerveltco/.github/main/.github/labels.yml
+            .github/labels.yml
