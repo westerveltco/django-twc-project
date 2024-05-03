@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 -   Added Docker to Dependabot updates.
 -   Added `CSRF_COOKIE_SECURE = not DEBUG` setting to template.
 -   Added `AWS_S3_CUSTOM_DOMAIN` setting to template.
+-   Added "c-suite" label.
 
 ### Changed
 
