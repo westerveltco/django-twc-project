@@ -96,7 +96,7 @@ playwright_version:
 django_twc_ui_token:
   type: str
   help: What is the OAuth token for accessing the `westerveltco/django-twc-ui` repository?
-  default: super-secret-token
+  default: ""
 
 # ----------------------------------------------------------------------
 # FLY.IO

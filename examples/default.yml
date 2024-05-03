@@ -1,6 +1,7 @@
 admin_email: admin@example.com
 author_name: John Doe
 default_from_email: johndoe@example.com
+django_twc_ui_token: super-secret-token
 github_owner: example_owner
 project_name: default
 sentry_dsn: https://example.com
