@@ -62,14 +62,18 @@ DATABASES = {
         default="sqlite:///db.sqlite3",
         conn_max_age=600,  # 10 minutes
         conn_health_checks=True,
-        ssl_require=not DEBUG and not env.bool("CI", default=False),
+        ssl_require=not DEBUG
+        and not env.bool("CI", default=False)
+        and not env.str("DATABASE_URL", default="").startswith("sqlite://"),
     ),
     EMAIL_RELAY_DATABASE_ALIAS: env.dj_db_url(
         "EMAIL_RELAY_DATABASE_URL",
         default="sqlite:///email_relay.sqlite3",
         conn_max_age=600,  # 10 minutes
         conn_health_checks=True,
-        ssl_require=not DEBUG and not env.bool("CI", default=False),
+        ssl_require=not DEBUG
+        and not env.bool("CI", default=False)
+        and not env.str("EMAIL_RELAY_DATABASE_URL", default="").startswith("sqlite://"),
     ),
 }
 if not DEBUG and (
@@ -225,7 +229,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="d2605a98dfd73f548a89df8c6105141fe2d0b8130a15fb4f67385fcfe1cd0976",
+    default="a997142c0584befe3725213c214690fe17f26fbd3e4abfeb4d4dc48119e13fd9",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
