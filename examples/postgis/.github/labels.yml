@@ -1,3 +1,7 @@
 - name: 👑 c-suite
   color: "244baf"
-  description: Issues or tasks requested by the top brass
+  description: Projects or tasks requested by the top brass
+
+- name: 👀 high visibility
+  color: "ffffff"
+  description: Projects or issues with widespread interest or critical visibility within the organization
