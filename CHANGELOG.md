@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Added "high visibility" label.
 
+### Fixed
+
+-   Removed deprecated `sentry_sdk.last_event_id` function from custom 500 error view.
+
 ## [2024.21]
 
 ### Fixed
