@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Added "high visibility" label.
 
+### Changed
+
+-   Added `socialaccount` extra to `django-allauth` dependency, per the breaking change outlined in the library's [release notes](https://docs.allauth.org/en/latest/release-notes/recent.html#backwards-incompatible-changes).
+
 ### Fixed
 
 -   Removed deprecated `sentry_sdk.last_event_id` function from custom 500 error view.
