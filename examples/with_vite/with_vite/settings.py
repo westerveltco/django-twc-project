@@ -230,7 +230,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="9bf6f9f7a9c6372bba05cae9d391a43e8b24f1bfca6f4e71ea161dad3e8e7ac6",
+    default="bb0934fa3e36b1e5a1e47585b7479e24c7dc65b49d74adbf2ef89a0a3d01b7ef",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
@@ -256,7 +256,17 @@ SITE_ID = 1
 
 STORAGES = {
     "default": {
-        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+        "BACKEND": "storages.backends.s3.S3Storage",
+        "OPTIONS": {
+            "access_key": env.str("AWS_ACCESS_KEY_ID", default=None),
+            "addressing_style": env.str("AWS_S3_ADDRESSING_STYLE", default="virtual"),
+            "bucket_name": env.str("AWS_STORAGE_BUCKET_NAME", default=None),
+            "custom_domain": env.str("AWS_S3_CUSTOM_DOMAIN", default=None),
+            "endpoint_url": env.url("AWS_S3_ENDPOINT_URL", default=None).geturl(),
+            "region_name": env.str("AWS_S3_REGION_NAME", default=None),
+            "secret_key": env.str("AWS_SECRET_ACCESS_KEY", default=None),
+            "signature_version": env.str("AWS_S3_SIGNATURE_VERSION", default="s3v4"),
+        },
     },
     "staticfiles": {
         "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
@@ -384,21 +394,6 @@ Q_CLUSTER = {
     "bulk": 10,
     "orm": "default",
 }
-
-# django-storages
-AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", default=None)
-
-AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", default=None)
-
-AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", default=None)
-
-AWS_S3_ADDRESSING_STYLE = env.str("AWS_S3_ADDRESSING_STYLE", default="virtual")
-
-AWS_S3_CUSTOM_DOMAIN = env("AWS_S3_CUSTOM_DOMAIN", default=None)
-
-AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default=None)
-
-AWS_S3_SIGNATURE_VERSION = env.str("AWS_S3_SIGNATURE_VERSION", default="s3v4")
 
 # django-tailwind-cli
 TAILWIND_CLI_CONFIG_FILE = "tailwind.config.mjs"

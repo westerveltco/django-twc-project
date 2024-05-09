@@ -1,5 +1,4 @@
 attrs
-boto3
 coverage[toml]
 croniter
 django<5.0
@@ -20,7 +19,7 @@ django-q2
 django-q-registry
 django-simple-history
 django-simple-nav
-django-storages
+django-storages[s3]
 django-stubs
 django-tailwind-cli
 django-template-partials
