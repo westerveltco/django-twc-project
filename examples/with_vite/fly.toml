@@ -11,7 +11,6 @@ strategy = "bluegreen"
 [env]
 ALLOWED_HOSTS = "with_vite-example_owner.fly.dev,with_vite.westervelt.com"
 DEBUG = "False"
-PORT = "8000"
 SENTRY_DSN = "https://example.com"
 SENTRY_ENV = "production"
 
