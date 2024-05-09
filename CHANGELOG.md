@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.23]
+
 ### Removed
 
 -   Removed the `PORT` environment variable from the Fly.io config. It was unused and not needed.
@@ -345,7 +347,7 @@ Initial release! 🎉
 
 -   Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.22...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.23...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -368,3 +370,4 @@ Initial release! 🎉
 [2024.20]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.20
 [2024.21]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.21
 [2024.22]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.22
+[2024.23]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.23
