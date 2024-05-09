@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Removed
+
+-   Removed the `PORT` environment variable from the Fly.io config. It was unused and not needed.
+
 ## [2024.22]
 
 ### Added
