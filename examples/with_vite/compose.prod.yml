@@ -1,5 +1,3 @@
-version: "3"
-
 x-app: &prod-app
   build:
     target: final
