@@ -25,6 +25,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Removed
 
 -   `boto3` as an explicit dependency has been removed in favor of `django-storages[s3]`.
+-   Removed deprecated `version` property from all Docker `compose*.yml` files.
 
 ## [2024.23]
 
