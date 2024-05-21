@@ -6,6 +6,7 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
 
 annotated-types==0.6.0
     # via pydantic
@@ -32,6 +33,10 @@ dunamai==1.19.2
 editorconfig==0.12.4
     # via cssbeautifier
     # via jsbeautifier
+eval-type-backport==0.1.3
+    # via copier
+exceptiongroup==1.2.1
+    # via pytest
 execnet==2.0.2
     # via pytest-xdist
 filelock==3.13.3
@@ -44,6 +49,8 @@ html-void-elements==0.1.0
     # via djlint
 identify==2.5.35
     # via pre-commit
+importlib-metadata==7.1.0
+    # via pytest-randomly
 iniconfig==2.0.0
     # via pytest
 jinja2==3.1.3
@@ -109,6 +116,9 @@ six==1.16.0
     # via jsbeautifier
 toml==0.10.2
     # via bumpver
+tomli==2.0.1
+    # via djlint
+    # via pytest
 tqdm==4.66.2
     # via djlint
 typing-extensions==4.10.0
@@ -118,3 +128,5 @@ virtualenv==20.25.1
     # via pre-commit
 wcwidth==0.2.13
     # via prompt-toolkit
+zipp==3.18.2
+    # via importlib-metadata
