@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Adjusted the configuration of `django-storages` to use new style. At least, I think it's new. I cannot find in the library's CHANGELOG where it was added.
 -   `django-storages` installation options adjusted to specify the `[s3]` extra.
+-   Major refactor to the `Justfile`. Now utilizing the new modules introduced in version 1.19.0 of `just`.
 
 ### Removed
 
