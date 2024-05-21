@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.24]
+
 ### Changed
 
 -   Adjusted the configuration of `django-storages` to use new style. At least, I think it's new. I cannot find in the library's CHANGELOG where it was added.
@@ -359,7 +361,7 @@ Initial release! 🎉
 
 -   Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.23...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.24...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -383,3 +385,4 @@ Initial release! 🎉
 [2024.21]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.21
 [2024.22]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.22
 [2024.23]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.23
+[2024.24]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.24
