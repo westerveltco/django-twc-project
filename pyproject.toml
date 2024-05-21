@@ -3,20 +3,20 @@ build-backend = "hatchling.build"
 requires = ["hatchling"]
 
 [project]
-authors = [{name = "Josh", email = "josh@joshthomas.dev"}]
+authors = [{ name = "Josh", email = "josh@joshthomas.dev" }]
 dependencies = ["copier>=9.2.0", "copier-templates-extensions>=0.3.0"]
 description = "A Django project template for The Westervelt Company."
 dynamic = ["version"]
-license = {file = "LICENSE"}
+license = { file = "LICENSE" }
 name = "django-twc-project"
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.9"
 
 [tool.bumpver]
 commit = true
 commit_message = ":bookmark: bump version {old_version} -> {new_version}"
 current_version = "2024.23"
-push = false  # set to false for CI
+push = false                                                              # set to false for CI
 tag = false
 version_pattern = "YYYY.INC1"
 
@@ -26,7 +26,7 @@ version_pattern = "YYYY.INC1"
 "tests/test_version.py" = ['assert version == "{version}"']
 
 [tool.djlint]
-ignore = "H031"  # Don't require `meta` tag keywords
+ignore = "H031" # Don't require `meta` tag keywords
 indent = 2
 
 [tool.hatch.metadata]
@@ -62,14 +62,14 @@ exclude = [
   "dist",
   "migrations",
   "node_modules",
-  "venv"
+  "venv",
 ]
 extend-include = ["*.pyi?"]
 indent-width = 4
 # Same as Black.
 line-length = 88
-# Assume Python >3.8.
-target-version = "py38"
+# Assume Python >3.9
+target-version = "py39"
 
 [tool.ruff.format]
 # Like Black, indent with spaces, rather than tabs.
@@ -84,13 +84,13 @@ quote-style = "double"
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 # Allow autofix for all enabled rules (when `--fix`) is provided.
 fixable = ["A", "B", "C", "D", "E", "F", "I"]
-ignore = ["E501", "E741"]  # temporary
+ignore = ["E501", "E741"] # temporary
 select = [
   "B",  # flake8-bugbear
   "E",  # Pycodestyle
   "F",  # Pyflakes
   "I",  # isort
-  "UP"  # pyupgrade
+  "UP", # pyupgrade
 ]
 unfixable = []
 
@@ -116,7 +116,7 @@ dev-dependencies = [
   "pytest-randomly>=3.15.0",
   "pytest-reverse>=1.7.0",
   "pyyaml>=6.0.1",
-  "pre-commit>=3.7.0"
+  "pre-commit>=3.7.0",
 ]
 managed = true
 virtual = true
