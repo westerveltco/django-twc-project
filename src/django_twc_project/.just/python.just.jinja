@@ -38,7 +38,7 @@ lock *ARGS:
 # Run tests using pytest within the 'app' container, with optional arguments
 test *ARGS:
 {%- if include_vite %}
-    @just docker run app "-e DJANGO_VITE_DEV_SERVER_HOST=node" pytest {% raw %}{{ ARGS }}{% endraw %}
+    @just docker run app "-e DJANGO_VITE_DEV_SERVER_HOST=node" coverage run -m pytest {% raw %}{{ ARGS }}{% endraw %}
 {%- else %}
     @just docker command coverage run -m pytest {% raw %}{{ ARGS }}{% endraw %}
 {%- endif %}
