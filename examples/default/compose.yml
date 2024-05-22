@@ -1,11 +1,13 @@
-x-app: &default-app
+x-depends-on-db: &depends-on-db
+  db:
+    condition: service_healthy
+
+x-default-app: &default-app
   build:
     context: .
     dockerfile: Dockerfile
     target: app
-  depends_on:
-    db:
-      condition: service_healthy
+  depends_on: *depends-on-db
   env_file: .env
   init: true
   user: "${UID:-1000}:${GID:-1000}"
@@ -44,7 +46,6 @@ services:
     build:
       target: tailwind
     command: python manage.py tailwind --skip-checks watch
-    depends_on: []
     tty: true
 
   worker:
