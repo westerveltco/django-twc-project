@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+-   Fixed a bug in the changed `just docker clean` `Justfile` command where the command was prefixed with an `@` symbol. That is valid when it's a pure `just` command, but it was changed to a `bash` script.
+
 ## [2024.25]
 
 ### Added
