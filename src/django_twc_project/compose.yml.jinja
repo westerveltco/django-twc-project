@@ -1,11 +1,13 @@
-x-app: &default-app
+x-depends-on-db: &depends-on-db
+  db:
+    condition: service_healthy
+
+x-default-app: &default-app
   build:
     context: .
     dockerfile: Dockerfile
     target: app
-  depends_on:
-    db:
-      condition: service_healthy
+  depends_on: *depends-on-db
   env_file: .env
   init: true
   user: "${UID:-1000}:${GID:-1000}"
@@ -19,6 +21,12 @@ services:
     build:
       target: dev
     command: python manage.py runserver 0.0.0.0:8000 --skip-checks
+{%- if include_vite %}
+    depends_on:
+      <<: *depends-on-db
+      node:
+        condition: service_healthy
+{%- endif %}
     ports:
       - "${DJANGO_PORT:-8000}:8000"
 
@@ -50,7 +58,8 @@ services:
       - |
         npm install
         npm run dev
-    depends_on: []
+    healthcheck:
+      test: "exit 0"
     ports:
       - "5173:5173"
 {%- endif %}
@@ -60,7 +69,6 @@ services:
     build:
       target: tailwind
     command: python manage.py tailwind --skip-checks watch
-    depends_on: []
     tty: true
 
   worker:

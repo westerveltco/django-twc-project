@@ -24,6 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 -   Adjusted various `Justfile` commands based on testing and feedback.
+-   `depends_on` in `compose.yml` now moved to a separate YAML anchor with the benefit of being able to extend it to include the `node` container when Vite is chosen.
 
 ## [2024.24]
 
