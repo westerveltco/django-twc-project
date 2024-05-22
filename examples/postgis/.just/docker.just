@@ -23,7 +23,7 @@ build-prod:
 clean:
     #!/usr/bin/env bash
     [[ ! -f .env ]] && just project envfile
-    @just docker down --volumes --rmi local
+    just docker down --volumes --rmi local
 
 # Run a command within the 'app' container
 command *ARGS:
