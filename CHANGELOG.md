@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 -   Added our Data Analytics GitHub Team to the `CODEOWNERS` file for automatic review assignment to any PRs involving migrations.
 
+### Changed
+
+-   Adjusted various `Justfile` commands based on testing and feedback.
+
 ## [2024.24]
 
 ### Changed
