@@ -7,7 +7,6 @@ x-default-app: &default-app
     context: .
     dockerfile: Dockerfile
     target: app
-  depends_on: *depends-on-db
   env_file: .env
   init: true
   user: "${UID:-1000}:${GID:-1000}"
@@ -21,6 +20,7 @@ services:
     build:
       target: dev
     command: python manage.py runserver 0.0.0.0:8000 --skip-checks
+    depends_on: *depends-on-db
     ports:
       - "${DJANGO_PORT:-8000}:8000"
 
@@ -51,6 +51,7 @@ services:
   worker:
     <<: *default-app
     command: python manage.py qcluster
+    depends_on: *depends-on-db
 
 volumes:
   postgres-data:

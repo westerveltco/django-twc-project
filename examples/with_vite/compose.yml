@@ -7,7 +7,6 @@ x-default-app: &default-app
     context: .
     dockerfile: Dockerfile
     target: app
-  depends_on: *depends-on-db
   env_file: .env
   init: true
   user: "${UID:-1000}:${GID:-1000}"
@@ -70,6 +69,7 @@ services:
   worker:
     <<: *default-app
     command: python manage.py qcluster
+    depends_on: *depends-on-db
 
 volumes:
   postgres-data:
