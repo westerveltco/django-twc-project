@@ -19,7 +19,10 @@ build-prod:
     docker compose -f compose.yml -f compose.prod.yml build
 
 # Stop and remove all containers, networks, images, and volumes
+[no-cd]
 clean:
+    #!/usr/bin/env bash
+    [[ ! -f .env ]] && just project envfile
     @just docker down --volumes --rmi local
 
 # Run a command within the 'app' container

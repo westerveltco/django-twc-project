@@ -37,7 +37,7 @@ serve: cog
 upgrade:
     @just lock --upgrade
 
-[private]
 [no-cd]
+[private]
 cog:
     cog -r docs/just.md

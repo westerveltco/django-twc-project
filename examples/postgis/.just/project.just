@@ -33,7 +33,7 @@ envfile:
     envfile = Path("{{ justfile_directory() }}/.env")
     envfile_example = Path("{{ justfile_directory() }}/.env.example")
 
-    if not envfile.exists():
+    if not envfile.exists() or envfile.stat().st_size == 0:
         envfile.write_text(envfile_example.read_text())
 
 # Sync .env file back to .env.example
@@ -85,6 +85,7 @@ lint: install-precommit
     @just project just-fmt
 
 # Setup project scaffolding
+[no-cd]
 setup:
     @just project envfile
     @just py venv
