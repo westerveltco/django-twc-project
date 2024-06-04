@@ -230,7 +230,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="bdf8123b39a67904872b8a560f6d93e9efcf43a6080e20068529ae3ad5bead5a",
+    default="f006766e2835510dde43546130923065c3e826b774eea57778283d5197fac25b",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
@@ -262,7 +262,6 @@ STORAGES = {
             "addressing_style": env.str("AWS_S3_ADDRESSING_STYLE", default="virtual"),
             "bucket_name": env.str("AWS_STORAGE_BUCKET_NAME", default=None),
             "custom_domain": env.str("AWS_S3_CUSTOM_DOMAIN", default=None),
-            "endpoint_url": env.url("AWS_S3_ENDPOINT_URL", default=None).geturl(),
             "region_name": env.str("AWS_S3_REGION_NAME", default=None),
             "secret_key": env.str("AWS_SECRET_ACCESS_KEY", default=None),
             "signature_version": env.str("AWS_S3_SIGNATURE_VERSION", default="s3v4"),

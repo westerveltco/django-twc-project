@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: b16d1ae
+_commit: a44ae0a
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
@@ -25,3 +25,4 @@ sentry_dsn: https://example.com
 sentry_org: the-westervelt-company
 sentry_project: default
 tailwindcss_version: 3.4.0
+use_r2: false
