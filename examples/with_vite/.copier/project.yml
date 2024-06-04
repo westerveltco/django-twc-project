@@ -1,5 +1,5 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 0d922ce
+_commit: v2024.27-10-gb1c8991
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
@@ -15,7 +15,6 @@ include_vite: true
 include_weasyprint: false
 module_name: with_vite
 node_version: '20'
-op_vault: with_vite
 playwright_version: 1.43.0
 postgres_docker_image: postgres
 postgres_docker_version: '15'
