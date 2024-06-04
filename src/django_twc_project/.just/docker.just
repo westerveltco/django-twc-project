@@ -26,6 +26,7 @@ clean:
     just docker down --volumes --rmi local
 
 # Run a command within the 'app' container
+[no-cd]
 command *ARGS:
     @just docker run app "" "/bin/bash -c '{{ ARGS }}'"
 
@@ -60,18 +61,22 @@ run CONTAINER FLAGS *ARGS:
     docker compose run --rm {{ FLAGS }} {{ CONTAINER }} {{ ARGS }}
 
 # Start development stack using docker compose
+[no-cd]
 start:
     @just docker up --detach
 
 # Start the full production stack using docker compose
+[no-cd]
 start-prod:
     @just docker up-prod --detach
 
 # Stop services by calling the 'down' command
+[no-cd]
 stop:
     @just docker down
 
 # Continuously follow the latest docker logs, optionally targeting specific containers
+[no-cd]
 tail *ARGS:
     @just docker logs --follow {{ ARGS }}
 

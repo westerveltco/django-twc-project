@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Added `[no-cd]` to all `Justfile` module subcommands. By default, a `just` command runs in the context of the file that it is contained it, which means the working directory for all of the module subcommands ends up being the `.just` directory. This is not what we want. Annoyingly, there seems to be no way to change this, either globally or as a setting at the top of a `Justfile`, so we instead have to decorate all of the commands.
+
 ## [2024.27]
 
 ### Added
