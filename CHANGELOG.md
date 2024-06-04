@@ -21,6 +21,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added Semgrep CI GitHub Actions workflow.
 
+### Changed
+
+- Updated `README.md` to account for recent changes to `Justfile` commands.
+
+### Removed
+
+- Removed GitHub branching strategy section from `README.md`. This has been moved to our central Web Dev documentation.
+
 ## [2024.26]
 
 ### Fixed
