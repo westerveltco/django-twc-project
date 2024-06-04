@@ -23,6 +23,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `django-twc-toolbox` now a part of the `INSTALLED_APPS` list. There was a management command added -- an override of the built-in `createsuperuser` command that resets the superuser's password in development -- so it's added as an installed app so this command can be run.
 - Added a question for template generation on whether Cloudflare R2 will be used. If so, make sure the `STORAGES` setting in `settings.py` has the correct keys for setting that up.
 
+### Removed
+
+- Removed question about 1Password vault, which is no longer used.
+
 ## [2024.27]
 
 ### Added
