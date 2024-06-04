@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.28]
+
 ### Changed
 
 - Added `[no-cd]` to all `Justfile` module subcommands. By default, a `just` command runs in the context of the file that it is contained it, which means the working directory for all of the module subcommands ends up being the `.just` directory. This is not what we want. Annoyingly, there seems to be no way to change this, either globally or as a setting at the top of a `Justfile`, so we instead have to decorate all of the commands.
@@ -407,7 +409,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.27...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.28...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -435,3 +437,4 @@ Initial release! 🎉
 [2024.25]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.25
 [2024.26]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.26
 [2024.27]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.27
+[2024.28]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.28
