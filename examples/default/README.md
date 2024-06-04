@@ -5,6 +5,7 @@
 - Python 3.12
   - It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) to manage your Python versions.
   - [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv) is also useful for managing virtual environments, though it is not required.
+  - [`uv`](https://github.com/astral-sh/uv) is used for managing Python dependencies.
 - Node.js 20
   - It is recommended to use [`nvm`](https://github.com/nvm-sh/nvm) to manage your Node.js versions.
 - Docker and Docker Compose
@@ -21,56 +22,51 @@
    git clone https://github.com/example_owner/default
    ```
 
-2. Create and activate a virtual environment.
+2. Export the `JUST_UNSTABLE` environment variable set to `true`.
 
-   Using the Python standard library `venv` module:
-
-   ```sh
-   python -m venv .venv
-   source venv/bin/activate  # on Windows, use .venv\Scripts\activate
-   ```
-
-   Using `pyenv` and `pyenv-virtualenv`:
+   The `Justfile` used to run all the command development commands takes advantage of just modules, which currently are marked as "unstable". The easiest way around this is to set this environment variable, otherwise you will need to preface every `just` command with the `--unstable` CLI flag.
 
    ```sh
-   pyenv virtualenv 3.12 default-3.12
-   pyenv local default-3.12
+   export JUST_UNSTABLE=true
    ```
+
+   Alternatively, you can use a tool like [Direnv](https://direnv.net) to accomplish this as well.
 
 3. Run the setup script:
 
    ```sh
-   just bootstrap
+   just setup
    ```
 
    This will:
+   - Clean the repository of existing files, stop any Docker containers that may be running, delete Docker images and networks.
    - Copy the `.env.example` file to `.env` if it does not already exist.
-   - Install and upgrade `pip` and `pip-tools`.
-   - Generate a `requirements.txt` file from `requirements.in` (if it does not already exist) and install the dependencies.
-   - Install the Node.js dependencies.
+   - Create a virtual environment at the `$VIRTUAL_ENV` directory (default `.venv`).
+   - Install `uv` and `pre-commit` Python tools.
    - Build the Docker images for the development environment.
+   - Install Python and Node.js dependencies.
+   - Start the Docker Compose stack.
    - Migrate the database.
-   - Start the development `docker-compose` services.
    - Create a superuser for the Django admin interface with the username `admin` and the password `admin`.
+   - Run the test suite and generate code coverage.
+   - Run the `mypy` static type checker.
+   - Lint the repository.
+   - Stop the Docker Compose stack.
 
-4. After the setup script has completed, you should be able to access the development server at [http://localhost:8000](http://localhost:8000).
+4. After the setup script has successfully completed, you can start your development Docker Compose stack by running either of these commands:
+
+   ```sh
+   # to start the containers detached in the background
+   just docker start
+   # to start the containers in the foreground with the logs continuously streaming in stdout
+   just docker up
+   ```
+
+   After starting, you should be able to access the development server at [http://localhost:8000](http://localhost:8000).
 
    By default, the development server will run on port 8000. If you need to change the port, you can do so by setting the `DJANGO_PORT` environment variable in the `.env` file and then restarting the development server.
 
 ## Development
-
-### Git Workflow
-
-This project uses the GitHub Flow workflow for development.
-
-In general, this means that:
-
-- The main branch is `main` and is always deployable.
-- All development work should be done in short-lived feature branches.
-- When a feature is complete, a pull request is opened, reviewed, and then merged into `main`.
-- After a pull request is merged, the feature branch is deleted.
-
-For more information, see the [GitHub Flow Guide](https://guides.github.com/introduction/flow/).
 
 ### Testing
 
