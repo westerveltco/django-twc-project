@@ -13,7 +13,6 @@ fmt:
 manage *COMMAND:
     @just docker command python -m manage {{ COMMAND }}
 
-[no-cd]
 alias mm := makemigrations
 
 # Generate Django migrations
