@@ -8,7 +8,7 @@ default:
 fmt:
     @just --fmt --justfile {{ justfile }}
 
-DATABASE_URL := env_var("DATABASE_URL")
+DATABASE_URL := replace(env_var("DATABASE_URL"), "postgis://", "postgres://")
 
 # Dump our local database to file
 dump database_url=DATABASE_URL file='db.dump':
@@ -21,8 +21,8 @@ dump database_url=DATABASE_URL file='db.dump':
 
 # Dump our production database to file
 dump-prod file='production.dump':
-    set PROD_DATABASE_URL := "{{ env_var('PROD_DATABASE_URL') }}"
-    @just pg_dump ${PROD_DATABASE_URL} {{ file }}
+    set PROD_DATABASE_URL := '{{ replace(env_var("PROD_DATABASE_URL"), "postgis://", "postgres://") }}'
+    @just pg dump $PROD_DATABASE_URL {{ file }}
 
 # Restore database backup to our local database
 restore database_url=DATABASE_URL file='db.dump':
