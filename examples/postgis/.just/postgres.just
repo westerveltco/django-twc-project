@@ -11,6 +11,7 @@ fmt:
 DATABASE_URL := replace(env_var("DATABASE_URL"), "postgis://", "postgres://")
 
 # Dump our local database to file
+[no-cd]
 dump database_url=DATABASE_URL file='db.dump':
     just docker run db "" \
         pg_dump \
@@ -20,11 +21,13 @@ dump database_url=DATABASE_URL file='db.dump':
             --verbose
 
 # Dump our production database to file
+[no-cd]
 dump-prod file='production.dump':
     set PROD_DATABASE_URL := '{{ replace(env_var("PROD_DATABASE_URL"), "postgis://", "postgres://") }}'
     @just pg dump $PROD_DATABASE_URL {{ file }}
 
 # Restore database backup to our local database
+[no-cd]
 restore database_url=DATABASE_URL file='db.dump':
     just docker run db "" \
         pg_restore \

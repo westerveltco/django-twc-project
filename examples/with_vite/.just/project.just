@@ -67,6 +67,7 @@ install-uv:
     $python -m pip install --upgrade uv
 
 # Format justfile
+[no-cd]
 just-fmt:
     @just --fmt
     @just copier fmt

@@ -34,6 +34,7 @@ serve: cog
     fi
 
 # Generate and upgrade documentation dependencies
+[no-cd]
 upgrade:
     @just lock --upgrade
 

@@ -9,15 +9,18 @@ fmt:
     @just --fmt --justfile {{ justfile }}
 
 # Run the Playwright codegen command within the 'app' container
+[no-cd]
 codegen *ARGS:
     @just docker run app "-e DJANGO_VITE_DEV_SERVER_HOST=node" "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {{ ARGS }}; kill %1"
 
 # Run the test suite, generate code coverage, and export html report
+[no-cd]
 coverage-html: test
     rm -rf htmlcov
     @just docker command python -m coverage html --skip-covered --skip-empty
 
 # Run the test suite, generate code coverage, and print report to stdout
+[no-cd]
 coverage-report: test
     @just docker command python -m coverage report
 
@@ -32,10 +35,12 @@ lock *ARGS:
     $python -m uv pip compile {{ ARGS }} --generate-hashes requirements.in --output-file requirements.txt
 
 # Run tests using pytest within the 'app' container, with optional arguments
+[no-cd]
 test *ARGS:
     @just docker run app "-e DJANGO_VITE_DEV_SERVER_HOST=node" coverage run -m pytest {{ ARGS }}
 
 # Run tests with Playwright debug mode enabled, in the 'app' container, with optional arguments
+[no-cd]
 test-debug *ARGS:
     @just docker run app "-e DJANGO_VITE_DEV_SERVER_HOST=node -e PWDEBUG=1" pytest {{ ARGS }}
 
@@ -45,10 +50,12 @@ types:
     @just docker command python -m mypy
 
 # Update dependencies
+[no-cd]
 update:
     @just py install --upgrade
 
 # Generate and upgrade dependencies
+[no-cd]
 upgrade:
     @just py lock --upgrade
 
