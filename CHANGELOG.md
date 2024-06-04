@@ -24,10 +24,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Updated `README.md` to account for recent changes to `Justfile` commands.
+- In `.just/postgres.just`, added replacement in database URLs of `postgis://` to `postgres://` to account for potential PostGIS usage. When using the commands directly with the `db` container, there is no need for the PostGIS scheme.
 
 ### Removed
 
 - Removed GitHub branching strategy section from `README.md`. This has been moved to our central Web Dev documentation.
+
+### Fixed
+
+- Fixed `just pg dump-prod` command subcall of `just pg dump` command.
 
 ## [2024.26]
 
