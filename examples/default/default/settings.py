@@ -112,6 +112,7 @@ INSTALLED_APPS = [
     # Second Party
     "django_q_registry",
     "django_simple_nav",
+    "django_twc_toolbox",
     "django_twc_ui",
     "django_twc_ui.favicons",
     "django_twc_ui.forms",
@@ -229,7 +230,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="bb9ac118bac46cc0c447607b8cb6a3d7a4d4c9b7a5a00f6da9efc5a74b847cf2",
+    default="bdf8123b39a67904872b8a560f6d93e9efcf43a6080e20068529ae3ad5bead5a",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
