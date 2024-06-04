@@ -194,11 +194,6 @@ admin_email:
 # MISC
 # ----------------------------------------------------------------------
 
-op_vault:
-  type: str
-  help: What is the name of the 1Password vault for the project?
-  default: "{{ project_name }}"
-
 include_weasyprint:
   type: bool
   help: Install WeasyPrint system packages for creating PDFs?
