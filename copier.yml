@@ -204,6 +204,11 @@ include_weasyprint:
   help: Install WeasyPrint system packages for creating PDFs?
   default: false
 
+use_r2:
+  type: bool
+  help: Use Cloudflare R2 as an alternative S3 storage backend?
+  default: false
+
 # ----------------------------------------------------------------------
 # POST GENERATION TASKS
 # ----------------------------------------------------------------------
