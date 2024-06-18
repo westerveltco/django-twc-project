@@ -130,3 +130,22 @@ jobs:
           DATABASE_URL: sqlite:///db.sqlite3
         run: |
           python -m manage check --deploy
+
+  fly:
+    runs-on: ubuntu-latest
+    env:
+      OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: 1password/install-cli-action@v1
+
+      - uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Set Fly.io API token
+        run: |
+          echo "FLY_API_TOKEN={{ op://fly/default-example_owner/fly/api_token }}" | op inject >> $GITHUB_ENV
+
+      - name: Check `fly.toml` config
+        run: |
+          flyctl config validate
