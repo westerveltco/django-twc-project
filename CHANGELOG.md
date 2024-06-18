@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- CI now has a new `fly` step that validates the `fly.toml` configuration file.
+
 ### Fixed
 
 - Removed the `[no-cd]` decoration from an alias in one of the sub-`Justfile`s.
