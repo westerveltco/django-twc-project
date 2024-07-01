@@ -1,0 +1,14 @@
+# src/django_twc_project/mkdocs.yml
+site_name: "{{ docs_site_name }}"
+repo_name: "{{ github_owner }}/{{ github_repo }}"
+repo_url: "https://github.com/{{ github_owner }}/{{ github_repo }}"
+docs_dir: "docs"
+
+theme:
+  name: material
+  language: "en"
+
+nav:
+  - Home: "index.md"
+  - Users: "applications/users/index.md"
+  - Just: "just.md"
