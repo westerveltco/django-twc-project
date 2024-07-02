@@ -1,11 +1,12 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: a2e1a03
+_commit: 62cc7f3
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
-current_version: 2024.6.1
+current_version: 2024.7.1
 default_from_email: johndoe@example.com
 django_version: '4.2'
+docs_site_name: With_Vite
 domain_name: with_vite.westervelt.com
 fly_app_name: with_vite-example_owner
 fly_primary_region: atl

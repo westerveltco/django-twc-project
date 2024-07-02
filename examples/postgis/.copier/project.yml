@@ -1,11 +1,12 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: f963ddb
+_commit: 1de79b4
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
-current_version: 2024.6.1
+current_version: 2024.7.1
 default_from_email: johndoe@example.com
 django_version: '4.2'
+docs_site_name: Default
 domain_name: default.westervelt.com
 fly_app_name: default-example_owner
 fly_primary_region: atl

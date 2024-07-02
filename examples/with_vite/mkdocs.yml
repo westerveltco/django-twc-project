@@ -1,0 +1,13 @@
+site_name: "With_Vite"
+repo_name: "example_owner/with_vite"
+repo_url: "https://github.com/example_owner/with_vite"
+docs_dir: "docs"
+
+theme:
+  name: material
+  language: "en"
+
+nav:
+  - Home: "index.md"
+  - Users: "applications/users/index.md"
+  - Just: "just.md"
