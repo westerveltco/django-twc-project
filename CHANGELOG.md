@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- There is now a `mkdocs.yml` file that enables docs from this repo to be collected in another repo.
+
 ### Removed
 
 - Label syncing has been removed. This has been moved to a GitHub App using [github/safe-settings](https://github.com/github/safe-settings).
