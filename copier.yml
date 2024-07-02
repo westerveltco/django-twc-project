@@ -30,6 +30,11 @@ module_name:
   help: What is the name of the project's module?
   default: "{{ project_name.lower() |  replace('-', '_') | replace(' ', '_') | trim() }}"
 
+docs_site_name:
+  type: str
+  help: What is the display name of the project? (for use in documentation)
+  default: "{{ project_name.title() |  replace('-', ' ') | trim() }}"
+
 author_name:
   type: str
   help: What is the name of the primary author/maintainer?
