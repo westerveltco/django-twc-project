@@ -231,7 +231,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="842957cff5dd245250e3818555ce701b5fba7adf4326b0ec7b2b3e8616e90b7f",
+    default="78eece0b5a5a23e99c6548028834c48d6d9c18e01f1af1d53147a3e09108bdc3",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
