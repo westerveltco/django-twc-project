@@ -10,4 +10,4 @@ def test_VERSION_version():
     with open(file, encoding="utf-8") as f:
         version = f.read().strip()
 
-    assert version == "2024.30"
+    assert version == "2024.31"
