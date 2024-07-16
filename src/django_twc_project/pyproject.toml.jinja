@@ -53,6 +53,13 @@ indent = 2
 
 [tool.mypy]
 check_untyped_defs = true
+exclude = [
+  "docs",
+  "tests",
+  "migrations",
+  "venv",
+  ".venv",
+]
 files = [
   "{{ module_name }}"
 ]
@@ -67,8 +74,9 @@ warn_unused_ignores = true
 [[tool.mypy.overrides]]
 ignore_errors = true
 module = [
-  "{{ module_name }}.*.migrations.*",
-  "tests.*"
+  "*.migrations.*",
+  "tests.*",
+  "docs.*",
 ]
 
 [[tool.mypy.overrides]]
