@@ -1,11 +1,11 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 3eb60c5
+_commit: 619fbf2
 _src_path: .
 admin_email: admin@example.com
 author_name: John Doe
 current_version: 2024.7.1
 default_from_email: johndoe@example.com
-django_version: '4.2'
+django_version: '5.0'
 docs_site_name: With_Vite
 domain_name: with_vite.westervelt.com
 fly_app_name: with_vite-example_owner
@@ -16,7 +16,7 @@ include_vite: true
 include_weasyprint: false
 module_name: with_vite
 node_version: '20'
-playwright_version: 1.43.0
+playwright_version: 1.45.0
 postgres_docker_image: postgres
 postgres_docker_version: '15'
 project_name: with_vite

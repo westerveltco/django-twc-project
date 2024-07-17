@@ -85,7 +85,7 @@ COPY --link with_vite /app/with_vite
 COPY --link templates /app/templates
 
 
-FROM mcr.microsoft.com/playwright/python:v1.43.0 as dev
+FROM mcr.microsoft.com/playwright/python:v1.45.0 as dev
 ENV DEBIAN_FRONTEND noninteractive
 COPY --from=py --link /usr/local /usr/local
 COPY --from=app --link /app /app
