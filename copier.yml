@@ -40,6 +40,11 @@ author_name:
   help: What is the name of the primary author/maintainer?
   validator: "{% if author_name == '' %}You must provide an name.{% endif %}"
 
+author_email:
+  type: str
+  help: What is the email of the primary author/maintainer?
+  validator: "{% if author_email == '' %}You must provide an email.{% endif %}"
+
 github_owner:
   type: str
   help: Who is the GitHub owner?
