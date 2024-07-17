@@ -120,9 +120,12 @@ source = ["default"]
 django_settings_module = "default.settings"
 
 [tool.djlint]
+blank_line_after_tag = "endblock,endpartialdef,extends,load"
+blank_line_before_tag = "block,partialdef"
 custom_blocks = "partialdef"
 ignore = "H031"  # Don't require `meta` tag keywords
 indent = 2
+profile = "django"
 
 [tool.hatch.version]
 path = "default/__init__.py"
