@@ -6,6 +6,7 @@ on:
     paths:
       - "examples/**.yml"
       - "src/**"
+      - "copier.yml"
   workflow_dispatch:
 
 concurrency:
