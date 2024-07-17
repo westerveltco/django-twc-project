@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.33]
+
 ### Changed
 
 - `prettier` pre-commit hook is now local instead of using the official mirror. The mirror has been deprecated and archived.
@@ -455,7 +457,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.32...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.33...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -488,3 +490,4 @@ Initial release! 🎉
 [2024.30]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.30
 [2024.31]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.31
 [2024.32]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.32
+[2024.33]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.33
