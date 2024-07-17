@@ -27,8 +27,8 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,t
   iptables \
   gosu \
   {%- if postgres_docker_image == 'postgis/postgis' %}
-# postgres
-libpq-dev \
+  # postgres
+  libpq-dev \
   # geodjango/postgis
   binutils \
   libproj-dev \
@@ -37,14 +37,14 @@ libpq-dev \
   libaio-dev \
   {%- endif %}
 {%- if include_weasyprint %}
-# weasyprint
-libpango-1.0-0 \
+  # weasyprint
+  libpango-1.0-0 \
   libharfbuzz0b \
   libpangoft2-1.0-0 \
   ttf-mscorefonts-installer \
-  {%- endif %}
-# cleanup
-&& apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
+{%- endif %}
+  # cleanup
+  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
   && mkdir -p /app \
   && addgroup -gid "${GID}" --system django \
   && adduser -uid "${UID}" -gid "${GID}" --home /home/django --system django
