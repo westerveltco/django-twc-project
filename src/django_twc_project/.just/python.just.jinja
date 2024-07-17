@@ -31,12 +31,13 @@ coverage-report: test
 # Install dependencies
 [no-cd]
 install *ARGS:
-    $python -m uv pip install {% raw %}{{ ARGS }}{% endraw %} -r requirements.txt
+    $python -m uv pip sync {% raw %}{{ ARGS }}{% endraw %} requirements.txt requirements.dev.txt
 
 # Generate requirements.txt file
 [no-cd]
 lock *ARGS:
-    $python -m uv pip compile {% raw %}{{ ARGS }}{% endraw %} --generate-hashes requirements.in --output-file requirements.txt
+    $python -m uv pip compile pyproject.toml --output-file requirements.txt --generate-hashes {% raw %}{{ ARGS }}{% endraw %}
+    $python -m uv pip compile pyproject.toml --output-file requirements.dev.txt --generate-hashes --extra dev {% raw %}{{ ARGS }}{% endraw %}
 
 # Run tests using pytest within the 'app' container, with optional arguments
 [no-cd]
