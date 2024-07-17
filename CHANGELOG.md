@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- `prettier` pre-commit hook is now local instead of using the official mirror. The mirror has been deprecated and archived.
+
 ## [2024.32]
 
 ### Changed
