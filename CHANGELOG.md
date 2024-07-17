@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Default Django version is now 5.0.
 - Bumped default Playwright version to 1.45.0.
 - Bumped default Tailwind CSS version to 3.4.6.
+- Migrated defining dependencies from `requirements.in` to `pyproject.toml`. Split dev dependencies to project extras.
 
 ### Removed
 
