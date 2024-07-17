@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - `mypy` configuration now excludes these directories: `docs`, `migrations`, `tests`, and `.venv`/`venv`.
 - Default Django version is now 5.0.
+- Bumped default Playwright version to 1.45.0.
 
 ### Removed
 
