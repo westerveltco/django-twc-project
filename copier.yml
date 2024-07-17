@@ -86,7 +86,7 @@ node_version:
 tailwindcss_version:
   type: str
   help: Which version of Tailwind CSS should be used?
-  default: "3.4.0"
+  default: "3.4.6"
 
 playwright_version:
   type: str
