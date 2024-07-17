@@ -20,6 +20,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - `mypy` configuration now excludes these directories: `docs`, `migrations`, `tests`, and `.venv`/`venv`.
+- Default Django version is now 5.0.
+
+### Removed
+
+- Django 3.2 (EOL) has been removed as an option.
 
 ## [2024.31]
 
