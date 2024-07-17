@@ -1,3 +1,77 @@
+[build-system]
+build-backend = "hatchling.build"
+requires = ["hatchling"]
+
+[project]
+authors = [{name = "John Doe", email = "jdoe@example.com"}]
+dependencies = [
+  "attrs",
+  "croniter",
+  "django<5.1",
+  "django-allauth[socialaccount]",
+  "django-charid-field",
+  "django-click",
+  # upper bounds for `django-email-relay` since it runs distributed
+  # https://django-email-relay.westervelt.dev/en/latest/updating.html
+  "django-email-relay<0.5",
+  "django-filter",
+  "django-flyio",
+  "django-fsm-2",
+  "django-health-check",
+  "django-htmx",
+  "django-import-export[all]",
+  "django-ninja",
+  "django-q2",
+  "django-q-registry",
+  "django-simple-history",
+  "django-simple-nav",
+  "django-storages[s3]",
+  "django-tailwind-cli",
+  "django-template-partials",
+  "django-twc-toolbox",
+  "django-twc-ui @ git+https://super-secret-token:x-oauth-basic@github.com/westerveltco/django-twc-ui.git@main",
+  "django-vite",
+  "environs[django]",
+  "gunicorn",
+  "heroicons[django]",
+  "httpx",
+  "neapolitan @ git+https://github.com/westerveltco/neapolitan.git@main",
+  "openpyxl",
+  "psycopg",
+  "psycopg-binary",
+  "sentry-sdk[django]",
+  "whitenoise"
+]
+dynamic = ["version"]
+name = "with_vite"
+requires-python = ">=3.12"
+
+[project.optional-dependencies]
+dev = [
+  "coverage[toml]",
+  "django-browser-reload",
+  "django-coverage-plugin",
+  "django-debug-toolbar",
+  "django-extensions",
+  "django-stubs",
+  "faker",
+  "ipython",
+  "model_bakery",
+  "mypy",
+  "playwright==1.45.0",
+  "pre-commit",
+  "pytest",
+  "pytest-django",
+  "pytest-is-running",
+  "pytest-playwright",
+  "pytest-randomly",
+  "pytest-reverse",
+  "pytest-xdist",
+  "ruff",
+  "types-croniter",
+  "types-openpyxl"
+]
+
 [tool.bumpver]
 commit = true
 commit_message = ":bookmark: bump version {old_version} -> {new_version}"
@@ -50,6 +124,9 @@ django_settings_module = "with_vite.settings"
 custom_blocks = "partialdef"
 ignore = "H031"  # Don't require `meta` tag keywords
 indent = 2
+
+[tool.hatch.version]
+path = "with_vite/__init__.py"
 
 [tool.mypy]
 check_untyped_defs = true

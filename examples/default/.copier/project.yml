@@ -1,7 +1,8 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: a19fb79
+_commit: 739a262
 _src_path: .
 admin_email: admin@example.com
+author_email: jdoe@example.com
 author_name: John Doe
 current_version: 2024.7.1
 default_from_email: johndoe@example.com
