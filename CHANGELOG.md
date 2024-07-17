@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Removed
 
 - Django 3.2 (EOL) has been removed as an option.
+- Removed an out-of-date and unneeded `# type: ignore` comment from the `users.admin` module.
 
 ## [2024.31]
 
