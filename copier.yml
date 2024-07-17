@@ -91,7 +91,7 @@ tailwindcss_version:
 playwright_version:
   type: str
   help: Which version of Playwright should be used?
-  default: "1.43.0"
+  default: "1.45.0"
 
 # ----------------------------------------------------------------------
 # DEPENDENCIES
