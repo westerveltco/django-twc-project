@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Now explicitly adding `template_partials.loader.Loader` to the template loaders section of `settings.TEMPLATES`. This is to support trying out a few component libraries that use custom loaders and to avoid `django-template-partials` from overwriting any changes. Also to avoid using `template_partials.apps.SimpleAppConfig` in `INSTALLED_APPS` as that would really bug me for it be the only one installed like that. Silly thing, but it would!
+
 ## [2024.33]
 
 ### Changed
