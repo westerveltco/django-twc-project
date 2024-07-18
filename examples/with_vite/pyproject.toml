@@ -124,6 +124,7 @@ django_settings_module = "with_vite.settings"
 blank_line_after_tag = "endblock,endpartialdef,extends,load"
 blank_line_before_tag = "block,partialdef"
 custom_blocks = "partialdef"
+custom_html = "c-\\w+"
 ignore = "H031"  # Don't require `meta` tag keywords
 indent = 2
 profile = "django"
