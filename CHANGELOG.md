@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Added `custom_html = "c-\\w+"` to the `djlint` config, to support the HTML tags produced from our custom [Django Cotton](https://django-cotton.com) components.
+- Set both `SHOW_COLLAPSED` and `UPDATE_ON_FETCH` to `True` in the `django-debug-toolbar` config, to prevent the toolbar from showing on all navigation and to make sure it's updated on HTMX fetch requests.
 
 ## [2024.34]
 
