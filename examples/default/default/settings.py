@@ -230,7 +230,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="d7b58b977f305426f1f6aeef4a6b576baa0e79ecea9e71abcc1e01ed7d2f6349",
+    default="415688adeabf4011e60950406cf0bd30191fe46b7c4e63a859c0002cbc5b07e2",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
@@ -385,6 +385,8 @@ SOCIALACCOUNT_PROVIDERS = {
 # django-debug-toolbar
 DEBUG_TOOLBAR_CONFIG = {
     "ROOT_TAG_EXTRA_ATTRS": "hx-preserve",
+    "SHOW_COLLAPSED": True,
+    "UPDATE_ON_FETCH": True,
 }
 
 # django-q2

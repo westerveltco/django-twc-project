@@ -231,7 +231,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="0cc5c20c611ce84d6ae894db062363a6b753794c48862ea5ea386e71c2c96927",
+    default="e0c668a58562c4226dfa4657c048a3d251493e738ef7568d236c639e2fa6ee14",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
@@ -386,6 +386,8 @@ SOCIALACCOUNT_PROVIDERS = {
 # django-debug-toolbar
 DEBUG_TOOLBAR_CONFIG = {
     "ROOT_TAG_EXTRA_ATTRS": "hx-preserve",
+    "SHOW_COLLAPSED": True,
+    "UPDATE_ON_FETCH": True,
 }
 
 # django-q2
