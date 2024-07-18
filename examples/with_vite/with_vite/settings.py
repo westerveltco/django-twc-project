@@ -231,7 +231,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="a44a2c92fb00a194bb0d80442a74b73fcc05541393f449a2db64f57776de54a2",
+    default="0dd2104233771efb2d21e7dd8d08ad971aef3368f51dade46373c6d0a7c5566f",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
@@ -285,6 +285,10 @@ DEFAULT_LOADERS = [
 
 CACHED_LOADERS = [("django.template.loaders.cached.Loader", DEFAULT_LOADERS)]
 
+PARTIAL_LOADERS = [
+    ("template_partials.loader.Loader", DEFAULT_LOADERS if DEBUG else CACHED_LOADERS)
+]
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -299,7 +303,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
             ],
             "debug": DEBUG,
-            "loaders": DEFAULT_LOADERS if DEBUG else CACHED_LOADERS,
+            "loaders": PARTIAL_LOADERS,
         },
     },
 ]
