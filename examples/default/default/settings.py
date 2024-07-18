@@ -230,7 +230,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="795c6020995b3f858b2f19b048ea3ddc067afad93252c7f8eb6ba264535e96d3",
+    default="86d932c88ac2fb8efac6774b9252e6e30d0c202da53ece83f8b06072760ddc7c",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
@@ -284,6 +284,10 @@ DEFAULT_LOADERS = [
 
 CACHED_LOADERS = [("django.template.loaders.cached.Loader", DEFAULT_LOADERS)]
 
+PARTIAL_LOADERS = [
+    ("template_partials.loader.Loader", DEFAULT_LOADERS if DEBUG else CACHED_LOADERS)
+]
+
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -298,7 +302,7 @@ TEMPLATES = [
                 "django.contrib.messages.context_processors.messages",
             ],
             "debug": DEBUG,
-            "loaders": DEFAULT_LOADERS if DEBUG else CACHED_LOADERS,
+            "loaders": PARTIAL_LOADERS,
         },
     },
 ]
