@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.34]
+
 ### Changed
 
 - Now explicitly adding `template_partials.loader.Loader` to the template loaders section of `settings.TEMPLATES`. This is to support trying out a few component libraries that use custom loaders and to avoid `django-template-partials` from overwriting any changes. Also to avoid using `template_partials.apps.SimpleAppConfig` in `INSTALLED_APPS` as that would really bug me for it be the only one installed like that. Silly thing, but it would!
@@ -461,7 +463,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.33...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.34...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -495,3 +497,4 @@ Initial release! 🎉
 [2024.31]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.31
 [2024.32]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.32
 [2024.33]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.33
+[2024.34]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.34
