@@ -31,6 +31,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Now using `simplify` branch of `westerveltco/setup-ci-action` GitHub Action.
 - Added `[tables]` extra to `django-twc-ui`.
 - Added `[crud]` extra to `django-twc-toolbox`.
+- Shuffled around the order of `INSTALLED_APPS` to ensure our UI templates have priority over any other installed third-party library.
+
+### Removed
+
+- Our `neapolitan` for is in the process of being abandoned in favor of a custom `neapolitan.views.CRUDView` in `django_twc_toolbox.crud`. The fork has been removed from the dependencies.
 
 ## [2024.34]
 
