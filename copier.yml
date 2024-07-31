@@ -106,6 +106,10 @@ django_twc_ui_token:
   type: str
   help: What is the OAuth token for accessing the `westerveltco/django-twc-ui` repository?
   default: ""
+django_twc_ui_version:
+  type: str
+  help: Which version of `django-twc-ui` should be used?
+  default: "2024.7.29"
 
 # ----------------------------------------------------------------------
 # FLY.IO

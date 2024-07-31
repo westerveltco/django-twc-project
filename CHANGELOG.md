@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 
 - Added `django-stubs-ext` to production dependencies.
+- Added new question about `django-twc-ui` version.
 
 ### Changed
 
@@ -28,6 +29,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Moved development dependency `django_browser_reload` behind `DEBUG` check.
 - Moved `django_extensions` to production dependency.
 - Now using `simplify` branch of `westerveltco/setup-ci-action` GitHub Action.
+- Added `[tables]` extra to `django-twc-ui`.
+- Added `[crud]` extra to `django-twc-toolbox`.
 
 ## [2024.34]
 

@@ -30,8 +30,8 @@ dependencies = [
   "django-stubs-ext",
   "django-tailwind-cli",
   "django-template-partials",
-  "django-twc-toolbox",
-  "django-twc-ui @ git+https://{{ django_twc_ui_token }}:x-oauth-basic@github.com/westerveltco/django-twc-ui.git@main",
+  "django-twc-toolbox[crud]",
+  "django-twc-ui[tables] @ git+https://{{ django_twc_ui_token }}:x-oauth-basic@github.com/westerveltco/django-twc-ui.git@v{{ django_twc_ui_version }}",
 {%- if include_vite %}
   "django-vite",
 {%- endif %}
