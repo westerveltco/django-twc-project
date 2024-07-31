@@ -27,6 +27,7 @@ dependencies = [
   "django-simple-history",
   "django-simple-nav",
   "django-storages[s3]",
+  "django-stubs-ext",
   "django-tailwind-cli",
   "django-template-partials",
   "django-twc-toolbox",
