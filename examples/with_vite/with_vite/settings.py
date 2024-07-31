@@ -110,14 +110,15 @@ INSTALLED_APPS = [
     "with_vite.core",
     "with_vite.users",
     # Second Party
-    "django_q_registry",
-    "django_simple_nav",
-    "django_twc_toolbox",
+    # `django_twc_ui` first to ensure templates have priority
     "django_twc_ui",
     "django_twc_ui.favicons",
     "django_twc_ui.forms",
+    "django_q_registry",
+    "django_simple_nav",
+    "django_twc_toolbox",
+    "django_twc_toolbox.crud",
     "email_relay",
-    "neapolitan",
     # Third Party
     "allauth",
     "allauth.account",
@@ -231,7 +232,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="b00d1a51279dae8f2a3cd4a22361ec9065f558485ea1b989404e02a3638c04fc",
+    default="c7b8b8b40d9455ce5aff6579583f144cc5b64ebe4887b570bf00c4a05762283d",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG

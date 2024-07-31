@@ -110,14 +110,15 @@ INSTALLED_APPS = [
     "default.core",
     "default.users",
     # Second Party
-    "django_q_registry",
-    "django_simple_nav",
-    "django_twc_toolbox",
+    # `django_twc_ui` first to ensure templates have priority
     "django_twc_ui",
     "django_twc_ui.favicons",
     "django_twc_ui.forms",
+    "django_q_registry",
+    "django_simple_nav",
+    "django_twc_toolbox",
+    "django_twc_toolbox.crud",
     "email_relay",
-    "neapolitan",
     # Third Party
     "allauth",
     "allauth.account",
@@ -230,7 +231,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="8bbdde437da704f60292556e98fa9ca90093d3cdcc4c18aa238896bd622de288",
+    default="54fd12186e5456f402e9a6a1362b08edbeb4f355b4a8a07f33f69129823084e9",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG

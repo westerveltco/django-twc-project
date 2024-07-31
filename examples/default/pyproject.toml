@@ -36,7 +36,6 @@ dependencies = [
   "gunicorn",
   "heroicons[django]",
   "httpx",
-  "neapolitan @ git+https://github.com/westerveltco/neapolitan.git@main",
   "openpyxl",
   "psycopg",
   "psycopg-binary",
