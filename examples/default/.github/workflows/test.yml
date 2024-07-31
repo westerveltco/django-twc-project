@@ -12,7 +12,6 @@ env:
   CI: true
   FORCE_COLOR: 1
   NODE_VERSION: "20"
-  PYTHON_REQUIREMENTS: "requirements.txt"
   PYTHON_VERSION: "3.12"
 
 permissions:
@@ -43,12 +42,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@v0
+      - uses: westerveltco/setup-ci-action@simplify
         with:
           node-version: ${{ env.NODE_VERSION }}
           python-version: ${{ env.PYTHON_VERSION }}
-          python-requirements: ${{ env.PYTHON_REQUIREMENTS }}
-          use-uv: true
+
+      - name: Install dependencies
+        run: |
+          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          npm install
 
       - name: Install system packages
         env:
@@ -86,12 +88,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@v0
+      - uses: westerveltco/setup-ci-action@simplify
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          python-requirements: ${{ env.PYTHON_REQUIREMENTS }}
-          use-uv: true
+
+      - name: Install dependencies
+        run: |
+          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          npm install
 
       - name: Install system packages
         env:
@@ -110,12 +117,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@v0
+      - uses: westerveltco/setup-ci-action@simplify
         with:
           python-version: ${{ env.PYTHON_VERSION }}
-          python-requirements: ${{ env.PYTHON_REQUIREMENTS }}
-          use-uv: true
+
+      - name: Install dependencies
+        run: |
+          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          npm install
 
       - name: Install dependencies
         env:
