@@ -121,7 +121,6 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.okta",
-    "django_browser_reload",
     "django_extensions",
     "django_htmx",
     "django_q",
@@ -150,6 +149,7 @@ INSTALLED_APPS = [
 if DEBUG:
     INSTALLED_APPS = [
         "debug_toolbar",
+        "django_browser_reload",
         "whitenoise.runserver_nostatic",
     ] + INSTALLED_APPS
 
