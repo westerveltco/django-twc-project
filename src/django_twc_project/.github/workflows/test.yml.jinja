@@ -12,7 +12,6 @@ env:
   CI: true
   FORCE_COLOR: 1
   NODE_VERSION: "{{ node_version }}"
-  PYTHON_REQUIREMENTS: "requirements.txt"
   PYTHON_VERSION: "{{ python_version }}"
 
 permissions:
@@ -43,12 +42,15 @@ jobs:
         with:
           persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@v0
+      - uses: westerveltco/setup-ci-action@simplify
         with:
           node-version: {% raw %}${{ env.NODE_VERSION }}{% endraw %}
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
-          python-requirements: {% raw %}${{ env.PYTHON_REQUIREMENTS }}{% endraw %}
-          use-uv: true
+
+      - name: Install dependencies
+        run: |
+          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          npm install
 
       - name: Install system packages
         env:
@@ -106,12 +108,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@v0
+      - uses: westerveltco/setup-ci-action@simplify
         with:
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
-          python-requirements: {% raw %}${{ env.PYTHON_REQUIREMENTS }}{% endraw %}
-          use-uv: true
+
+      - name: Install dependencies
+        run: |
+          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          npm install
 
       - name: Install system packages
         env:
@@ -144,12 +151,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@v0
+      - uses: westerveltco/setup-ci-action@simplify
         with:
           python-version: {% raw %}${{ env.PYTHON_VERSION }}{% endraw %}
-          python-requirements: {% raw %}${{ env.PYTHON_REQUIREMENTS }}{% endraw %}
-          use-uv: true
+
+      - name: Install dependencies
+        run: |
+          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          npm install
 
       - name: Install dependencies
         env:
