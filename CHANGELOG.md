@@ -27,6 +27,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Set both `SHOW_COLLAPSED` and `UPDATE_ON_FETCH` to `True` in the `django-debug-toolbar` config, to prevent the toolbar from showing on all navigation and to make sure it's updated on HTMX fetch requests.
 - Moved development dependency `django_browser_reload` behind `DEBUG` check.
 - Moved `django_extensions` to production dependency.
+- Now using `simplify` branch of `westerveltco/setup-ci-action` GitHub Action.
 
 ## [2024.34]
 
