@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added `django-stubs-ext` to production dependencies.
+
 ### Changed
 
 - Added `custom_html = "c-\\w+"` to the `djlint` config, to support the HTML tags produced from our custom [Django Cotton](https://django-cotton.com) components.
