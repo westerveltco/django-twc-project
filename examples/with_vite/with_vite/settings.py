@@ -123,7 +123,6 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.okta",
-    "django_browser_reload",
     "django_extensions",
     "django_htmx",
     "django_q",
@@ -150,6 +149,7 @@ INSTALLED_APPS = [
 if DEBUG:
     INSTALLED_APPS = [
         "debug_toolbar",
+        "django_browser_reload",
         "whitenoise.runserver_nostatic",
     ] + INSTALLED_APPS
 
@@ -231,7 +231,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="e0c668a58562c4226dfa4657c048a3d251493e738ef7568d236c639e2fa6ee14",
+    default="719ded0ba50a3241e13df1c4d8e62af05aa8c25aa97dee7a2dbd9f5fa80721aa",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG

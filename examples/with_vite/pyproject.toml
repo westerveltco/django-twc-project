@@ -14,6 +14,7 @@ dependencies = [
   # upper bounds for `django-email-relay` since it runs distributed
   # https://django-email-relay.westervelt.dev/en/latest/updating.html
   "django-email-relay<0.5",
+  "django-extensions",
   "django-filter",
   "django-flyio",
   "django-fsm-2",
@@ -52,7 +53,6 @@ dev = [
   "django-browser-reload",
   "django-coverage-plugin",
   "django-debug-toolbar",
-  "django-extensions",
   "django-stubs",
   "faker",
   "ipython",

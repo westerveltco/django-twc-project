@@ -123,7 +123,6 @@ INSTALLED_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.okta",
-    "django_browser_reload",
     "django_extensions",
     "django_htmx",
     "django_q",
@@ -149,6 +148,7 @@ INSTALLED_APPS = [
 if DEBUG:
     INSTALLED_APPS = [
         "debug_toolbar",
+        "django_browser_reload",
         "whitenoise.runserver_nostatic",
     ] + INSTALLED_APPS
 
@@ -230,7 +230,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="415688adeabf4011e60950406cf0bd30191fe46b7c4e63a859c0002cbc5b07e2",
+    default="e99735f7e1db88eff039f90accad6cd15594862acd3fd86cc4c8aa5f90fd4e07",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
