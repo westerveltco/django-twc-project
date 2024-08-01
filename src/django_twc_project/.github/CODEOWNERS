@@ -1,3 +1,4 @@
 *               @westerveltco/web-dev-admins
 *.py            @westerveltco/web-dev-contributors @westerveltco/web-dev-contractors
 **/migrations   @westerveltco/data-analytics
+/docs/          @westerveltco/web-dev-docs
