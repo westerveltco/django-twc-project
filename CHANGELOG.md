@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.36]
+
 ### Changed
 
 - Migrated docs requirements to `pyproject.toml`, to match prod and dev dependencies.
@@ -489,7 +491,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.35...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.36...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -525,3 +527,4 @@ Initial release! 🎉
 [2024.33]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.33
 [2024.34]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.34
 [2024.35]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.35
+[2024.36]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.36
