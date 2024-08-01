@@ -1,10 +1,10 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: b683b5f
+_commit: dadc0d3
 _src_path: .
 admin_email: admin@example.com
 author_email: jdoe@example.com
 author_name: John Doe
-current_version: 2024.7.1
+current_version: 2024.8.1
 default_from_email: johndoe@example.com
 django_twc_ui_version: 2024.7.29
 django_version: '5.0'
