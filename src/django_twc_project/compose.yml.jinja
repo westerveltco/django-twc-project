@@ -6,7 +6,7 @@ x-default-app: &default-app
   build:
     context: .
     dockerfile: Dockerfile
-    target: app
+    target: dev
   env_file: .env
   init: true
   user: "${UID:-1000}:${GID:-1000}"
@@ -17,8 +17,6 @@ x-default-app: &default-app
 services:
   app:
     <<: *default-app
-    build:
-      target: dev
     command: python manage.py runserver 0.0.0.0:8000 --skip-checks
 {%- if include_vite %}
     depends_on:
