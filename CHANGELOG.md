@@ -29,6 +29,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added `persist-credentials: false` back to the `actions/checkout` step in the `test` step in the `test.yml` GitHub Action workflow. Persisting the default GitHub Token credentials causes an error when trying to install Node dependencies, as our `django-twc-ui/tailwind` dependency is in a private repository.
 - Removed the Jinja2 templating in `.just/documentation.just` file, as it's unused and causes the commands to fail.
+- Fixed bot check in GitHub Actions workflows.
 
 ## [2024.39]
 
