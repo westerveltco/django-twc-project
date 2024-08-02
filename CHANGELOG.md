@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed arguments surrounded by curly braces in `Justfile` template by wrapping with `{% raw %}{% endraw %}` Jinja2 code.
+
 ## [2024.42]
 
 ### Added

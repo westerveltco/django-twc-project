@@ -51,21 +51,21 @@ lock:
 
 # Print out the logs of all Docker containers, optionally specifying a container to focus on
 logs *ARGS:
-    @just docker logs {{ ARGS }}
+    @just docker logs {% raw %}{{ ARGS }}{% endraw %}
 
 # Run Django migrations
 migrate *ARGS:
-    @just dj migrate {{ ARGS }}
+    @just dj migrate {% raw %}{{ ARGS }}{% endraw %}
 
 alias mm := makemigrations
 
 # Generate Django migrations
 makemigrations *ARGS:
-    @just dj makemigrations {{ ARGS }}
+    @just dj makemigrations {% raw %}{{ ARGS }}{% endraw %}
 
 # Run a Django management command
 manage *COMMAND:
-    @just dj manage {{ COMMAND }}
+    @just dj manage {% raw %}{{ COMMAND }}{% endraw %}
 
 # Refresh local development environment
 refresh:
@@ -113,7 +113,7 @@ stop:
 
 # Follow the logs of all Docker containers, optionally specifying a container to focus on
 tail *ARGS:
-    @just docker tail {{ ARGS }}
+    @just docker tail {% raw %}{{ ARGS }}{% endraw %}
 
 # Run entire test suite, including generating code coverage
 test:
