@@ -23,6 +23,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added `django-perf-rec` to `dev` extras in `pyproject.toml`.
 - Added `pip` and `uv` to `dev` extras in `pyproject.toml`.
 
+### Fixed
+
+- Added a new `py-dev` stage to the `Dockerfile` for installation of development dependencies. All intermediate stages afterwards now rely on the Python packages installed in this stage, with the exception of the final stage which only copies the production dependencies from the `py` stage.
+
 ## [2024.41]
 
 ### Changed
