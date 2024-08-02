@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Now using `django_twc_toolbox.views` for some core views. See the removed section below.
 - Now using Sentry sampler functions from `django_twc_toolbox.sentry`. See the removed section below.
+- Moved from recommending setting the `JUST_UNSTABLE=True` environment variable to using `set unstable := true` within template project's `Justfile`.
 
 ### Fixed
 

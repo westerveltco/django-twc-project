@@ -22,17 +22,7 @@
    git clone https://github.com/{{ github_owner }}/{{ github_repo }}
    ```
 
-2. Export the `JUST_UNSTABLE` environment variable set to `true`.
-
-   The `Justfile` used to run all the command development commands takes advantage of just modules, which currently are marked as "unstable". The easiest way around this is to set this environment variable, otherwise you will need to preface every `just` command with the `--unstable` CLI flag.
-
-   ```sh
-   export JUST_UNSTABLE=true
-   ```
-
-   Alternatively, you can use a tool like [Direnv](https://direnv.net) to accomplish this as well.
-
-3. Run the setup script:
+2. Run the setup script:
 
    ```sh
    just setup
@@ -53,7 +43,7 @@
    - Lint the repository.
    - Stop the Docker Compose stack.
 
-4. After the setup script has successfully completed, you can start your development Docker Compose stack by running either of these commands:
+3. After the setup script has successfully completed, you can start your development Docker Compose stack by running either of these commands:
 
    ```sh
    # to start the containers detached in the background
