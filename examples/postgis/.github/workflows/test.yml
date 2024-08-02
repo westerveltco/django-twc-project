@@ -39,13 +39,44 @@ jobs:
       EMAIL_RELAY_DATABASE_URL: postgis://postgres:postgres@localhost:5432/email-relay
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@simplify
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        run: |
+          python -m pip install -U pip uv
+
+      - name: Get cache dir
+        id: uv-cache
+        run: |
+          echo "dir=$(uv cache dir)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        id: cache-uv
+        with:
+          path: ${{ steps.py-cache.outputs.dir }}
+          key: ${{ runner.os }}-uv-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
+
+      - uses: actions/setup-node@v4
         with:
           node-version: ${{ env.NODE_VERSION }}
-          python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Get npm cache directory
+        id: npm-cache-dir
+        run: |
+          echo "dir=$(npm config get cache)" >> ${GITHUB_OUTPUT}
+
+      - uses: actions/cache@v4
+        id: cache-npm
+        with:
+          path: ${{ steps.npm-cache-dir.outputs.dir }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: |
@@ -94,17 +125,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@simplify
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        run: |
+          python -m pip install -U pip uv
+
+      - name: Get cache dir
+        id: uv-cache
+        run: |
+          echo "dir=$(uv cache dir)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        id: cache-uv
+        with:
+          path: ${{ steps.py-cache.outputs.dir }}
+          key: ${{ runner.os }}-uv-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
 
       - name: Install dependencies
         run: |
           python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
-          npm install
 
       - name: Install system packages
         env:
@@ -129,17 +174,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: false
 
-      - uses: westerveltco/setup-ci-action@simplify
+      - uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
+
+      - name: Install uv
+        run: |
+          python -m pip install -U pip uv
+
+      - name: Get cache dir
+        id: uv-cache
+        run: |
+          echo "dir=$(uv cache dir)" >> $GITHUB_OUTPUT
+
+      - uses: actions/cache@v4
+        id: cache-uv
+        with:
+          path: ${{ steps.py-cache.outputs.dir }}
+          key: ${{ runner.os }}-uv-${{ hashFiles('**/requirements.txt') }}
+          restore-keys: |
+            ${{ runner.os }}-uv-
 
       - name: Install dependencies
         run: |
           python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
-          npm install
 
       - name: Install dependencies
         env:
