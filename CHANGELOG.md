@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Added `persist-credentials: false` back to the `actions/checkout` step in the `test` step in the `test.yml` GitHub Action workflow. Persisting the default GitHub Token credentials causes an error when trying to install Node dependencies, as our `django-twc-ui/tailwind` dependency is in a private repository.
+
 ## [2024.39]
 
 ### Fixed
