@@ -53,8 +53,15 @@ RUN --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.
   && uv pip install -r requirements.txt
 
 
-FROM node-base as node
+FROM py as py-dev
 COPY --from=py --link /usr/local /usr/local
+COPY --link requirements.dev.txt ./
+RUN --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.cache/uv \
+  uv pip install -r requirements.dev.txt
+
+
+FROM node-base as node
+COPY --from=py-dev --link /usr/local /usr/local
 COPY --link package*.json /app
 RUN --mount=type=cache,target=/root/.npm npm install
 
@@ -79,7 +86,6 @@ RUN case ${BUILDARCH} in \
 
 
 FROM base as app
-COPY --from=py --link /usr/local /usr/local
 COPY --link manage.py package.json /app/
 COPY --link with_vite /app/with_vite
 COPY --link templates /app/templates
@@ -88,7 +94,7 @@ COPY --link templates /app/templates
 FROM mcr.microsoft.com/playwright/python:v1.45.0 as dev
 ENV DEBIAN_FRONTEND noninteractive
 ENV UV_SYSTEM_PYTHON true
-COPY --from=py --link /usr/local /usr/local
+COPY --from=py-dev --link /usr/local /usr/local
 COPY --from=app --link /app /app
 COPY --link requirements.dev.txt ./
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
@@ -99,8 +105,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,t
   # (it's normally included in the Python based images)
   tzdata \
   # cleanup
-  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/* \
-  && uv pip install -r requirements.dev.txt
+  && apt-get autoremove -y && apt-get clean -y && rm -rf /var/lib/apt/lists/*
 
 
 FROM node as node-final
@@ -115,7 +120,7 @@ RUN npm run build \
 
 FROM app as static
 ENV DATABASE_URL sqlite://:memory:
-COPY --from=py --link /usr/local /usr/local
+COPY --from=py-dev --link /usr/local /usr/local
 COPY --from=node-final --link /app/static/dist /app/static/dist
 COPY --from=node-final --link /app/package*.json /app/
 COPY --link static/public /app/static/public
