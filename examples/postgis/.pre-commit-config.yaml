@@ -39,20 +39,20 @@ repos:
 
   - repo: local
     hooks:
-      - id: prettier
-        name: Prettier
-        language: node
-        additional_dependencies:
-          - prettier@v4.0.0-alpha.9
-        entry: prettier
-        # lint the following with prettier:
-        # - javascript
-        # - typescript
-        # - JSX/TSX
-        # - CSS
-        # - yaml
-        # ignore any minified code
-        files: '^(?!.*\.min\..*)(?P<name>[\w-]+(\.[\w-]+)*\.(js|jsx|ts|tsx|yml|yaml|css))$'
+      # - id: prettier
+      #   name: Prettier
+      #   language: node
+      #   additional_dependencies:
+      #     - prettier@v4.0.0-alpha.9
+      #   entry: prettier
+      #   # lint the following with prettier:
+      #   # - javascript
+      #   # - typescript
+      #   # - JSX/TSX
+      #   # - CSS
+      #   # - yaml
+      #   # ignore any minified code
+      #   files: '^(?!.*\.min\..*)(?P<name>[\w-]+(\.[\w-]+)*\.(js|jsx|ts|tsx|yml|yaml|css))$'
       - id: rustywind
         name: rustywind Tailwind CSS class linter
         language: node
