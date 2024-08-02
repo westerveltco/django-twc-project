@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.40]
+
 ### Changed
 
 - Pinned `django-storages<1.14.4` due to some recent changes introduced in the base storages backend of Django. Relevant issues: [revsys/django-health-check#434](https://github.com/revsys/django-health-check/issues/434) and [jschneier/django-storages#1430](https://github.com/jschneier/django-storages/issues/1430).
@@ -528,7 +530,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.39...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.40...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -568,3 +570,4 @@ Initial release! 🎉
 [2024.37]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.37
 [2024.38]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.38
 [2024.39]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.39
+[2024.40]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.40

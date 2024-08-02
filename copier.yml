@@ -13,7 +13,7 @@ _secret_questions:
 _subdirectory: src/django_twc_project
 
 template_version:
-  default: "2024.39"
+  default: "2024.40"
   when: false
 
 # ----------------------------------------------------------------------
