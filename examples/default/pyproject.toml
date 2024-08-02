@@ -50,6 +50,8 @@ requires-python = ">=3.12"
 
 [project.optional-dependencies]
 dev = [
+  "copier",
+  "copier-templates-extensions",
   "coverage[toml]",
   "django-browser-reload",
   "django-coverage-plugin",
