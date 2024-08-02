@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added `copier` and `copier-templates-extensions` to `dev` extras in `pyproject.toml`.
+
 ## [2024.41]
 
 ### Changed
