@@ -230,7 +230,10 @@ if DEBUG:
 
 ROOT_URLCONF = "{{ module_name }}.urls"
 
-SECRET_KEY = env.str("SECRET_KEY", default="{{ secret_key }}")
+SECRET_KEY = env.str(
+    "SECRET_KEY",
+    default="{{ secret_key }}",
+)
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
 
