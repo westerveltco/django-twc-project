@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.41]
+
 ### Changed
 
 - Now using `django_twc_toolbox.views` for some core views. See the removed section below.
@@ -546,7 +548,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.40...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.41...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -587,3 +589,4 @@ Initial release! 🎉
 [2024.38]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.38
 [2024.39]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.39
 [2024.40]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.40
+[2024.41]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.41
