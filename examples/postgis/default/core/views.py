@@ -4,38 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.utils import timezone
-from django.views.decorators.cache import cache_control
 from django.views.decorators.http import require_GET
-
-
-def custom_error_404(
-    request: HttpRequest, exception: Exception | None = None, *args, **kwargs
-) -> HttpResponse:
-    return render(request, "404.html", context={}, status=404)
-
-
-def custom_error_500(request: HttpRequest, *args, **kwargs) -> HttpResponse:
-    return render(request, "500.html", context={}, status=500)
-
-
-@require_GET
-@cache_control(max_age=60 * 60 * 24, immutable=True, public=True)  # one day
-def robots_txt(request: HttpRequest) -> HttpResponse:
-    return render(request, "robots.txt", content_type="text/plain")
-
-
-@require_GET
-@cache_control(max_age=60 * 60 * 24, immutable=True, public=True)  # one day
-def security_txt(request: HttpRequest) -> HttpResponse:
-    return render(
-        request,
-        ".well-known/security.txt",
-        context={
-            "year": timezone.now().year + 1,
-        },
-        content_type="text/plain",
-    )
 
 
 @require_GET

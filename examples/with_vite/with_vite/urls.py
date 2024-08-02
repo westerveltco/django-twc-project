@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import include
 from django.urls import path
+from django_twc_toolbox import views as toolbox_views
 from health_check.views import MainView
 
 from with_vite import __version__
@@ -15,19 +16,19 @@ admin.site.site_header = admin_header
 admin.site.site_title = admin_header
 
 urlpatterns = [
-    path(".well-known/security.txt", core_views.security_txt),
-    path("robots.txt", core_views.robots_txt),
+    path(".well-known/security.txt", toolbox_views.security_txt),
+    path("robots.txt", toolbox_views.robots_txt),
     path("", include("django_twc_ui.favicons.urls")),
-    path("404/", core_views.custom_error_404, name="404"),
-    path("500/", core_views.custom_error_500, name="500"),
+    path("404/", toolbox_views.custom_error_404, name="404"),
+    path("500/", toolbox_views.custom_error_500, name="500"),
     path("accounts/", include("allauth.urls")),
     path("admin/", admin.site.urls),
     path("health/", MainView.as_view()),
     path("", core_views.index, name="index"),
 ]
 
-handler404 = "with_vite.core.views.custom_error_404"  # noqa: F811
-handler500 = "with_vite.core.views.custom_error_500"  # noqa: F811
+handler404 = "django_twc_toolbox.views.custom_error_404"  # noqa: F811
+handler500 = "django_twc_toolbox.views.custom_error_500"  # noqa: F811
 
 
 if settings.DEBUG:
