@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Pinned `django-storages<1.14.4` due to some recent changes introduced in the base storages backend of Django. Relevant issues: [revsys/django-health-check#434](https://github.com/revsys/django-health-check/issues/434) and [jschneier/django-storages#1430](https://github.com/jschneier/django-storages/issues/1430).
+
 ### Removed
 
 - Prettier pre-commit stage in `.pre-commit-config.yaml` has been temporarily commented out and disabled. The pre-commit mirror this originally was pointing at was deprecated, and the Prettier project does not have an official one. I tried my hand at creating a local hook, but I have run in to issues with it actually running. Disabling for now till I have the time to dig in to what to do here.
