@@ -36,7 +36,7 @@ serve: cog
 # Generate and upgrade documentation dependencies
 [no-cd]
 upgrade:
-    @just lock --upgrade
+    @just docs lock --upgrade
 
 [no-cd]
 [private]

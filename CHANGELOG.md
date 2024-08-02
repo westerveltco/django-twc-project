@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Fixed reference to correct `lock` command in `just docs upgrade` just command.
+
 ## [2024.40]
 
 ### Changed
