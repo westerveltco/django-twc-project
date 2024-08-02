@@ -21,6 +21,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Added `copier` and `copier-templates-extensions` to `dev` extras in `pyproject.toml`.
 - Added `django-perf-rec` to `dev` extras in `pyproject.toml`.
+- Added `pip` and `uv` to `dev` extras in `pyproject.toml`.
 
 ## [2024.41]
 
