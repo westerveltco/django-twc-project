@@ -26,7 +26,9 @@ dependencies = [
   "django-q-registry",
   "django-simple-history",
   "django-simple-nav",
-  "django-storages[s3]",
+  # https://github.com/revsys/django-health-check/issues/434
+  # https://github.com/jschneier/django-storages/issues/1430
+  "django-storages[s3]<1.14.4",
   "django-stubs-ext",
   "django-tailwind-cli",
   "django-template-partials",
