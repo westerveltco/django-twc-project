@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Now using `django_twc_toolbox.views` for some core views. See the removed section below.
+- Now using Sentry sampler functions from `django_twc_toolbox.sentry`. See the removed section below.
 
 ### Fixed
 
@@ -29,6 +30,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Removed
 
 - Removed all views except the `index` view from the template project's `core/views.py`, in favor of `django_twc_toolbox.views`.
+- Removed Sentry sampler functions.
 
 ## [2024.40]
 
