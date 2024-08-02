@@ -73,10 +73,10 @@ jobs:
       - uses: actions/cache@v4
         id: cache-npm
         with:
-          path: ${{ steps.npm-cache-dir.outputs.dir }}
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          path: {% raw %}${{ steps.npm-cache-dir.outputs.dir }}{% endraw %}
+          key: {% raw %}${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}{% endraw %}
           restore-keys: |
-            ${{ runner.os }}-node-
+            {% raw %}${{ runner.os }}-node-{% endraw %}
 
       - name: Install dependencies
         run: |
