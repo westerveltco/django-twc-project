@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.38]
+
 ### Changed
 
 - `semgrep.yml` GitHub Actions workflow is now skipped if triggered by either Dependabot or the pre-commit-ci bot.
@@ -505,7 +507,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.37...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.38...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -543,3 +545,4 @@ Initial release! 🎉
 [2024.35]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.35
 [2024.36]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.36
 [2024.37]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.37
+[2024.38]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.38
