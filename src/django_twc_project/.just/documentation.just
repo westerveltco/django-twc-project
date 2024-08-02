@@ -16,12 +16,12 @@ build LOCATION="docs/_build/html": cog
 # Install documentation dependencies
 [no-cd]
 install *ARGS:
-    $python -m uv pip sync {% raw %}{{ ARGS }}{% endraw %} requirements.txt requirements.dev.txt requirements.docs.txt
+    $python -m uv pip sync {{ ARGS }} docs/requirements.txt
 
 # Generate documentation requirements
 [no-cd]
 lock *ARGS:
-    $python -m uv pip compile pyproject.toml --output-file docs/requirements.txt --generate-hashes --extra docs {% raw %}{{ ARGS }}{% endraw %}
+    $python -m uv pip compile pyproject.toml --output-file docs/requirements.txt --generate-hashes --extra docs {{ ARGS }}
 
 # Serve documentation locally
 [no-cd]
