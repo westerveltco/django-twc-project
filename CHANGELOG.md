@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Removed
+
+- Prettier pre-commit stage in `.pre-commit-config.yaml` has been temporarily commented out and disabled. The pre-commit mirror this originally was pointing at was deprecated, and the Prettier project does not have an official one. I tried my hand at creating a local hook, but I have run in to issues with it actually running. Disabling for now till I have the time to dig in to what to do here.
+
 ### Fixed
 
 - Added `persist-credentials: false` back to the `actions/checkout` step in the `test` step in the `test.yml` GitHub Action workflow. Persisting the default GitHub Token credentials causes an error when trying to install Node dependencies, as our `django-twc-ui/tailwind` dependency is in a private repository.
