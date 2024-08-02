@@ -224,6 +224,7 @@ jobs:
 
   fly:
     runs-on: ubuntu-latest
+    if: github.actor != 'dependabot[bot]'
     env:
       OP_SERVICE_ACCOUNT_TOKEN: ${{ secrets.OP_SERVICE_ACCOUNT_TOKEN }}
     steps:
