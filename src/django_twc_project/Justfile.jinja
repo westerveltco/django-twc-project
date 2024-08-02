@@ -67,11 +67,11 @@ makemigrations *ARGS:
 manage *COMMAND:
     @just dj manage {{ COMMAND }}
 
-# Start development server in foreground
-server:
-    @just docker down
+# Refresh local development environment
+refresh:
+    @just docker stop
     @just bootstrap
-    @just docker up
+    @just docker start
 
 # Setup local development environment
 setup:
@@ -103,6 +103,14 @@ shell CONTAINER="app" COMMAND="":
     COMMAND="${COMMAND:-/bin/bash}"
     just docker run {% raw %}{{ CONTAINER }}{% endraw %} "" $COMMAND
 
+# Start local development environment in background
+start:
+    @just docker start
+
+# Stop local development environment
+stop:
+    @just docker stop
+
 # Follow the logs of all Docker containers, optionally specifying a container to focus on
 tail *ARGS:
     @just docker tail {{ ARGS }}
@@ -112,9 +120,9 @@ test:
     @just py test
     @just py coverage-html
 
-# Start local development environment in background
+# Start local development environment in foreground
 up:
-    @just docker start
+    @just docker up
 
 # Update local development environment
 update:
