@@ -39,6 +39,8 @@ jobs:
       EMAIL_RELAY_DATABASE_URL: postgis://postgres:postgres@localhost:5432/email-relay
     steps:
       - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
 
       - uses: actions/setup-python@v5
         with:
