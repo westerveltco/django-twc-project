@@ -21,6 +21,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Created a new GitHub Team for documentation and added it to the `CODEOWNERS` file in the project template.
 
+### Removed
+
+- Removed `westerveltco/setup-ci-action@simplify` action within `test.yml` GitHub Actions workflow in favor of explicitly running actions directly.
+
 ## [2024.36]
 
 ### Changed
