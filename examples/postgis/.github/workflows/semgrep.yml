@@ -20,6 +20,7 @@ env:
 jobs:
   semgrep:
     runs-on: ubuntu-latest
+    if: ${{ github.actor != 'dependabot[bot]' || github.actor != 'pre-commit-ci[bot]' }}
     steps:
       - uses: actions/checkout@v4
 
