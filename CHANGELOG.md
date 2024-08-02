@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - Fixed reference to correct `lock` command in `just docs upgrade` just command.
+- Changed the `default-app` build target from `app` to `dev`. This fixes an error running the stack in development where the worker container does not have the development dependencies installed.
 
 ## [2024.40]
 
