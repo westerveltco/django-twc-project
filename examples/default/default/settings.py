@@ -11,15 +11,14 @@ from pathlib import Path
 import django_stubs_ext
 import sentry_sdk
 from django.template import base
+from django_twc_toolbox.sentry import sentry_profiles_sampler
+from django_twc_toolbox.sentry import sentry_traces_sampler
 from email_relay.conf import EMAIL_RELAY_DATABASE_ALIAS
 from environs import Env
 from marshmallow.validate import Email
 from marshmallow.validate import OneOf
 from sentry_sdk.integrations.django import DjangoIntegration
 from sentry_sdk.integrations.logging import LoggingIntegration
-
-from .core.sentry import sentry_profiles_sampler
-from .core.sentry import sentry_traces_sampler
 
 # 0. Setup
 
@@ -231,7 +230,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="5a822cc4943368c3801ac5404b8b4b947b20d626120b920468bac7af6b52a24e",
+    default="d6cdfda30bcd633db936d92fabe0a45716eadb86fc27b39a76b5044638a5c405",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
