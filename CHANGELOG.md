@@ -17,10 +17,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Now using `django_twc_toolbox.views` for some core views. See the removed section below.
+
 ### Fixed
 
 - Fixed reference to correct `lock` command in `just docs upgrade` just command.
 - Changed the `default-app` build target from `app` to `dev`. This fixes an error running the stack in development where the worker container does not have the development dependencies installed.
+
+### Removed
+
+- Removed all views except the `index` view from the template project's `core/views.py`, in favor of `django_twc_toolbox.views`.
 
 ## [2024.40]
 
