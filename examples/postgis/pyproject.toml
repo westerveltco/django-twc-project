@@ -56,11 +56,13 @@ dev = [
   "django-browser-reload",
   "django-coverage-plugin",
   "django-debug-toolbar",
+  "django-perf-rec",
   "django-stubs",
   "faker",
   "ipython",
   "model_bakery",
   "mypy",
+  "pip",
   "playwright==1.45.0",
   "pre-commit",
   "pytest",
@@ -72,7 +74,8 @@ dev = [
   "pytest-xdist",
   "ruff",
   "types-croniter",
-  "types-openpyxl"
+  "types-openpyxl",
+  "uv"
 ]
 docs = [
   "cogapp",
