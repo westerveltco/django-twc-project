@@ -3,58 +3,64 @@
 ## Requirements
 
 - Python {{ python_version }}
-  - It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) to manage your Python versions.
-  - [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv) is also useful for managing virtual environments, though it is not required.
-  - [`uv`](https://github.com/astral-sh/uv) is used for managing Python dependencies.
+    - It is recommended to use [`pyenv`](https://github.com/pyenv/pyenv) to manage your Python versions.
+    - [`pyenv-virtualenv`](https://github.com/pyenv/pyenv-virtualenv) is also useful for managing virtual environments, though it is not required.
+    - [`uv`](https://github.com/astral-sh/uv) is used for managing Python dependencies.
 - Node.js {{ node_version }}
-  - It is recommended to use [`nvm`](https://github.com/nvm-sh/nvm) to manage your Node.js versions.
+    - It is recommended to use [`nvm`](https://github.com/nvm-sh/nvm) to manage your Node.js versions.
 - Docker and Docker Compose
-  - The easiest way to install Docker and Docker Compose is to use [Docker Desktop](https://www.docker.com/products/docker-desktop).
+    - The easiest way to install Docker and Docker Compose is to use [Docker Desktop](https://www.docker.com/products/docker-desktop).
 - [Just](https://github.com/casey/just)
 - [Direnv](https://direnv.net/)
-  - This is optional, but highly recommended.
+    - This is optional, but highly recommended.
 
 ## Getting Started
 
 1. Clone this repository:
 
-   ```sh
-   git clone https://github.com/{{ github_owner }}/{{ github_repo }}
-   ```
+    ```sh
+    git clone https://github.com/{{ github_owner }}/{{ github_repo }}
+    ```
 
 2. Run the setup script:
 
-   ```sh
-   just setup
-   ```
+    ```sh
+    just setup
+    ```
 
-   This will:
-   - Clean the repository of existing files, stop any Docker containers that may be running, delete Docker images and networks.
-   - Copy the `.env.example` file to `.env` if it does not already exist.
-   - Create a virtual environment at the `$VIRTUAL_ENV` directory (default `.venv`).
-   - Install `uv` and `pre-commit` Python tools.
-   - Build the Docker images for the development environment.
-   - Install Python and Node.js dependencies.
-   - Start the Docker Compose stack.
-   - Migrate the database.
-   - Create a superuser for the Django admin interface with the username `admin` and the password `admin`.
-   - Run the test suite and generate code coverage.
-   - Run the `mypy` static type checker.
-   - Lint the repository.
-   - Stop the Docker Compose stack.
+    This will:
+
+    - Clean the repository of existing files, stop any Docker containers that may be running, delete Docker images and networks.
+    - Copy the `.env.example` file to `.env` if it does not already exist.
+    - Create a virtual environment at the `$VIRTUAL_ENV` directory (default `.venv`).
+    - Install `uv` and `pre-commit` Python tools.
+    - Build the Docker images for the development environment.
+    - Install Python and Node.js dependencies.
+    - Start the Docker Compose stack.
+    - Migrate the database.
+    - Create a superuser for the Django admin interface with the username `admin` and the password `admin`.
+    - Run the test suite and generate code coverage.
+    - Run the `mypy` static type checker.
+    - Lint the repository.
+    - Stop the Docker Compose stack.
 
 3. After the setup script has successfully completed, you can start your development Docker Compose stack by running either of these commands:
 
-   ```sh
-   # to start the containers detached in the background
-   just docker start
-   # to start the containers in the foreground with the logs continuously streaming in stdout
-   just docker up
-   ```
+    To start the containers in the background:
 
-   After starting, you should be able to access the development server at [http://localhost:8000](http://localhost:8000).
+    ```sh
+    just docker start
+    ```
 
-   By default, the development server will run on port 8000. If you need to change the port, you can do so by setting the `DJANGO_PORT` environment variable in the `.env` file and then restarting the development server.
+    To start the containers in the foreground with the logs continuously streaming in stdout
+
+    ```sh
+    just docker up
+    ```
+
+    After starting, you should be able to access the development server at [http://localhost:8000](http://localhost:8000).
+
+    By default, the development server will run on port 8000. If you need to change the port, you can do so by setting the `DJANGO_PORT` environment variable in the `.env` file and then restarting the development server.
 
 ## Development
 
@@ -83,7 +89,7 @@ pytest
 - Reuse the database between test runs courtesy of the `pytest-django` plugin.
 - Run the tests in parallel using the `pytest-xdist` plugin, using the number of CPU cores available on your machine.
 - Randomize the order of the tests using the `pytest-randomly` plugin.
-  - This is can be disabled by passing `--no-randomly` as a command line argument.
+    - This can be disabled by passing `--no-randomly` as a command line argument.
 
 #### Code Coverage
 
@@ -109,7 +115,7 @@ This project uses `mypy` and the `django-stubs` plugin for type checking. To run
 
 ```sh
 just types
-````
+```
 
 In general, you should aim to have `mypy` pass without any errors or warnings. However, given the dynamic nature of Django and the fact that the `django-stubs` project is entirely volunteer driven, it is not always possible to have `mypy` pass without any errors or warnings.
 
