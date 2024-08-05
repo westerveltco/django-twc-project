@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Add `--constraint requirements.txt` to the compiling of the two extra requirements files, to constrain the dependencies to the versions specified in the primary requirements file.
+- Switch back from `uv pip sync` to `uv pip install` for dependency installation. `uv pip sync` itself is quite strict, only installing exactly what's specified in a given requirements file. This is fine, except if something like `pip` is installed in the virtual environment but not listed as a dependency, it will gladly uninstall it from the venv. I get why they do this, but it makes no sense for local installations to clobber any packages that may already be installed in the venv. In the future, we may consider using `uv pip sync` in environments where it makes sense to allow this behavior, e.g. in the `Dockerfile` or CI.
 
 ## [2024.43]
 
