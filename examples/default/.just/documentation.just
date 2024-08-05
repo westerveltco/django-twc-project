@@ -21,7 +21,7 @@ install *ARGS:
 # Generate documentation requirements
 [no-cd]
 lock *ARGS:
-    $python -m uv pip compile pyproject.toml --output-file docs/requirements.txt --generate-hashes --extra docs {{ ARGS }}
+    $python -m uv pip compile pyproject.toml --output-file docs/requirements.txt --generate-hashes --extra docs --constraint requirements.txt {{ ARGS }}
 
 # Serve documentation locally
 [no-cd]
