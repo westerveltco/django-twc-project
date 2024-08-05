@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Add `--constraint requirements.txt` to the compiling of the two extra requirements files, to constrain the dependencies to the versions specified in the primary requirements file.
+
 ## [2024.43]
 
 ### Fixed
