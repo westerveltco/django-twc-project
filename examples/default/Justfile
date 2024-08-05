@@ -47,6 +47,7 @@ lint:
 # Generate lockfiles for all dependencies
 lock:
     @just py lock
+    @just docs lock
     @just node lock
 
 # Print out the logs of all Docker containers, optionally specifying a container to focus on
@@ -127,8 +128,7 @@ up:
 # Update local development environment
 update:
     @just docker pull
-    @just py lock
-    @just node lock
+    @just lock
     @just bootstrap
 
 # Upgrade all dependencies to their newest versions
