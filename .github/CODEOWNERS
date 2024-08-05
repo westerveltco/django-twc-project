@@ -1,1 +1,3 @@
-*       @westerveltco/oss
+*                             @westerveltco/oss
+/docs/                        @westerveltco/web-dev-docs
+/src/django_twc_project/docs/ @westerveltco/web-dev-docs
