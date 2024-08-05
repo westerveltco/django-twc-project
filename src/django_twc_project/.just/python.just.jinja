@@ -37,7 +37,7 @@ install *ARGS:
 [no-cd]
 lock *ARGS:
     $python -m uv pip compile pyproject.toml --output-file requirements.txt --generate-hashes {% raw %}{{ ARGS }}{% endraw %}
-    $python -m uv pip compile pyproject.toml --output-file requirements.dev.txt --generate-hashes --extra dev {% raw %}{{ ARGS }}{% endraw %}
+    $python -m uv pip compile pyproject.toml --output-file requirements.dev.txt --generate-hashes --extra dev --constraint requirements.txt {% raw %}{{ ARGS }}{% endraw %}
 
 # Run tests using pytest within the 'app' container, with optional arguments
 [no-cd]
