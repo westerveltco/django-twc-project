@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Added the documentation `just docs lock` subcommand to the top-level Justfile `just lock` command and adjusted calls to individual `lock` commands to this top-level command.
+
 ### Fixed
 
 - All `uv pip install` commands now use the correct CLI syntax for installing from requirements files. When I migrated back from `uv pip sync` I failed to take in to account the slight differences between how dependencies are installed.
