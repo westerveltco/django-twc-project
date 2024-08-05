@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.44]
+
 ### Changed
 
 - Add `--constraint requirements.txt` to the compiling of the two extra requirements files, to constrain the dependencies to the versions specified in the primary requirements file.
@@ -571,7 +573,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.43...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.44...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -615,3 +617,4 @@ Initial release! 🎉
 [2024.41]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.41
 [2024.42]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.42
 [2024.43]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.43
+[2024.44]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.44
