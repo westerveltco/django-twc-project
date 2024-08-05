@@ -16,7 +16,7 @@ build LOCATION="docs/_build/html": cog
 # Install documentation dependencies
 [no-cd]
 install *ARGS:
-    $python -m uv pip sync {{ ARGS }} docs/requirements.txt
+    $python -m uv pip install {{ ARGS }} docs/requirements.txt
 
 # Generate documentation requirements
 [no-cd]

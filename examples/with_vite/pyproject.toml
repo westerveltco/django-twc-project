@@ -63,7 +63,6 @@ dev = [
   "ipython",
   "model_bakery",
   "mypy",
-  "pip",
   "playwright==1.45.0",
   "pre-commit",
   "pytest",

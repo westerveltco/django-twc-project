@@ -27,7 +27,7 @@ coverage-report: test
 # Install dependencies
 [no-cd]
 install *ARGS:
-    $python -m uv pip sync {{ ARGS }} requirements.txt requirements.dev.txt
+    $python -m uv pip install {{ ARGS }} requirements.txt requirements.dev.txt
 
 # Generate requirements.txt file
 [no-cd]
