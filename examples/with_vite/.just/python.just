@@ -38,7 +38,8 @@ lock *ARGS:
 # Run tests using pytest within the 'app' container, with optional arguments
 [no-cd]
 test *ARGS:
-    @just docker run app "-e DJANGO_VITE_DEV_SERVER_HOST=node" coverage run -m pytest {{ ARGS }}
+    @just docker command python -m coverage erase
+    @just docker run app "-e DJANGO_VITE_DEV_SERVER_HOST=node" python -m pytest {{ ARGS }}
 
 # Run tests with Playwright debug mode enabled, in the 'app' container, with optional arguments
 [no-cd]

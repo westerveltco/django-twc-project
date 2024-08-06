@@ -66,6 +66,7 @@ dev = [
   "playwright==1.45.0",
   "pre-commit",
   "pytest",
+  "pytest-cov",
   "pytest-django",
   "pytest-is-running",
   "pytest-playwright",
@@ -117,6 +118,7 @@ exclude_lines = [
 ]
 
 [tool.coverage.run]
+branch = true
 omit = [
   "*/node_modules/*",
   "with_vite/*/migrations/*",
@@ -130,7 +132,6 @@ omit = [
   "requirements.txt"
 ]
 plugins = ["django_coverage_plugin"]
-source = ["with_vite"]
 
 [tool.django-stubs]
 django_settings_module = "with_vite.settings"
@@ -196,7 +197,7 @@ ignore_missing_model_attributes = true
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "with_vite.settings"
-addopts = "--reuse-db -n auto --dist loadfile"
+addopts = "--reuse-db -n auto --dist loadfile --cov=with_vite --cov-report= --cov-config=pyproject.toml"
 norecursedirs = ".* bin build dist *.egg htmlcov logs node_modules static templates venv"
 python_files = "tests.py test_*.py *_tests.py"
 
