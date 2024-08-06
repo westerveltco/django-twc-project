@@ -26,6 +26,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - Adjusted default `pytest` command line arguments to include `pytest-cov` flags, with the default not printing the report to the terminal.
 - Changed `just py test` command to erase coverage before each run and to get rid of calling `coverage` directly in favor of `pytest-cov`.
+- Always upload coverage html report in CI tests instead of just on failure.
 
 ## [2024.45]
 
