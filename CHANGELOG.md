@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.46]
+
 ### Added
 
 - Added `pytest-cov` as dev dependency.
@@ -595,7 +597,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.45...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.46...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -641,3 +643,4 @@ Initial release! 🎉
 [2024.43]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.43
 [2024.44]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.44
 [2024.45]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.45
+[2024.46]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.46
