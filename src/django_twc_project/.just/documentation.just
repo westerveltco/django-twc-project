@@ -16,12 +16,7 @@ build LOCATION="docs/_build/html": cog
 # Install documentation dependencies
 [no-cd]
 install *ARGS:
-    $python -m uv pip install {{ ARGS }} -r docs/requirements.txt
-
-# Generate documentation requirements
-[no-cd]
-lock *ARGS:
-    $python -m uv pip compile pyproject.toml --output-file docs/requirements.txt --generate-hashes --extra docs --constraint requirements.txt {{ ARGS }}
+    $python -m uv pip install {{ ARGS }} --constraint requirements.txt --requirement pyproject.toml --extra docs
 
 # Serve documentation locally
 [no-cd]

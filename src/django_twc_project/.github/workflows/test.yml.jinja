@@ -82,7 +82,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          python -m uv pip install --system --constraint requirements.txt --requirement pyproject.toml --extra dev
           npm install
 
       - name: Install system packages
@@ -164,7 +164,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          python -m uv pip install --system --constraint requirements.txt --requirement pyproject.toml --extra dev
 
       - name: Install system packages
         env:
@@ -221,7 +221,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m uv pip install --system -r requirements.txt -r requirements.dev.txt
+          python -m uv pip install --system --constraint requirements.txt --requirement pyproject.toml --extra dev
 
       - name: Install dependencies
         env:
