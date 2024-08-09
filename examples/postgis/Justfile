@@ -47,7 +47,6 @@ lint:
 # Generate lockfiles for all dependencies
 lock:
     @just py lock
-    @just docs lock
     @just node lock
 
 # Print out the logs of all Docker containers, optionally specifying a container to focus on
