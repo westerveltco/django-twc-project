@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Instead of generating a separate requirements file for both the `dev` and `docs` extras, we now only generate a requirements file for the primary production dependencies and use the ability of `uv pip install` to install directly from a `pyproject.toml` file in development. The production requirements are used as a constraint, so there should be no version mismatches.
+
 ## [2024.46]
 
 ### Added
