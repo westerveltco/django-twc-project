@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.47]
+
 ### Changed
 
 - Instead of generating a separate requirements file for both the `dev` and `docs` extras, we now only generate a requirements file for the primary production dependencies and use the ability of `uv pip install` to install directly from a `pyproject.toml` file in development. The production requirements are used as a constraint, so there should be no version mismatches.
@@ -601,7 +603,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.46...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.47...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -648,3 +650,4 @@ Initial release! 🎉
 [2024.44]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.44
 [2024.45]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.45
 [2024.46]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.46
+[2024.47]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.47
