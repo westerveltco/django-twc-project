@@ -23,6 +23,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Now defaults to 3.4.9 for Tailwind CSS version.
 - Now defaults to 1.46.0 for Playwright version.
 - Now defaults to v2024.8.27 for `django-twc-ui` version.
+- Instead of using a dictionary of settings specific to tests with `django.test.utils.override_settings`, there is now a dedicated `tests/settings.py` that imports the project's main `settings.py` and overrides with test specific ones. When trying to use `django-q2` and `pytest-xdist`, there seems to be a bug between the two when also using `override_settings`. The override for sync mode in q2 does not seem to be respected. This has led to inconsistent behavior when testing parts of the project that use `async_task` from q2 to offload tasks to the background, e.g. sending email via an `async_task` and not being able to check the `mailoutbox`.
 
 ### Fixed
 
