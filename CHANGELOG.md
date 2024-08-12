@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.49]
+
 ### Fixed
 
 - Actually use the `dev` extra in `py-dev` stage within `Dockerfile`, instead of the `docs` extra. 🤦
@@ -621,7 +623,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.48...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.49...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -670,3 +672,4 @@ Initial release! 🎉
 [2024.46]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.46
 [2024.47]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.47
 [2024.48]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.48
+[2024.49]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.49
