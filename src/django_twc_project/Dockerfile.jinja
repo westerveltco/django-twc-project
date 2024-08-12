@@ -72,15 +72,16 @@ RUN --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.
 
 FROM py as py-dev
 COPY --from=py --link /usr/local /usr/local
-COPY --link requirements.dev.txt ./
+COPY --link pyproject.toml ./
 RUN --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.cache/uv \
-  uv pip install -r requirements.dev.txt
+  uv pip install -c requirements.txt -r pyproject.toml --extra docs
 
 
 FROM node-base as node
 COPY --from=py-dev --link /usr/local /usr/local
 COPY --link package*.json /app
-RUN --mount=type=cache,target=/root/.npm npm install
+RUN --mount=type=cache,target=/root/.npm \
+  npm install
 
 
 FROM node as tailwind
@@ -113,7 +114,6 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV UV_SYSTEM_PYTHON true
 COPY --from=py-dev --link /usr/local /usr/local
 COPY --from=app --link /app /app
-COPY --link requirements.dev.txt ./
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
   --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.cache/uv \
   apt-get update --fix-missing \
