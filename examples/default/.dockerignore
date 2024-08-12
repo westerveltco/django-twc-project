@@ -7,6 +7,7 @@
 !manage.py
 !package*.json
 !postcss.config.mjs
+!pyproject.toml
 !requirements*.txt
 !tailwind.config.mjs
 
