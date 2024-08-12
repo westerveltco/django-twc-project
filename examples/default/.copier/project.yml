@@ -1,12 +1,12 @@
 # Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
-_commit: 145aaaf
+_commit: ffee2c1
 _src_path: .
 admin_email: admin@example.com
 author_email: jdoe@example.com
 author_name: John Doe
 current_version: 2024.8.1
 default_from_email: johndoe@example.com
-django_twc_ui_version: 2024.7.29
+django_twc_ui_version: 2024.8.27
 django_version: '5.0'
 docs_site_name: Default
 domain_name: default.westervelt.com
@@ -18,7 +18,7 @@ include_vite: false
 include_weasyprint: false
 module_name: default
 node_version: '20'
-playwright_version: 1.45.0
+playwright_version: 1.46.0
 postgres_docker_image: postgres
 postgres_docker_version: '15'
 project_name: default
@@ -26,5 +26,5 @@ python_version: '3.12'
 sentry_dsn: https://example.com
 sentry_org: the-westervelt-company
 sentry_project: default
-tailwindcss_version: 3.4.6
+tailwindcss_version: 3.4.9
 use_r2: false
