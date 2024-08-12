@@ -196,7 +196,7 @@ module = [
 ignore_missing_model_attributes = true
 
 [tool.pytest.ini_options]
-DJANGO_SETTINGS_MODULE = "with_vite.settings"
+DJANGO_SETTINGS_MODULE = "tests.settings"
 addopts = "--reuse-db -n auto --dist loadfile --cov=with_vite --cov-report= --cov-config=pyproject.toml"
 norecursedirs = ".* bin build dist *.egg htmlcov logs node_modules static templates venv"
 python_files = "tests.py test_*.py *_tests.py"
