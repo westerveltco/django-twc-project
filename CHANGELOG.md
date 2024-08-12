@@ -20,6 +20,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - `just refresh` command now calls `just lock`.
+- Now defaults to 3.4.9 for Tailwind CSS version.
+- Now defaults to 1.46.0 for Playwright version.
+- Now defaults to v2024.8.27 for `django-twc-ui` version.
 
 ### Fixed
 
