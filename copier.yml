@@ -92,12 +92,12 @@ node_version:
 tailwindcss_version:
   type: str
   help: Which version of Tailwind CSS should be used?
-  default: "3.4.6"
+  default: "3.4.9"
 
 playwright_version:
   type: str
   help: Which version of Playwright should be used?
-  default: "1.45.0"
+  default: "1.46.0"
 
 # ----------------------------------------------------------------------
 # DEPENDENCIES
@@ -110,7 +110,7 @@ django_twc_ui_token:
 django_twc_ui_version:
   type: str
   help: Which version of `django-twc-ui` should be used?
-  default: "2024.7.29"
+  default: "2024.8.27"
 
 # ----------------------------------------------------------------------
 # FLY.IO
