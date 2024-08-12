@@ -57,7 +57,7 @@ FROM py as py-dev
 COPY --from=py --link /usr/local /usr/local
 COPY --link pyproject.toml ./
 RUN --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.cache/uv \
-  uv pip install -c requirements.txt -r pyproject.toml --extra docs
+  uv pip install -c requirements.txt -r pyproject.toml --extra dev
 
 
 FROM node-base as node
@@ -98,7 +98,6 @@ ENV UV_SYSTEM_PYTHON true
 COPY --from=py-dev --link /usr/local /usr/local
 COPY --from=app --link /app /app
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,target=/var/lib/apt,sharing=locked \
-  --mount=type=cache,target=/root/.cache/pip --mount=type=cache,target=/root/.cache/uv \
   apt-get update --fix-missing \
   && apt-get install -y --no-install-recommends \
   # timezone data missing from Ubuntu base image that Playwright uses
