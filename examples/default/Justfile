@@ -69,6 +69,7 @@ manage *COMMAND:
 
 # Refresh local development environment
 refresh:
+    @just lock
     @just docker stop
     @just bootstrap
     @just docker start
