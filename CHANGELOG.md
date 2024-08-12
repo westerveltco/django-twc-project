@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Actually use the `dev` extra in `py-dev` stage within `Dockerfile`, instead of the `docs` extra. 🤦
+
 ## [2024.48]
 
 ### Changed
