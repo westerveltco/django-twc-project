@@ -73,6 +73,8 @@ This template is built using [Copier](https://copier.readthedocs.io) and include
 
 ## Usage
 
+### Generating a new package
+
 To use this template, you will need to install [Copier](https://copier.readthedocs.io) and then run the following command:
 
 ```bash
@@ -83,6 +85,45 @@ copier copy --trust gh:westerveltco/django-twc-project <destination>
 > The `--trust` flag is used to because this template uses `copier-template-extensions` to simplify some of the Jinja templating. You cannot use this template without trusting it. Please review the files within the [`extensions`](extensions) directory to see what is being done.
 
 After running the above command, you will be prompted to fill in some information about your package. Once you have filled in the necessary information, Copier will generate the package for you.
+
+### Updating an existing package
+
+To use this template to update a package that already uses `django-twc-project` to the latest version, make sure [Copier](https://copier.readthedocs.io) is installed.
+
+Make sure the package you're updating is set up properly (run `just bootstrap` or the equivalent setup command).
+
+> 💬️ For a detailed walkthrough of updating the `directory` package, see [Josh's comment from July 2024](https://github.com/westerveltco/directory/issues/165#issuecomment-2261252519). It goes through many of the problems he ran into and how to resolve them.
+
+**In a new branch**:
+
+1. Run `just copier update-all`.
+
+    - You will be prompted to fill in or update some information about your package. Most of the answers will be the same as they were in setup.
+    - You may have to upgrade the versions of some packages that were used, such as Tailwind, Playwright, etc.
+    - You will need to enter the `django-twc-project` token
+
+    When `update-all` is finished running, you may see that pre-commit has linted files.
+
+2. **Handle merge conflicts.** This is the part of the process that is most unpredictable, as the kinds of conflicts you will encounter will differ from project to project. Some examples include:
+
+    - `settings.py`: **Will most likely need to be updated every time, for every project.** Because of how the default secret key is generated in the template, this section of the settings file will probably need to be updated.
+    - `pyproject.toml` or other config files: Your package's configuration may differ from the template for legitimate reasons, and you will need to reconcile what changes to keep and what to discard.
+    - `requirements.in` or other requirements files: You may have some dependency management to do here, if you pin to specific versions for specific reasons or have other changes in your package that need to be kept.
+
+3. Regenerate your `requirements.txt` file (usually, this will mean running `just py lock`)
+4. **Confirm your changes work:**
+
+    - Re-run your setup script to confirm everything still works in your package. (Usually, this will be `just setup`.)
+    - Start your app locally and do a basic click-through
+    - Run your tests locally
+
+5. Commit your changes and open a pull request.
+
+    - Make sure CI tests pass
+    - Make sure other CI processes pass
+
+6. Merge the pull request once CI passes.
+
 
 ## Examples
 
