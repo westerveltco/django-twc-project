@@ -39,8 +39,7 @@ dependencies = [
   "heroicons[django]",
   "httpx",
   "openpyxl",
-  "psycopg",
-  "psycopg-binary",
+  "psycopg[binary]",
   "sentry-sdk[django]",
   "whitenoise"
 ]
