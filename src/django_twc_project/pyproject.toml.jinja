@@ -42,8 +42,7 @@ dependencies = [
   "heroicons[django]",
   "httpx",
   "openpyxl",
-  "psycopg",
-  "psycopg-binary",
+  "psycopg[binary{% if django_version >= '5.1' %}, pool{% endif %}]",
   "sentry-sdk[django]",
 {%- if include_weasyprint %}
   "weasyprint",
