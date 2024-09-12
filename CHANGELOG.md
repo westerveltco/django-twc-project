@@ -22,6 +22,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - Added a new settings constant `PROD` that is just the inverse of `DEBUG`, e.g. `not DEBUG`. Purely to aid in readability of some of the settings which are only enabled when not in debug mode (cookies and whatnot).
 - Added a new settings constant `CI` for adjusting behavior that needs it when running in CI.
 - If Django 5.1 is selected, add `pool` extra to `psycopg` dependency and enable connection pooling in settings.
+- The `Justfile` now has a `just prod` module with common commands for interacting with the production application.
 
 ### Changed
 
