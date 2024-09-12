@@ -39,13 +39,22 @@ base.tag_re = re.compile(base.tag_re.pattern, re.DOTALL)
 # False when deployed, whether or not it's a production environment.
 DEBUG = env.bool("DEBUG", default=False)
 
+# Including this convienence constant to hopefully make the checks later in this
+# settings file a bit easier to read at a glance. `not DEBUG` always takes a second
+# to grok what exactly that means.
+PROD = not DEBUG
+
 # `STAGING` is here to allow us to tweak things like urls, smtp servers, etc.
 # between staging and production environments, **NOT** for anything that `DEBUG`
 # would be used for.
 STAGING = env.bool("STAGING", default=False)
 
+# Similarly, `CI` for adjusting those things that just need adjusted in CI, for
+# whatever reason
+CI = env.bool("CI", default=False)
+
 # 1. Django Core Settings
-# https://docs.djangoproject.com/en/4.0/ref/settings/
+# https://docs.djangoproject.com/en/5.0/ref/settings/
 
 ALLOWED_HOSTS = env.list(
     "ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str
@@ -53,7 +62,7 @@ ALLOWED_HOSTS = env.list(
 
 ASGI_APPLICATION = "default.asgi.application"
 
-CSRF_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = PROD
 
 DATABASES = {
     "default": env.dj_db_url(
@@ -61,28 +70,37 @@ DATABASES = {
         default="sqlite:///db.sqlite3",
         conn_max_age=600,  # 10 minutes
         conn_health_checks=True,
-        ssl_require=not DEBUG
-        and not env.bool("CI", default=False)
-        and not env.str("DATABASE_URL", default="").startswith("sqlite://"),
+        ssl_require=(
+            # Crunchy Bridge DBs require SSL connections
+            PROD
+            # Postgres container in CI complains if this is set
+            and not CI
+            # Just in case `DATABASE_URL` is unset, include this
+            # so the above sqlite default doesn't blow up, since
+            # it doesn't support SSL connections
+            and not env.str("DATABASE_URL", default="").startswith("sqlite://")
+        ),
     ),
     EMAIL_RELAY_DATABASE_ALIAS: env.dj_db_url(
         "EMAIL_RELAY_DATABASE_URL",
         default="sqlite:///email_relay.sqlite3",
         conn_max_age=600,  # 10 minutes
         conn_health_checks=True,
-        ssl_require=not DEBUG
-        and not env.bool("CI", default=False)
-        and not env.str("EMAIL_RELAY_DATABASE_URL", default="").startswith("sqlite://"),
+        ssl_require=(
+            PROD
+            and not CI
+            and not env.str("EMAIL_RELAY_DATABASE_URL", default="").startswith(
+                "sqlite://"
+            )
+        ),
+        test_options={"MIRROR": "default"},
     ),
 }
-if not DEBUG and (
-    DISABLE_SERVER_SIDE_CURSORS := env.bool("DISABLE_SERVER_SIDE_CURSORS", default=True)
-):
-    DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = DISABLE_SERVER_SIDE_CURSORS
-    DATABASES[EMAIL_RELAY_DATABASE_ALIAS]["DISABLE_SERVER_SIDE_CURSORS"] = (
-        DISABLE_SERVER_SIDE_CURSORS
-    )
-DATABASES[EMAIL_RELAY_DATABASE_ALIAS]["TEST"] = {"MIRROR": "default"}
+if PROD:
+    for db_alias in DATABASES.keys():
+        DATABASES[db_alias]["DISABLE_SERVER_SIDE_CURSORS"] = env.bool(
+            "DISABLE_SERVER_SIDE_CURSORS", default=True
+        )
 
 DATABASE_ROUTERS = [
     "email_relay.db.EmailDatabaseRouter",
@@ -195,8 +213,8 @@ MEDIA_ROOT = Path(BASE_DIR, "mediafiles")
 
 MEDIA_URL = "/mediafiles/"
 
-# https://docs.djangoproject.com/en/dev/topics/http/middleware/
-# https://docs.djangoproject.com/en/dev/ref/middleware/#middleware-ordering
+# https://docs.djangoproject.com/en/5.0/topics/http/middleware/
+# https://docs.djangoproject.com/en/5.0/ref/middleware/#middleware-ordering
 MIDDLEWARE = [
     # should be first
     "django.middleware.cache.UpdateCacheMiddleware",
@@ -230,12 +248,12 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="6bf052053549740fbc445a811b630f03e843c705570ea20d26fea5f04b230477",
+    default="2c5e1799512f89d87e677e682504d95113dfac618792abcf837b2a1f82090adb",
 )
 
-SECURE_HSTS_INCLUDE_SUBDOMAINS = not DEBUG
+SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD
 
-SECURE_HSTS_PRELOAD = not DEBUG
+SECURE_HSTS_PRELOAD = PROD
 
 # 10 minutes to start with, will increase as HSTS is tested
 SECURE_HSTS_SECONDS = 0 if DEBUG else 600
@@ -250,7 +268,7 @@ SERVER_EMAIL = env.str(
     validate=lambda v: Email()(parseaddr(v)[1]),
 )
 
-SESSION_COOKIE_SECURE = not DEBUG
+SESSION_COOKIE_SECURE = PROD
 
 SITE_ID = 1
 
@@ -417,7 +435,7 @@ TAILWIND_CLI_VERSION = (
 )
 
 # sentry
-if (SENTRY_DSN := env.url("SENTRY_DSN", default=None)).scheme and not DEBUG:
+if PROD and (SENTRY_DSN := env.url("SENTRY_DSN", default=None)).scheme:
     sentry_sdk.init(
         dsn=SENTRY_DSN.geturl(),
         environment=env.str(
