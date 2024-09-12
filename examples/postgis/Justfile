@@ -8,6 +8,7 @@ mod docs ".just/documentation.just"
 mod node ".just/node.just"
 mod pg ".just/postgres.just"
 mod project ".just/project.just"
+mod prod ".just/prod.just"
 mod py ".just/python.just"
 
 export DATABASE_URL := env_var_or_default('DATABASE_URL', 'postgis://postgres:postgres@db:5432/postgres')
