@@ -11,17 +11,22 @@ fmt:
 # Run a command on application host
 [no-cd]
 command *COMMAND:
-    fly ssh console --pty -C '{{ COMMAND }}'
+    @just console --pty -C '{{ COMMAND }}'
 
 # Open a bash console within the application host
 [no-cd]
-console:
-    fly ssh console
+console *ARGS:
+    flyctl ssh console {{ ARGS }}
+
+# Deploy the application
+[no-cd]
+deploy *ARGS:
+    flyctl deploy {{ ARGS }}
 
 # Display the most recent logs for the application
 [no-cd]
 logs:
-    fly logs --no-tail
+    flyctl logs --no-tail
 
 # Run a Django management command
 [no-cd]
@@ -33,7 +38,12 @@ manage *COMMAND:
 shell:
     @just prod manage shell_plus
 
+# Stage secrets needed for deployment
+[no-cd]
+secrets:
+    op inject -i .env.prod | xargs flyctl secrets set --stage
+
 # Follow the logs for the application
 [no-cd]
 tail:
-    fly logs
+    flyctl logs
