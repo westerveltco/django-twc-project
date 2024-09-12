@@ -13,15 +13,15 @@ fmt:
 codegen *ARGS:
     @just docker run app "-e DJANGO_VITE_DEV_SERVER_HOST=node" "python manage.py runserver 0.0.0.0:8000 & while ! curl -s http://0.0.0.0:8000 > /dev/null; do sleep 1; done; playwright codegen {{ ARGS }}; kill %1"
 
-# Run the test suite, generate code coverage, and export html report
+# Generate most recent code coverage report in HTML format
 [no-cd]
-coverage-html: test
+cov-html:
     rm -rf htmlcov
     @just docker command python -m coverage html --skip-covered --skip-empty
 
-# Run the test suite, generate code coverage, and print report to stdout
+# Print most recent code coverage report
 [no-cd]
-coverage-report: test
+cov-report:
     @just docker command python -m coverage report
 
 # Install dependencies

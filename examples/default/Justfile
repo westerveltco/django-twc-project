@@ -68,13 +68,6 @@ makemigrations *ARGS:
 manage *COMMAND:
     @just dj manage {{ COMMAND }}
 
-# Refresh local development environment
-refresh:
-    @just lock
-    @just docker stop
-    @just bootstrap
-    @just docker start
-
 # Setup local development environment
 setup:
     @just clean
@@ -83,7 +76,8 @@ setup:
     @just docker start
     @just dj migrate
     @just dj createsuperuser
-    @just py coverage-report
+    @just py test
+    @just py cov-report
     @just py types
     @just project lint
     @just docker down
@@ -92,18 +86,20 @@ setup:
 shell CONTAINER="app" COMMAND="":
     #!/usr/bin/env bash
     set -euo pipefail
-    if [ {{ CONTAINER }} = 'db' ]; then
+    CONTAINER="{{ CONTAINER }}"
+    if [ $CONTAINER = "db" ]; then
         COMMAND="psql -d {{ DATABASE_URL }}"
-    elif [ "{{ CONTAINER }}" = "node" ] || [ "{{ CONTAINER }}" = "tailwind" ]; then
+    elif [ $CONTAINER = "node" ] || [ $CONTAINER = "tailwind" ]; then
         COMMAND="node"
-    elif [ "{{ CONTAINER }}" = "app" ] || [ "{{ CONTAINER }}" = "worker" ]; then
+    elif [ $CONTAINER = "app" ] || [ $CONTAINER = "worker" ]; then
         COMMAND="ipython"
-    elif [ {{ CONTAINER }} = 'dj' ]; then
+    elif [ $CONTAINER = "dj" ]; then
+        CONTAINER="app"
         COMMAND="python -m manage shell_plus"
     fi
     [ -n "{{ COMMAND }}" ] && COMMAND="{{ COMMAND }}"
     COMMAND="${COMMAND:-/bin/bash}"
-    just docker run {{ CONTAINER }} "" $COMMAND
+    just --quiet docker run $CONTAINER "" $COMMAND
 
 # Start local development environment in background
 start:
@@ -120,13 +116,14 @@ tail *ARGS:
 # Run entire test suite, including generating code coverage
 test:
     @just py test
-    @just py coverage-html
+    @just py cov-report
+    @just py cov-html
 
 # Start local development environment in foreground
 up:
     @just docker up
 
-# Update local development environment
+# Refresh and update local development environment
 update:
     @just docker pull
     @just lock

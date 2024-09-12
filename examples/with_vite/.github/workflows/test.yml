@@ -109,7 +109,7 @@ jobs:
       # https://hynek.me/articles/ditch-codecov-python/
       - name: Run tests
         run: |
-          time python -m pytest --durations 10 --reverse -p no:randomly -n auto --dist loadfile --cov=with_vite --cov-report= --cov-config=pyproject.toml
+          time python -m pytest --durations 10 --reverse -p no:randomly -n auto --dist loadfile --cov --cov-report= --cov-config=pyproject.toml
           python -m coverage html --skip-covered --skip-empty
           python -m coverage report | sed 's/^/    /' >> $GITHUB_STEP_SUMMARY
           # python -m coverage report --fail-under=100
