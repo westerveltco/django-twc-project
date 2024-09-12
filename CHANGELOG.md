@@ -17,6 +17,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Added
+
+- Added a new settings constant `PROD` that is just the inverse of `DEBUG`, e.g. `not DEBUG`. Purely to aid in readability of some of the settings which are only enabled when not in debug mode (cookies and whatnot).
+- Added a new settings constant `CI` for adjusting behavior that needs it when running in CI.
+
 ## [2024.49]
 
 ### Fixed
