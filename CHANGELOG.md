@@ -27,6 +27,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Bumped all versions of the hooks in `.pre-commit-config.yaml`.
+- Altered all uses of the `--cov` `pytest` CLI flag from `pytest-cov`. This was unneeded as just by using the bare flag, the plugin uses the coverage configuration in `pyproject.toml`.
+- Coverage just commands in `.just/python.just` module have been shortened from `coverage` to `cov`.
+- Make sure that when specifying `dj` when calling `just shell` as the container to enter, actually enter the `app` container and call the `shell_plus` command.
+
+### Removed
+
+- Removed the `just refresh` command due to the vast overlap between it and the `just update` command.
+- The `test` command in `.just/python.just` has been removed as a prereq to the coverage commands. Depending on the order these are called, you could end up running the test suite more than once, defeating the purpose of the prereq. So we will just rely on calling the test command before the coverage commands.
 
 ## [2024.49]
 
