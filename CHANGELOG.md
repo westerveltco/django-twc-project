@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.51]
+
 ### Fixed
 
 - Removed `conn_max_age` argument when configuring database connection if Django version is greater than 5.1. In that case, we enable connection pooling and the `conn_max_age` setting causes the application to error with a `django.core.exceptions.ImproperlyConfigured: Pooling doesn't support persistent connections.` exception.
@@ -649,7 +651,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.50...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.51...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -700,3 +702,4 @@ Initial release! 🎉
 [2024.48]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.48
 [2024.49]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.49
 [2024.50]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.50
+[2024.51]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.51
