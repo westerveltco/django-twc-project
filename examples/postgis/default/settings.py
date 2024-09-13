@@ -54,7 +54,7 @@ STAGING = env.bool("STAGING", default=False)
 CI = env.bool("CI", default=False)
 
 # 1. Django Core Settings
-# https://docs.djangoproject.com/en/5.0/ref/settings/
+# https://docs.djangoproject.com/en/5.1/ref/settings/
 
 ALLOWED_HOSTS = env.list(
     "ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str
@@ -101,6 +101,15 @@ if PROD:
         DATABASES[db_alias]["DISABLE_SERVER_SIDE_CURSORS"] = env.bool(
             "DISABLE_SERVER_SIDE_CURSORS", default=True
         )
+
+        if env.bool("ENABLE_PG_CONN_POOL", default=True):
+            DATABASES[db_alias]["OPTIONS"] = {
+                "pool": {
+                    "min_size": env.int("PG_CONN_POOL_MIN_SIZE", default=2),
+                    "max_size": env.int("PG_CONN_POOL_MAX_SIZE", default=4),
+                    "timeout": env.int("PG_CONN_POOL_TIMEOUT", default=10),
+                }
+            }
 
 DATABASE_ROUTERS = [
     "email_relay.db.EmailDatabaseRouter",
@@ -213,8 +222,8 @@ MEDIA_ROOT = Path(BASE_DIR, "mediafiles")
 
 MEDIA_URL = "/mediafiles/"
 
-# https://docs.djangoproject.com/en/5.0/topics/http/middleware/
-# https://docs.djangoproject.com/en/5.0/ref/middleware/#middleware-ordering
+# https://docs.djangoproject.com/en/5.1/topics/http/middleware/
+# https://docs.djangoproject.com/en/5.1/ref/middleware/#middleware-ordering
 MIDDLEWARE = [
     # should be first
     "django.middleware.cache.UpdateCacheMiddleware",
@@ -248,7 +257,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="ce2058959740529123cdd14374bb5fefd408a14440ae1449465725bc084edf8a",
+    default="dd671264a29a6ea5842149293892c274fb25e35085d02e0a07d15ba49282e87f",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD
