@@ -17,6 +17,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+## [2024.50]
+
 ### Added
 
 - Added a new settings constant `PROD` that is just the inverse of `DEBUG`, e.g. `not DEBUG`. Purely to aid in readability of some of the settings which are only enabled when not in debug mode (cookies and whatnot).
@@ -643,7 +645,7 @@ Initial release! 🎉
 
 - Josh Thomas <josh@joshthomas.dev> (maintainer)
 
-[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.49...HEAD
+[unreleased]: https://github.com/westerveltco/django-twc-project/compare/v2024.50...HEAD
 [2024.1]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.1
 [2024.2]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.2
 [2024.3]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.3
@@ -693,3 +695,4 @@ Initial release! 🎉
 [2024.47]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.47
 [2024.48]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.48
 [2024.49]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.49
+[2024.50]: https://github.com/westerveltco/django-twc-project/releases/tag/v2024.50
