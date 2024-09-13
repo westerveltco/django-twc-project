@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Fixed
+
+- Removed `conn_max_age` argument when configuring database connection if Django version is greater than 5.1. In that case, we enable connection pooling and the `conn_max_age` setting causes the application to error with a `django.core.exceptions.ImproperlyConfigured: Pooling doesn't support persistent connections.` exception.
+
 ## [2024.50]
 
 ### Added
