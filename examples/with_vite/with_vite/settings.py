@@ -62,6 +62,10 @@ ALLOWED_HOSTS = env.list(
 
 ASGI_APPLICATION = "with_vite.asgi.application"
 
+CACHES = {
+    "default": env.dj_cache_url("CACHE_URL", default="locmem://unique-snowflake"),
+}
+
 CSRF_COOKIE_SECURE = PROD
 
 DATABASES = {
@@ -258,7 +262,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="af6bedb092aa8b092f9125562563a8dd1e3f9f4c1c9be7cc90430d447370a669",
+    default="14b851a2a5b9a67481499a0c741edf56b9e79d292aeedbdf9584515a19a7e2c9",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD

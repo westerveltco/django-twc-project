@@ -62,6 +62,10 @@ ALLOWED_HOSTS = env.list(
 
 ASGI_APPLICATION = "default.asgi.application"
 
+CACHES = {
+    "default": env.dj_cache_url("CACHE_URL", default="locmem://unique-snowflake"),
+}
+
 CSRF_COOKIE_SECURE = PROD
 
 DATABASES = {
@@ -257,7 +261,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="42eb58172f0c643f17382566b495469df4b095f0f09d30fd2996756aff5f1529",
+    default="cd67907c804d0c0e83d19bd1e8ccf497cf590f3b82feda8eafc2ca896969f66c",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD
