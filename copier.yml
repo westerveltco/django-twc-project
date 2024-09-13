@@ -82,7 +82,7 @@ django_version:
     "4.2 (LTS)": "4.2"
     "5.0": "5.0"
     "5.1": "5.1"
-  default: "5.0"
+  default: "5.1"
 
 node_version:
   type: str
