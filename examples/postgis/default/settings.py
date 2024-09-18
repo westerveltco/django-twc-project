@@ -67,14 +67,12 @@ CACHES = {
 }
 
 CSRF_COOKIE_SECURE = PROD
-
+ENABLE_PG_CONN_POOL = env.bool("ENABLE_PG_CONN_POOL", default=False)
 DATABASES = {
     "default": env.dj_db_url(
         "DATABASE_URL",
         default="sqlite:///db.sqlite3",
-        conn_max_age=0
-        if env.bool("ENABLE_PG_CONN_POOL", default=True)
-        else 600,  # 10 mins
+        conn_max_age=0 if ENABLE_PG_CONN_POOL else 600,  # 10 mins
         conn_health_checks=True,
         ssl_require=(
             # Crunchy Bridge DBs require SSL connections
@@ -90,9 +88,7 @@ DATABASES = {
     EMAIL_RELAY_DATABASE_ALIAS: env.dj_db_url(
         "EMAIL_RELAY_DATABASE_URL",
         default="sqlite:///email_relay.sqlite3",
-        conn_max_age=0
-        if env.bool("ENABLE_PG_CONN_POOL", default=True)
-        else 600,  # 10 mins
+        conn_max_age=0 if ENABLE_PG_CONN_POOL else 600,  # 10 mins
         conn_health_checks=True,
         ssl_require=(
             PROD
@@ -110,7 +106,7 @@ if PROD:
             "DISABLE_SERVER_SIDE_CURSORS", default=True
         )
 
-        if env.bool("ENABLE_PG_CONN_POOL", default=False):
+        if ENABLE_PG_CONN_POOL:
             DATABASES[db_alias]["OPTIONS"] = {
                 "pool": {
                     "min_size": env.int("PG_CONN_POOL_MIN_SIZE", default=2),
@@ -265,7 +261,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="a68e2d03d2bf05a04f3c10f9d71c48d33b72bec7b3b5f8277edb973ac94b48ca",
+    default="8b74f2772b366fcba9a268b5567ca6b44a35f2cc74b724bf040e9e2a2a862288",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD
