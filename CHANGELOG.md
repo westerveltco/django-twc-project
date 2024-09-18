@@ -17,6 +17,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ## [Unreleased]
 
+### Changed
+
+- Changed the default for Postgres connection pooling to default to `False` for now. We are having issues with our PG setup with our applications that use this template, so while that is being troubleshot we will default to not using pooling.
+
 ## [2024.51]
 
 ### Fixed
