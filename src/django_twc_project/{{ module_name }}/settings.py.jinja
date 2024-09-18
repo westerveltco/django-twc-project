@@ -71,7 +71,9 @@ DATABASES = {
         "DATABASE_URL",
         default="sqlite:///db.sqlite3",
 {%- if django_version >= "5.1" %}
-        conn_max_age=600,  # 10 minutes
+        conn_max_age=0
+        if env.bool("ENABLE_PG_CONN_POOL", default=True)
+        else 600,  # 10 mins
 {%- endif %}
         conn_health_checks=True,
         ssl_require=(
@@ -89,7 +91,9 @@ DATABASES = {
         "EMAIL_RELAY_DATABASE_URL",
         default="sqlite:///email_relay.sqlite3",
 {%- if django_version >= "5.1" %}
-        conn_max_age=600,  # 10 minutes
+        conn_max_age=0
+        if env.bool("ENABLE_PG_CONN_POOL", default=True)
+        else 600,  # 10 mins
 {%- endif %}
         conn_health_checks=True,
         ssl_require=(
@@ -109,7 +113,7 @@ if PROD:
         )
 {%- if django_version >= "5.1" %}
 
-        if env.bool("ENABLE_PG_CONN_POOL", default=True):
+        if env.bool("ENABLE_PG_CONN_POOL", default=False):
             DATABASES[db_alias]["OPTIONS"] = {
                 "pool": {
                     "min_size": env.int("PG_CONN_POOL_MIN_SIZE", default=2),
