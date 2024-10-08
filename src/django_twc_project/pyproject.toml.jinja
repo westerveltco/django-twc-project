@@ -5,49 +5,7 @@ requires = ["hatchling"]
 [project]
 authors = [{name = "{{ author_name }}", email = "{{ author_email }}"}]
 dependencies = [
-  "attrs",
-  "croniter",
-  "django<{{ django_next_version }}",
-  "django-allauth[socialaccount]",
-  "django-charid-field",
-  "django-click",
-  # upper bounds for `django-email-relay` since it runs distributed
-  # https://django-email-relay.westervelt.dev/en/latest/updating.html
-  "django-email-relay<0.5",
-  "django-extensions",
-  "django-filter",
-  "django-flyio",
-  "django-fsm-2",
-  "django-health-check",
-  "django-htmx",
-  "django-import-export[all]",
-  "django-ninja",
-  "django-q2",
-  "django-q-registry",
-  "django-simple-history",
-  "django-simple-nav",
-  # https://github.com/revsys/django-health-check/issues/434
-  # https://github.com/jschneier/django-storages/issues/1430
-  "django-storages[s3]<1.14.4",
-  "django-stubs-ext",
-  "django-tailwind-cli",
-  "django-template-partials",
-  "django-twc-toolbox[crud]",
-  "django-twc-ui[tables] @ git+https://{{ django_twc_ui_token }}:x-oauth-basic@github.com/westerveltco/django-twc-ui.git@v{{ django_twc_ui_version }}",
-{%- if include_vite %}
-  "django-vite",
-{%- endif %}
-  "environs[django]",
-  "gunicorn",
-  "heroicons[django]",
-  "httpx",
-  "openpyxl",
-  "psycopg[binary{% if django_version >= '5.1' %}, pool{% endif %}]",
-  "sentry-sdk[django]",
-{%- if include_weasyprint %}
-  "weasyprint",
-{%- endif %}
-  "whitenoise",
+{{ python_dependencies }}
 ]
 name = "{{ project_name }}"
 requires-python = ">={{ python_version }}"
@@ -55,41 +13,10 @@ dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = [
-  "copier",
-  "copier-templates-extensions",
-  "coverage[toml]",
-  "django-browser-reload",
-  "django-coverage-plugin",
-  "django-debug-toolbar",
-  "django-perf-rec",
-  "django-stubs",
-  "faker",
-  "ipython",
-  "model_bakery",
-  "mypy",
-  "playwright=={{ playwright_version }}",
-  "pre-commit",
-  "pytest",
-  "pytest-cov",
-  "pytest-django",
-  "pytest-is-running",
-  "pytest-playwright",
-  "pytest-randomly",
-  "pytest-reverse",
-  "pytest-xdist",
-  "ruff",
-  "types-croniter",
-  "types-openpyxl",
-  "uv"
+{{ python_dev_dependencies }}
 ]
 docs = [
-  "cogapp",
-  "furo",
-  "myst-parser",
-  "sphinx",
-  "sphinx-autobuild",
-  "sphinx-copybutton",
-  "sphinx-inline-tabs"
+{{ python_doc_dependencies }}
 ]
 
 [tool.bumpver]
