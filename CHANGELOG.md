@@ -20,6 +20,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Changed
 
 - Changed the default for Postgres connection pooling to default to `False` for now. We are having issues with our PG setup with our applications that use this template, so while that is being troubleshot we will default to not using pooling.
+- Added `--depot=false` to Fly.io deploy command. The new Depot builders are either a) buggy as all hell, or b) not agreeable with how our current `Dockerfile` is setup.
 
 ## [2024.51]
 
