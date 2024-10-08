@@ -70,7 +70,7 @@ jobs:
 
       - name: Deploy to Fly.io
         run: |
-          flyctl deploy --remote-only
+          flyctl deploy --remote-only --depot=false
 
   sentry:
     runs-on: ubuntu-latest
