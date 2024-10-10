@@ -6,12 +6,12 @@ on:
   pull_request:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref }}
+  group: test-${{ github.head_ref }}
   cancel-in-progress: true
 
 env:
-  FORCE_COLOR: "1"
   PYTHONUNBUFFERED: "1"
+  FORCE_COLOR: "1"
 
 jobs:
   test:
@@ -19,32 +19,15 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: westerveltco/setup-ci-action@v0
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: "3.12"
-          python-requirements: requirements-dev.lock
+          enable-cache: true
+          version: "0.4.x"
 
       - name: Run tests
         run: |
-          python -m pytest
+          uv run pytest
 
   examples:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: extractions/setup-just@v2
-
-      - uses: westerveltco/setup-ci-action@v0
-        with:
-          python-version: "3.12"
-          python-requirements: requirements-dev.lock
-
-      - name: Setup Git
-        run: |
-          git config --global user.name "GitHub Actions"
-          git config --global user.email "actions@users.noreply.github.com"
-
-      - name: Generate examples
-        run: |
-          just generate-examples
+    uses: ./.github/workflows/examples.yml
