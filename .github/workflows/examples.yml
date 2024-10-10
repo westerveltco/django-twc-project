@@ -7,10 +7,11 @@ on:
       - "examples/**.yml"
       - "src/**"
       - "copier.yml"
+  workflow_call:
   workflow_dispatch:
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.head_ref }}
+  group: examples-${{ github.head_ref }}
   cancel-in-progress: true
 
 env:
@@ -18,17 +19,18 @@ env:
   FORCE_COLOR: "1"
 
 jobs:
-  examples:
+  generate:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
 
       - uses: extractions/setup-just@v2
 
-      - uses: westerveltco/setup-ci-action@v0
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
         with:
-          python-version: "3.12"
-          python-requirements: requirements-dev.lock
+          enable-cache: true
+          version: "0.4.x"
 
       - name: Setup Git
         run: |
@@ -38,6 +40,31 @@ jobs:
       - name: Generate examples
         run: |
           just generate-examples
+
+      - name: Upload examples artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-examples
+          path: examples/
+
+  update-repo:
+    needs: generate
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download examples artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: generated-examples
+          path: examples/
+
+      - name: Setup Git
+        run: |
+          git config --global user.name "GitHub Actions"
+          git config --global user.email "actions@users.noreply.github.com"
 
       - name: Get SHA of push commit
         id: shortsha
