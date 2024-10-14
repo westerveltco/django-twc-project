@@ -42,11 +42,11 @@ dependencies = [
   "openpyxl",
   "psycopg[binary, pool]",
   "sentry-sdk[django]",
-  "whitenoise",
+  "whitenoise"
 ]
+dynamic = ["version"]
 name = "with_vite"
 requires-python = ">=3.12"
-dynamic = ["version"]
 
 [project.optional-dependencies]
 dev = [
@@ -99,11 +99,11 @@ version_pattern = "YYYY.MM.INC1"
 ".copier/project.yml" = [
   'current_version: {version}'
 ]
-"with_vite/__init__.py" = [
-  '__version__ = "{version}"'
-]
 "tests/test_version.py" = [
   'assert __version__ == "{version}"'
+]
+"with_vite/__init__.py" = [
+  '__version__ = "{version}"'
 ]
 
 [tool.coverage.report]
