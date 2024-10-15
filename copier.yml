@@ -7,6 +7,7 @@ _jinja_extensions:
   - copier_templates_extensions.TemplateExtensionLoader
   - extensions/context.py:DjangoNextVersion
   - extensions/context.py:SecretKey
+  - extensions/context.py:Dependencies
 _min_copier_version: "9.1.0"
 _secret_questions:
   - django_twc_ui_token
@@ -89,28 +90,226 @@ node_version:
   help: Which version of Node.js should be used?
   default: "20"
 
-tailwindcss_version:
+# ----------------------------------------------------------------------
+# PYTHON
+# ----------------------------------------------------------------------
+
+python_dependencies:
   type: str
-  help: Which version of Tailwind CSS should be used?
-  default: "3.4.9"
+  help: What Python dependencies should be included?
+  multiselect: true
+  choices:
+    - "attrs"
+    - "django-allauth[socialaccount]"
+    - "django-charid-field"
+    - "django-click"
+    - "django-email-relay"
+    - "django-extensions"
+    - "django-filter"
+    - "django-flyio"
+    - "django-fsm-2"
+    - "django-health-check"
+    - "django-htmx"
+    - "django-import-export[all]"
+    - "django-ninja"
+    - "django-q2"
+    - "django-q-registry"
+    - "django-simple-history"
+    - "django-simple-nav"
+    - "django-storages[s3]"
+    - "django-stubs-ext"
+    - "django-tailwind-cli"
+    - "django-template-partials"
+    - "django-twc-toolbox"
+    - "django-vite"
+    - "environs[django]"
+    - "gunicorn"
+    - "heroicons[django]"
+    - "httpx"
+    - "lucide[django]"
+    - "openpyxl"
+    - "psycopg[binary]"
+    - "sentry-sdk[django]"
+    - "weasyprint"
+    - "whitenoise"
+  default:
+    - "attrs"
+    - "django-allauth[socialaccount]"
+    - "django-click"
+    - "django-email-relay"
+    - "django-extensions"
+    - "django-filter"
+    - "django-flyio"
+    - "django-fsm-2"
+    - "django-health-check"
+    - "django-htmx"
+    - "django-import-export[all]"
+    - "django-ninja"
+    - "django-q2"
+    - "django-q-registry"
+    - "django-simple-history"
+    - "django-simple-nav"
+    - "django-storages[s3]"
+    - "django-stubs-ext"
+    - "django-tailwind-cli"
+    - "django-template-partials"
+    - "django-twc-toolbox"
+    - "environs[django]"
+    - "gunicorn"
+    - "heroicons[django]"
+    - "httpx"
+    - "openpyxl"
+    - "psycopg[binary]"
+    - "sentry-sdk[django]"
+    - "whitenoise"
+
+email_relay_version:
+  when: "{{ 'django-email-relay' in python_dependencies }}"
+  type: str
+  help: django-email-relay version to pin to
+  default: 0.5
+
+twc_toolbox_extras:
+  when: "{{ 'django-twc-toolbox' in python_dependencies }}"
+  type: str
+  help: django-twc-toolbox extras
+  multiselect: true
+  choices:
+    - "crud"
+    - "cuid"
+    - "history"
+    - "sentry"
+  default:
+    - "crud"
+    - "cuid"
+    - "history"
+    - "sentry"
+
+python_dev_dependencies:
+  type: str
+  help: What Python dev dependencies should be included?
+  multiselect: true
+  choices:
+    - "bumpver"
+    - "coverage[toml]"
+    - "django-browser-reload"
+    - "django-coverage-plugin"
+    - "django-debug-toolbar"
+    - "django-perf-rec"
+    - "django-stubs"
+    - "faker"
+    - "ipython"
+    - "model-bakery"
+    - "mypy"
+    - "playwright"
+    - "pre-commit"
+    - "pytest"
+    - "pytest-cov"
+    - "pytest-django"
+    - "pytest-is-running"
+    - "pytest-playwright"
+    - "pytest-randomly"
+    - "pytest-reverse"
+    - "pytest-xdist"
+    - "ruff"
+    - "uv"
+  default:
+    - "bumpver"
+    - "coverage[toml]"
+    - "django-browser-reload"
+    - "django-coverage-plugin"
+    - "django-debug-toolbar"
+    - "django-perf-rec"
+    - "django-stubs"
+    - "faker"
+    - "ipython"
+    - "model-bakery"
+    - "mypy"
+    - "playwright"
+    - "pre-commit"
+    - "pytest"
+    - "pytest-cov"
+    - "pytest-django"
+    - "pytest-is-running"
+    - "pytest-playwright"
+    - "pytest-randomly"
+    - "pytest-reverse"
+    - "pytest-xdist"
+    - "ruff"
+    - "uv"
 
 playwright_version:
+  when: "{{ 'playwright' in python_dev_dependencies }}"
   type: str
   help: Which version of Playwright should be used?
   default: "1.46.0"
 
+python_doc_dependencies:
+  type: str
+  help: What Python doc dependencies should be included?
+  multiselect: true
+  choices:
+    - "cogapp"
+    - "furo"
+    - "myst-parser"
+    - "sphinx"
+    - "sphinx-autobuild"
+    - "sphinx-copybutton"
+    - "sphinx-inline-tabs"
+  default:
+    - "cogapp"
+    - "furo"
+    - "myst-parser"
+    - "sphinx"
+    - "sphinx-autobuild"
+    - "sphinx-copybutton"
+    - "sphinx-inline-tabs"
+
+include_twc_ui:
+  type: bool
+  help: Install private package django-twc-ui?
+  default: true
+
+twc_ui_token:
+  when: "{{ include_twc_ui }}"
+  type: str
+  help: What is the OAuth token for accessing the django-twc-ui repository?
+  default: ""
+
+twc_ui_version:
+  when: "{{ include_twc_ui }}"
+  type: str
+  help: Which version of django-twc-ui should be used?
+  default: "2024.8.27"
+
+twc_ui_extras:
+  when: "{{ include_twc_ui }}"
+  type: str
+  help: django-twc-ui extras
+  multiselect: true
+  choices:
+    - "components"
+    - "tables"
+  default:
+    - "tables"
+
 # ----------------------------------------------------------------------
-# DEPENDENCIES
+# FRONTEND
 # ----------------------------------------------------------------------
 
-django_twc_ui_token:
+node_dependencies:
   type: str
-  help: What is the OAuth token for accessing the `westerveltco/django-twc-ui` repository?
-  default: ""
-django_twc_ui_version:
-  type: str
-  help: Which version of `django-twc-ui` should be used?
-  default: "2024.8.27"
+  help: What Node.js dependencies should be included?
+  multiselect: true
+  choices:
+    - "tailwindcss"
+  default:
+    - "tailwindcss"
+
+include_vite:
+  type: bool
+  help: Include Vite as a frontend build tool?
+  default: false
 
 # ----------------------------------------------------------------------
 # FLY.IO
@@ -182,15 +381,6 @@ sentry_org:
 sentry_dsn:
   type: str
   help: What is the Sentry DSN URL?
-
-# ----------------------------------------------------------------------
-# FRONTEND
-# ----------------------------------------------------------------------
-
-include_vite:
-  type: bool
-  help: Include Vite as a frontend build tool?
-  default: false
 
 # ----------------------------------------------------------------------
 # EMAIL
