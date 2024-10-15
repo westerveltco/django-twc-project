@@ -41,41 +41,13 @@ dependencies = [
   "openpyxl",
   "psycopg[binary, pool]",
   "sentry-sdk[django]",
-  "whitenoise"
+  "whitenoise",
 ]
-dynamic = ["version"]
 name = "default"
 requires-python = ">=3.12"
+dynamic = ["version"]
 
 [project.optional-dependencies]
-dev = [
-  "copier",
-  "copier-templates-extensions",
-  "coverage[toml]",
-  "django-browser-reload",
-  "django-coverage-plugin",
-  "django-debug-toolbar",
-  "django-perf-rec",
-  "django-stubs",
-  "faker",
-  "ipython",
-  "model_bakery",
-  "mypy",
-  "playwright==1.46.0",
-  "pre-commit",
-  "pytest",
-  "pytest-cov",
-  "pytest-django",
-  "pytest-is-running",
-  "pytest-playwright",
-  "pytest-randomly",
-  "pytest-reverse",
-  "pytest-xdist",
-  "ruff",
-  "types-croniter",
-  "types-openpyxl",
-  "uv"
-]
 docs = [
   "cogapp",
   "furo",
@@ -84,6 +56,27 @@ docs = [
   "sphinx-autobuild",
   "sphinx-copybutton",
   "sphinx-inline-tabs"
+]
+tests = [
+  "coverage[toml]",
+  "django-coverage-plugin",
+  "django-perf-rec",
+  "faker",
+  "model-bakery",
+  "playwright==1.46.0",
+  "pytest",
+  "pytest-cov",
+  "pytest-django",
+  "pytest-is-running",
+  "pytest-playwright",
+  "pytest-randomly",
+  "pytest-xdist"
+]
+types = [
+  "django-stubs",
+  "mypy",
+  "types-croniter",
+  "types-openpyxl",
 ]
 
 [tool.bumpver]
@@ -263,3 +256,13 @@ required-imports = ["from __future__ import annotations"]
 [tool.ruff.lint.pyupgrade]
 # Preserve types, even if a file imports `from __future__ import annotations`.
 keep-runtime-typing = true
+
+[tool.uv]
+dev-dependencies = [
+  "copier",
+  "copier-templates-extensions",
+  "django-browser-reload",
+  "django-debug-toolbar",
+  "ipython",
+  "ruff"
+]
