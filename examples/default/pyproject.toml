@@ -41,11 +41,11 @@ dependencies = [
   "openpyxl",
   "psycopg[binary, pool]",
   "sentry-sdk[django]",
-  "whitenoise"
+  "whitenoise",
 ]
-dynamic = ["version"]
 name = "default"
 requires-python = ">=3.12"
+dynamic = ["version"]
 
 [project.optional-dependencies]
 docs = [
@@ -76,7 +76,7 @@ types = [
   "django-stubs",
   "mypy",
   "types-croniter",
-  "types-openpyxl"
+  "types-openpyxl",
 ]
 
 [tool.bumpver]
