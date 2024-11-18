@@ -13,7 +13,4 @@ class UserAdmin(BaseUserAdmin):
     add_form = UserCreationForm
     form = UserChangeForm
     model = User
-    list_display = (
-        "username",
-        "email",
-    )
+    list_display = ("username", "email")

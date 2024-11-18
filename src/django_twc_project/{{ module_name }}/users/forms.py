@@ -8,16 +8,10 @@ from .models import User
 class UserCreationForm(forms.UserCreationForm):
     class Meta:
         model = User
-        fields = (
-            "email",
-            "username",
-        )
+        fields = ("email", "username")
 
 
 class UserChangeForm(forms.UserChangeForm):
     class Meta:
         model = User
-        fields = (
-            "email",
-            "username",
-        )
+        fields = ("email", "username")
