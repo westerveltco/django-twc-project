@@ -1,27 +1,22 @@
 {% load static %}
 {% load django_htmx %}
 {% load tailwind_cli %}
-
 <!DOCTYPE html>
 <html lang="en" class="h-full">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>
-
       {% block title %}
         Default
       {% endblock title %}
-
     </title>
     <meta name="description" content="">
     <meta name="author" content="">
     <link rel="preconnect" href="https://rsms.me" preconnect>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css">
-
     {% block css %}
     {% endblock css %}
-
     {% tailwind_css %}
     <script src="https://unpkg.com/htmx.org@1.9.10"
             integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC"
@@ -70,26 +65,18 @@
             src="https://unpkg.com/alpinejs@3.13.3"
             integrity="sha384-Rpe/8orFUm5Q1GplYBHxbuA8Az8O8C5sAoOsdbRWkqPjKFaxPgGZipj4zeHL7lxX"
             crossorigin="anonymous"></script>
-
     {% block javascript_head %}
     {% endblock javascript_head %}
-
   </head>
-
   {% block body %}
     <body {% if debug %}class="debug-screens"{% endif %}
           hx-ext="head-support, preload">
       <main class="mt-16">
-
         {% block content %}
         {% endblock content %}
-
       </main>
-
       {% block javascript_foot %}
       {% endblock javascript_foot %}
-
     </body>
   {% endblock body %}
-
 </html>
