@@ -42,11 +42,11 @@ dependencies = [
   "openpyxl",
   "psycopg[binary, pool]",
   "sentry-sdk[django]",
-  "whitenoise"
+  "whitenoise",
 ]
-dynamic = ["version"]
 name = "with_vite"
 requires-python = ">=3.12"
+dynamic = ["version"]
 
 [project.optional-dependencies]
 docs = [
@@ -77,13 +77,13 @@ types = [
   "django-stubs",
   "mypy",
   "types-croniter",
-  "types-openpyxl"
+  "types-openpyxl",
 ]
 
 [tool.bumpver]
 commit = true
 commit_message = ":bookmark: bump version {old_version} -> {new_version}"
-current_version = "2024.12.1"
+current_version = "2025.1.1"
 push = false  # set to false for CI
 tag = false
 version_pattern = "YYYY.MM.INC1"
@@ -92,11 +92,11 @@ version_pattern = "YYYY.MM.INC1"
 ".copier/project.yml" = [
   'current_version: {version}'
 ]
-"tests/test_version.py" = [
-  'assert __version__ == "{version}"'
-]
 "with_vite/__init__.py" = [
   '__version__ = "{version}"'
+]
+"tests/test_version.py" = [
+  'assert __version__ == "{version}"'
 ]
 
 [tool.coverage.report]
