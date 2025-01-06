@@ -56,9 +56,7 @@ CI = env.bool("CI", default=False)
 # 1. Django Core Settings
 # https://docs.djangoproject.com/en/5.1/ref/settings/
 
-ALLOWED_HOSTS = env.list(
-    "ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str
-)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str)
 
 ASGI_APPLICATION = "default.asgi.application"
 
@@ -261,7 +259,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="662e641a9ce1adda7cb978e95b537eca8d61ea8b227c3a9858bc61748193bc3c",
+    default="55ac004f7948853e396948b60c4b9cc14e93737a1b046e02673e39355aa6d55b",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD
@@ -448,7 +446,7 @@ TAILWIND_CLI_VERSION = (
 )
 
 # sentry
-if PROD and (SENTRY_DSN := env.url("SENTRY_DSN", default=None)).scheme:
+if PROD and(SENTRY_DSN := env.url("SENTRY_DSN", default=None)).scheme:
     sentry_sdk.init(
         dsn=SENTRY_DSN.geturl(),
         environment=env.str(

@@ -56,9 +56,7 @@ CI = env.bool("CI", default=False)
 # 1. Django Core Settings
 # https://docs.djangoproject.com/en/5.1/ref/settings/
 
-ALLOWED_HOSTS = env.list(
-    "ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str
-)
+ALLOWED_HOSTS = env.list("ALLOWED_HOSTS", default=["*"] if DEBUG else ["localhost"], subcast=str)
 
 ASGI_APPLICATION = "with_vite.asgi.application"
 
@@ -262,7 +260,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="2aafb9f32234c5ab47555a0600fb61a30ee0f74feecbc541d37b799da10fa9fd",
+    default="a3e2ec7594f08b1e5164680091cecc68690bef2c6bc86a8aa4769118c5e0d498",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD
@@ -458,7 +456,7 @@ DJANGO_VITE_DEV_MODE = DEBUG and env.bool("DJANGO_VITE_DEV_MODE", default=True)
 DJANGO_VITE_DEV_SERVER_PORT = 5173
 
 # sentry
-if PROD and (SENTRY_DSN := env.url("SENTRY_DSN", default=None)).scheme:
+if PROD and(SENTRY_DSN := env.url("SENTRY_DSN", default=None)).scheme:
     sentry_sdk.init(
         dsn=SENTRY_DSN.geturl(),
         environment=env.str(
