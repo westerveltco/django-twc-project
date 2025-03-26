@@ -28,6 +28,10 @@ bootstrap:
     @just py install
     @just node install
 
+# Build Docker images
+build:
+    @just docker build
+
 # Clean up local development environment
 clean:
     @just project clean
@@ -58,6 +62,7 @@ logs *ARGS:
 migrate *ARGS:
     @just dj migrate {% raw %}{{ ARGS }}{% endraw %}
 
+# Alias for makemigrations
 alias mm := makemigrations
 
 # Generate Django migrations
