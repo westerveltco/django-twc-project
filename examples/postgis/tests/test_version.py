@@ -4,4 +4,4 @@ from default import __version__
 
 
 def test_version():
-    assert __version__ == "2025.5.1"
+    assert __version__ == "2025.6.1"
