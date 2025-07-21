@@ -16,6 +16,7 @@ export VIRTUAL_ENV := env_var_or_default('VIRTUAL_ENV', '.venv')
 python_dir := if os_family() == "windows" { VIRTUAL_ENV + "/Scripts" } else { VIRTUAL_ENV + "/bin" }
 export python := python_dir + if os_family() == "windows" { "/python.exe" } else { "/python" }
 export system_python := if os_family() == "windows" { "py.exe" } else { "python" }
+export uv := if which("uv") != "" { "uv" } else { "{% raw %}{{ python }}{% endraw %} -m uv" }
 
 # List all available commands
 [private]
@@ -118,9 +119,9 @@ stop:
 tail *ARGS:
     @just docker tail {% raw %}{{ ARGS }}{% endraw %}
 
-# Run entire test suite, including generating code coverage
-test:
-    @just py test
+# Run all tests
+test *ARGS:
+    @just py test {% raw %}{{ ARGS }}{% endraw %}
     @just py cov-report
     @just py cov-html
 
