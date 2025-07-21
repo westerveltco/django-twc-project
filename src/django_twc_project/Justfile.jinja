@@ -119,7 +119,7 @@ stop:
 tail *ARGS:
     @just docker tail {% raw %}{{ ARGS }}{% endraw %}
 
-# Run all tests
+# Run entire test suite, including generating code coverage
 test *ARGS:
     @just py test {% raw %}{{ ARGS }}{% endraw %}
     @just py cov-report
