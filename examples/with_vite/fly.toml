@@ -2,7 +2,7 @@ app = "with_vite-example_owner"
 console_command = "/app/manage.py shell_plus"
 kill_signal = "SIGINT"
 kill_timeout = "5s"
-primary_region = "iad"
+primary_region = "atl"
 
 [deploy]
 release_command = "/release.sh"
