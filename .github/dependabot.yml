@@ -1,24 +1,31 @@
+# Dependabot schedule managed by https://github.com/westerveltco/web-dependabot-config
+# Updates: 4th Tuesday of each month at ~9am CT
+# Schedule: https://crontab.guru/#0_14_22-28_*_2
 version: 2
 updates:
   - package-ecosystem: github-actions
     directory: "/"
     schedule:
-      interval: weekly
-      timezone: America/Chicago
+      interval: cron
+      cronjob: 0 14 22-28 * 2
     labels:
-      - dependabot
+      - "🤖 dependabot"
     groups:
       gha:
         patterns:
           - "*"
+    cooldown:
+      default-days: 7
   - package-ecosystem: pip
     directory: "/"
     schedule:
-      interval: weekly
-      timezone: America/Chicago
+      interval: cron
+      cronjob: 0 14 22-28 * 2
     labels:
-      - dependabot
+      - "🤖 dependabot"
     groups:
       python:
         patterns:
           - "*"
+    cooldown:
+      default-days: 7
