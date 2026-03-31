@@ -18,7 +18,7 @@ dependencies = [
   "django-filter",
   "django-flyio",
   "django-fsm-2",
-  "django-health-check",
+  "django-health-check>=4.0.0",
   "django-htmx",
   "django-import-export[all]",
   "django-ninja",
