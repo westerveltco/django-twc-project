@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.urls import include
 from django.urls import path
 from django_twc_toolbox import views as toolbox_views
-from health_check.views import MainView
+from health_check.views import HealthCheckView
 
 from with_vite import __version__
 from with_vite.core import views as core_views
@@ -23,7 +23,16 @@ urlpatterns = [
     path("500/", toolbox_views.custom_error_500, name="500"),
     path("accounts/", include("allauth.urls")),
     path("admin/", admin.site.urls),
-    path("health/", MainView.as_view()),
+    path(
+        "health/",
+        HealthCheckView.as_view(
+            checks=[
+                "health_check.Cache",
+                "health_check.Database",
+                "health_check.Storage",
+            ]
+        ),
+    ),
     path("", core_views.index, name="index"),
 ]
 
