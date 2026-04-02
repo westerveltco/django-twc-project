@@ -26,7 +26,7 @@ services:
       - "${DJANGO_PORT:-8000}:8000"
 
   db:
-    image: pgautoupgrade/pgautoupgrade:latest
+    image: postgres:15
     env_file:
       - .env
     init: true
