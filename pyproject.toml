@@ -1,7 +1,7 @@
 [project]
 authors = [{name = "Josh", email = "josh@joshthomas.dev"}]
 dependencies = [
-  "copier>=9.2.0",
+  "copier>=9.10.3",
   "copier-templates-extensions>=0.3.0"
 ]
 description = "A Django project template for The Westervelt Company."
