@@ -22,6 +22,11 @@ class SecretKey(ContextHook):
 class DjangoNextVersion(ContextHook):
     @override
     def hook(self, context: dict[str, object]) -> dict[str, object]:
+        # Newer copier runs context hooks while rendering question defaults,
+        # before `django_version` has been answered. Skip until it's present;
+        # the hook runs again once the full answer set is available.
+        if "django_version" not in context:
+            return context
         django_version = cast(str, context["django_version"])
         context["django_next_version"] = self.get_next_version(django_version)
         return context
