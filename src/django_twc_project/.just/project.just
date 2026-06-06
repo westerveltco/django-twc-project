@@ -84,8 +84,8 @@ just-fmt:
 
 # Run pre-commit on all files
 [no-cd]
-lint: install-precommit
-    $python -m pre_commit run --all-files
+lint:
+    uv run --with pre-commit-uv pre-commit run --all-files
     @just project just-fmt
 
 # Setup project scaffolding
