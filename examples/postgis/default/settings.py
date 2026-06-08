@@ -257,7 +257,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="fce748ad82d3b941f90be4d9a9e27a3de2bb7ae1db09a5995e3fd17743033260",
+    default="d10e5c6557b0649770b7f4ae39ec5fba539ced9cacc2c2d41e121840b0d78e07",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD
