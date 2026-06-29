@@ -101,7 +101,7 @@ DATABASES = {
     ),
 }
 if PROD:
-    for db_alias in DATABASES.keys():
+    for db_alias in DATABASES:
         DATABASES[db_alias]["DISABLE_SERVER_SIDE_CURSORS"] = env.bool(
             "DISABLE_SERVER_SIDE_CURSORS", default=True
         )
@@ -258,7 +258,7 @@ ROOT_URLCONF = "with_vite.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="6d7492a6d36ae2ad5f441ebd6511f5fb926756dff989e0f5704bea5fd40067dc",
+    default="bb7753f9b04f440c933ec29e57f1944b2282128359cf8e949d29989b8bad45a4",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD

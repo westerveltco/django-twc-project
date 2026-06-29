@@ -101,7 +101,7 @@ DATABASES = {
     ),
 }
 if PROD:
-    for db_alias in DATABASES.keys():
+    for db_alias in DATABASES:
         DATABASES[db_alias]["DISABLE_SERVER_SIDE_CURSORS"] = env.bool(
             "DISABLE_SERVER_SIDE_CURSORS", default=True
         )
@@ -257,7 +257,7 @@ ROOT_URLCONF = "default.urls"
 
 SECRET_KEY = env.str(
     "SECRET_KEY",
-    default="1b260c017ff1e320da4fc3bc2885b82808b48572e34f99c1a358e3803599e874",
+    default="3927c35e845706e6430cfbf919577a427cbdb4290b4ad5e4debfc58e6737cfb7",
 )
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD

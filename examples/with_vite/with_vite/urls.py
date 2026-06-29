@@ -36,8 +36,8 @@ urlpatterns = [
     path("", core_views.index, name="index"),
 ]
 
-handler404 = "django_twc_toolbox.views.custom_error_404"  # noqa: F811
-handler500 = "django_twc_toolbox.views.custom_error_500"  # noqa: F811
+handler404 = "django_twc_toolbox.views.custom_error_404"
+handler500 = "django_twc_toolbox.views.custom_error_500"
 
 
 if settings.DEBUG:

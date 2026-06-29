@@ -234,13 +234,26 @@ quote-style = "double"
 # Allow unused variables when underscore-prefixed.
 dummy-variable-rgx = "^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
 # Allow autofix for all enabled rules (when `--fix`) is provided.
-fixable = ["A", "B", "C", "D", "E", "F", "I"]
+fixable = ["ALL"]
 ignore = ["E501", "E741"]  # temporary
 select = [
+  "A",  # flake8-builtins
   "B",  # flake8-bugbear
+  "C4",  # flake8-comprehensions
+  "DJ",  # flake8-django
+  "DTZ",  # flake8-datetimez
   "E",  # Pycodestyle
   "F",  # Pyflakes
+  "G",  # flake8-logging-format
   "I",  # isort
+  "LOG",  # flake8-logging
+  "PIE",  # flake8-pie
+  "PT",  # flake8-pytest-style
+  "RET",  # flake8-return
+  "RUF100",  # unused noqa
+  "S",  # flake8-bandit
+  "SIM",  # flake8-simplify
+  "T20",  # flake8-print
   "UP"  # pyupgrade
 ]
 unfixable = []
