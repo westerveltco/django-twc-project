@@ -263,6 +263,8 @@ known-first-party = ["default"]
 required-imports = ["from __future__ import annotations"]
 
 [tool.ruff.lint.per-file-ignores]
+# Sphinx's conf.py uses `copyright`, which shadows a builtin (A001)
+"**/docs/conf.py" = ["A001"]
 # Tests can use magic values, assertions, and relative imports
 "tests/**/*" = ["PLR2004", "S101", "TID252"]
 
