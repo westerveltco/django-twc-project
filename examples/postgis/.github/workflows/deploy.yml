@@ -62,7 +62,9 @@ jobs:
 
       - name: Set Fly.io deployment API token
         run: |
-          echo "FLY_API_TOKEN={{ op://fly/default-example_owner/fly/api_token }}" | op inject >> $GITHUB_ENV
+          token=$(echo "{{ op://fly/default-example_owner/fly/api_token }}" | op inject)
+          echo "::add-mask::$token"
+          echo "FLY_API_TOKEN=$token" >> "$GITHUB_ENV"
 
       - name: Stage Fly.io secrets
         run: |
