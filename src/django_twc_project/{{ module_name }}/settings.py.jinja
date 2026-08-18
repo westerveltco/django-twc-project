@@ -265,10 +265,7 @@ if DEBUG:
 
 ROOT_URLCONF = "{{ module_name }}.urls"
 
-SECRET_KEY = env.str(
-    "SECRET_KEY",
-    default="{{ secret_key }}",
-)
+SECRET_KEY: str = env.str("SECRET_KEY")
 
 SECURE_HSTS_INCLUDE_SUBDOMAINS = PROD
 

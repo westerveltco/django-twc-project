@@ -1,6 +1,5 @@
 from __future__ import annotations
 
-import secrets
 import sys
 from typing import cast
 
@@ -10,13 +9,6 @@ else:
     from typing_extensions import override
 
 from copier_templates_extensions import ContextHook
-
-
-class SecretKey(ContextHook):
-    @override
-    def hook(self, context: dict[str, object]) -> dict[str, object]:
-        context["secret_key"] = secrets.token_hex(32)
-        return context
 
 
 class DjangoNextVersion(ContextHook):
