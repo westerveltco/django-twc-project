@@ -117,6 +117,7 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked --mount=type=cache,t
 
 FROM node as node-final
 ENV DATABASE_URL sqlite://:memory:
+ENV SECRET_KEY django-insecure-build-only
 COPY --from=tailwind --link /usr/local /usr/local
 COPY --from=app --link /app /app
 COPY --link static/src /app/static/src
@@ -126,6 +127,7 @@ RUN python manage.py tailwind --skip-checks build
 
 FROM app as static
 ENV DATABASE_URL sqlite://:memory:
+ENV SECRET_KEY django-insecure-build-only
 COPY --from=py-dev --link /usr/local /usr/local
 COPY --from=node-final --link /app/static/dist /app/static/dist
 COPY --from=node-final --link /app/package*.json /app/
