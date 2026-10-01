@@ -3,7 +3,7 @@ build-backend = "hatchling.build"
 requires = ["hatchling"]
 
 [project]
-authors = [{ name = "John Doe", email = "jdoe@example.com" }]
+authors = [{name = "John Doe", email = "jdoe@example.com"}]
 dependencies = [
   "attrs",
   "croniter",
