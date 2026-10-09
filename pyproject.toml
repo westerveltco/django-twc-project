@@ -11,14 +11,14 @@ dev = [
 ]
 
 [project]
-authors = [{name = "Josh", email = "josh@joshthomas.dev"}]
+authors = [{ name = "Josh", email = "josh@joshthomas.dev" }]
 dependencies = [
   "copier",
   "copier-templates-extensions"
 ]
 description = "A Django project template for The Westervelt Company."
 dynamic = ["version"]
-license = {file = "LICENSE"}
+license = { file = "LICENSE" }
 name = "django-twc-project"
 readme = "README.md"
 requires-python = ">= 3.10"
