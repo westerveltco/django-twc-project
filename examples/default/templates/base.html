@@ -8,9 +8,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>
+
       {% block title %}
         Default
       {% endblock title %}
+
     </title>
     <meta name="description" content="">
     <meta name="author" content="">
@@ -71,18 +73,23 @@
 
     {% block javascript_head %}
     {% endblock javascript_head %}
+
   </head>
 
   {% block body %}
     <body {% if debug %}class="debug-screens"{% endif %}
           hx-ext="head-support, preload">
       <main class="mt-16">
+
         {% block content %}
         {% endblock content %}
+
       </main>
 
       {% block javascript_foot %}
       {% endblock javascript_foot %}
+
     </body>
   {% endblock body %}
+
 </html>
