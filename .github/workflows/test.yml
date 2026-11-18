@@ -12,13 +12,17 @@ concurrency:
 env:
   PYTHONUNBUFFERED: "1"
   FORCE_COLOR: "1"
-  UV_PYTHON: "3.12"
+  PYTHON_VERSION: "3.12"
 
 jobs:
   test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7.0.1
+
+      - uses: actions/setup-python@v7.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Install uv
         uses: astral-sh/setup-uv@v10.3.3
